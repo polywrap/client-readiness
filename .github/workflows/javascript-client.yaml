@@ -43,7 +43,8 @@ jobs:
         run: yarn start 2> stderr | tee stdout
         working-directory: ./clients/js
 
-      - name: Verify
-        uses: ./.github/workflows/verify-output.yaml
-        with:
-          client-folder: js
+  Verify:
+    needs: Client-Readiness
+    uses: ./.github/workflows/verify-output.yaml
+    with:
+      client-folder: js
