@@ -1,13 +1,14 @@
-name: JavaScript-Client
+name: Verify-Output
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
+  workflow_call:
+    inputs:
+      client-folder:
+        required: true
+        type: string
 
 jobs:
-  Client-Readiness:
+  Verify:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -16,7 +17,7 @@ jobs:
       - name: Read .nvmrc
         run: echo ::set-output name=NVMRC::$(cat .nvmrc)
         id: nvm
-        working-directory: ./clients/js
+        working-directory: ./verify
 
       - name: Setup Node.js
         uses: actions/setup-node@master
@@ -26,7 +27,7 @@ jobs:
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
-        working-directory: ./clients/js
+        working-directory: ./verify
 
       - uses: actions/cache@v2
         with:
@@ -37,11 +38,8 @@ jobs:
 
       - name: Install dependencies
         run: yarn install --nonInteractive --frozen-lockfile --prefer-offline
-        working-directory: ./clients/js
+        working-directory: ./verify
 
       - name: Run
-        run: yarn start 2> stderr | tee stdout
-        working-directory: ./clients/js
-
-  Verify:
-    uses: ./.github/workflows/verify-output.yaml
+        run: yarn start -- ../clients/${{ inputs.config-path }}
+        working-directory: ./verify
