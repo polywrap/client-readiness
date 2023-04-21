@@ -41,5 +41,5 @@ jobs:
         working-directory: ./verify
 
       - name: Run
-        run: yarn start -- ../clients/${{ inputs.config-path }}
+        run: yarn start -- ../clients/${{ inputs.client-folder }}
         working-directory: ./verify

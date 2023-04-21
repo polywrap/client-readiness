@@ -45,3 +45,5 @@ jobs:
 
   Verify:
     uses: ./.github/workflows/verify-output.yaml
+    with:
+      client-folder: js
