@@ -1,45 +1,52 @@
 name: Verify-Output
 
-on:
-  workflow_call:
-    inputs:
-      client-folder:
-        required: true
-        type: string
+inputs:
+  client-folder:
+    required: true
+    type: string
 
-jobs:
-  Verify:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+runs:
+  using: "composite"
+  steps:
+    - run: echo Hello ${{ inputs.who-to-greet }}.
+      shell: bash
+    - id: random-number-generator
+      run: echo "random-number=$(echo $RANDOM)" >> $GITHUB_OUTPUT
+      shell: bash
+    - run: echo "${{ github.action_path }}" >> $GITHUB_PATH
+      shell: bash
+    - run: goodbye.sh
+      shell: bash
 
-      - name: Read .nvmrc
-        run: echo ::set-output name=NVMRC::$(cat .nvmrc)
-        id: nvm
-        working-directory: ./verify
+runs:
+  using: composite
+  steps:
+    - name: Read .nvmrc
+      run: echo ::set-output name=NVMRC::$(cat .nvmrc)
+      id: nvm
+      working-directory: ./verify
 
-      - name: Setup Node.js
-        uses: actions/setup-node@master
-        with:
-          node-version: '${{ steps.nvm.outputs.NVMRC }}'
+    - name: Setup Node.js
+      uses: actions/setup-node@master
+      with:
+        node-version: '${{ steps.nvm.outputs.NVMRC }}'
 
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-        working-directory: ./verify
+    - name: Get yarn cache directory path
+      id: yarn-cache-dir-path
+      run: echo "::set-output name=dir::$(yarn cache dir)"
+      working-directory: ./verify
 
-      - uses: actions/cache@v2
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+    - uses: actions/cache@v2
+      with:
+        path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-yarn-
 
-      - name: Install dependencies
-        run: yarn install --nonInteractive --frozen-lockfile --prefer-offline
-        working-directory: ./verify
+    - name: Install dependencies
+      run: yarn install --nonInteractive --frozen-lockfile --prefer-offline
+      working-directory: ./verify
 
-      - name: Run
-        run: yarn start -- ../clients/${{ inputs.client-folder }}
-        working-directory: ./verify
+    - name: Run
+      run: yarn start -- ../clients/${{ inputs.client-folder }}
+      working-directory: ./verify
