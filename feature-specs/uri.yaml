@@ -5,13 +5,13 @@ valid_uri:
       - "$Test Start [uri.valid_uri]"
       - WRAP URI successfully created.
       - uri - wrap://authority/path/to/wrap
-      - uri.authoity - authority
+      - uri.authority - authority
       - uri.path - path/to/wrap
 shorthand_uri:
   input: authority/path/to/wrap
   output:
     stdout:
-      - "$Test Strt [uri.shorthand_uri]"
+      - "$Test Start [uri.shorthand_uri]"
       - WRAP URI successfully created.
       - uri - wrap://authority/path/to/wrap
       - uri.authority - authority
@@ -23,4 +23,4 @@ invalid_uri:
       - "$Test Start [uri.invalid_uri]"
     stderr:
       - "!Test Error [uri.invalid_uri]"
-      - "Invalid UI Received: wrap://invalid.uri"
+      - "Invalid URI Received: wrap://invalid.uri"
