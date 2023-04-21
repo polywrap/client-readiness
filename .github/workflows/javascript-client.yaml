@@ -44,6 +44,6 @@ jobs:
         working-directory: ./clients/js
 
       - name: Verify
-        uses: ./.github/workflows/verify-output.yaml
+        uses: ./.github/actions/verify-output
         with:
           client-folder: js
