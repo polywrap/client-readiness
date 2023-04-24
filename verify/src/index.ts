@@ -22,9 +22,9 @@ async function main() {
     "utf-8"
   );
 
-  // Load feature-specs
+  // Load Feature Specs
   const featureSpecs = loadFeatureSpecs(
-    path.join(__dirname, "../../feature-specs")
+    path.join(__dirname, "../../specs")
   );
 
   const errors = [];

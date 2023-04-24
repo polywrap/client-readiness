@@ -4,7 +4,7 @@ import path from "path";
 
 async function main() {
   const specs = loadFeatureSpecs(
-    path.join(__dirname, "../../../feature-specs")
+    path.join(__dirname, "../../../specs")
   );
 
   for (const spec of Object.keys(specs)) {
