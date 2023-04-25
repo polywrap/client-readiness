@@ -13,7 +13,7 @@ A place to define a "readiness checklist" for all Polywrap clients to adhere to.
 | | Add a wrap instance | Yes | [config_wrap_instance](./specs/config_embed_wrap_instance.yaml) TODO |  
 | | Add a plugin instance | Yes | [config_plugin_instance](./specs/config_plugin_instance.yaml) TODO |  
 | | Add a URI redirect | Yes | [config_uri_redirect](./specs/config_uri_redirect.yaml) |  
-| | Add env variables | Yes | [config_env_variables](./specs/config_env_variables.yaml) TODO |  
+| | Add env variables | Yes | [config_env_variables](./specs/config_env_variables.yaml) |  
 | | Add interface implementations | Yes | [config_interface_implementations](./specs/config_interface_implementations.yaml) TODO |  
 | | Add resolver | Yes | [config_resolver](./specs/config_resolver.yaml) TODO |  
 | | Add resolver ext | Yes | [config_resolver_ext](./specs/config_resolver_ext.yaml) TODO |  

@@ -1,0 +1,16 @@
+required: true
+cases:
+  sanity:
+    input:
+      uri: wrap://uri/a
+      env:
+        str: "foo bar"
+        num: 5
+    output:
+      stdout:
+        - "$Test Start [config_env_variables.sanity]"
+        - Adding Env to ClientConfig
+        - Fetching Env
+        - env.str = foo bar
+        - env.num = 5
+        - Success!
