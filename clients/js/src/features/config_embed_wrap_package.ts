@@ -7,7 +7,7 @@ import fs from "fs";
 export async function runTestCase(input: unknown): Promise<void> {
   if (!input || typeof input !== "object") {
     throw Error(
-      "config_embed_wrap_package test case input must be a string, and start with $ROOT/"
+      "config_embed_wrap_package test case input must be an object"
     );
   }
 
@@ -54,10 +54,7 @@ export async function runTestCase(input: unknown): Promise<void> {
   console.log("Adding WrapPackage to ClientConfig");
 
   const config = new ClientConfigBuilder()
-    .addPackage(
-      "embed/foo",
-      wrapPackage
-    )
+    .addPackage("embed/foo", wrapPackage)
     .build();
 
   const client = new PolywrapClient(config);
