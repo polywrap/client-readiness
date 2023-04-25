@@ -17,7 +17,7 @@ A place to define a "readiness checklist" for all Polywrap clients to adhere to.
 | | Add resolver | Yes | [->](./specs/config_resolver.yaml) |  
 | | Add resolver ext | Yes | [->](./specs/config_resolver_ext.yaml) |  
 | **Invocation** | | | |  
-| | Invoke a wrap function (Wasm Runtime v0.1) | Yes | [->](./specs/invoke_wrap_wasm_v0_1.yaml) |  
+| | Invoke a wrap function<br/>(Wasm Runtime v0.1) | Yes | [->](./specs/invoke_wrap_wasm_v0_1.yaml) |  
 | | Invoke a plugin function | Yes | [->](./specs/invoke_plugin.yaml) |  
 | | Subinvoke: `wrap -> wrap` | Yes | [->](./specs/subinvoke_wrap_wrap.yaml) TODO |  
 | | Subinvoke: `wrap -> plugin` | Yes | [->](./specs/subinvoke_wrap_plugin.yaml) TODO |  
@@ -26,11 +26,11 @@ A place to define a "readiness checklist" for all Polywrap clients to adhere to.
 | | Resolve a wrap package | Yes | [->](./specs/resolve_package.yaml) TODO |  
 | | Resolve a wrap instance | Yes | [->](./specs/resolve_instance.yaml) TODO |  
 | | Resolve a redirect | Yes | [->](./specs/resolve_redirect.yaml) TODO |  
-| | Resolve `wrap://http/...` & `wrap://https/...` | Yes | [->](./specs/resolve_http.yaml) TODO |  
-| | Resolve `wrap://file/...` & `wrap://fs/...` | Yes | [->](./specs/resolve_file.yaml) TODO |  
-| | Resolve `wrap://ipfs/...` | Yes | [->](./specs/resolve_ipfs.yaml) TODO |  
-| | Resolve `wrap://ens/...` contenthash | No | [->](./specs/resolve_ens_contenthash.yaml) TODO |  
-| | Resolve `wrap://ens/...` text-records | No | [->](./specs/resolve_ens_text_record.yaml) TODO |  
+| | Resolve `wrap://http/` &<br/>`wrap://https/` | Yes | [->](./specs/resolve_http.yaml) TODO |  
+| | Resolve `wrap://file/` &<br/>`wrap://fs/` | Yes | [->](./specs/resolve_file.yaml) TODO |  
+| | Resolve `wrap://ipfs/` | Yes | [->](./specs/resolve_ipfs.yaml) TODO |  
+| | Resolve `wrap://ens/` contenthash | No | [->](./specs/resolve_ens_contenthash.yaml) TODO |  
+| | Resolve `wrap://ens/` text-records | No | [->](./specs/resolve_ens_text_record.yaml) TODO |  
 | **[WRAP Test Harness](https://github.com/polywrap/wrap-test-harness/tree/master/cases)** | | | |  
 | | `asyncify` test wrap | Yes | [->](./specs/wrap_test_harness_asyncify.yaml) TODO |  
 | | `bigint-type` test wrap | Yes | [->](./specs/wrap_test_harness_bigint_type.yaml) TODO |  
