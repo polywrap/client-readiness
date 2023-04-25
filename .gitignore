@@ -1,2 +1,4 @@
 stdout
 stderr
+wraps/*
+!wraps/install.sh

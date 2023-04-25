@@ -28,7 +28,7 @@ async function main() {
       console.log(`$Test Start [${specName}.${testCase}]`);
 
       try {
-        feature.runTestCase(testCases[testCase].input);
+        await feature.runTestCase(testCases[testCase].input);
       } catch (e) {
         console.error(`!Test Error [${specName}.${testCase}]`);
         console.error(e);

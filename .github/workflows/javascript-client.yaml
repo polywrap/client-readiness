@@ -13,6 +13,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Install wraps
+        run: ./install.sh
+        working-directory: ./wraps
+
       - name: Read .nvmrc
         run: echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_OUTPUT
         id: nvm

@@ -1,0 +1,2 @@
+cd wraps
+./install.sh

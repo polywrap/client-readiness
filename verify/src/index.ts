@@ -82,12 +82,12 @@ async function main() {
       }
 
       errors.push(
-        ...verify("$", "stdout", testCase.output.stdout, stdout)
+        ...verify("$Test Start", "stdout", testCase.output.stdout, stdout)
       );
 
       if (testCase.output.stderr) {
         errors.push(
-          ...verify("$", "stderr", testCase.output.stderr, stderr)
+          ...verify("$Test Start", "stderr", testCase.output.stderr, stderr)
         );
       }
     }
