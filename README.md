@@ -46,18 +46,3 @@ A place to define a "readiness checklist" for all Polywrap clients to adhere to.
 | | `object-type` test wrap | Yes | [wrap_test_harness_object_type](./specs/wrap_test_harness_object_type.yaml) TODO |  
 | | `resolver` test wrap | Yes | [wrap_test_harness_resolver](./specs/wrap_test_harness_resolver.yaml) TODO |  
 | | `subinvoke` test wrap | Yes | [wrap_test_harness_subinvoke](./specs/wrap_test_harness_subinvoke.yaml) TODO |  
-| **Data Translation** | | | |  
-| | Encode `(U)Int(8\|16\|32\|)` to MsgPack | Yes | [dt_encode_ints_msgpack](./specs/dt_encode_ints_msgpack.yaml) TODO |  
-| | Decode `pos/neg fixint` & `(u)int 8\|16\|32` from MsgPack | Yes | [dt_decode_ints_msgpack](./specs/dt_decode_ints_msgpack.yaml) TODO |  
-| | Encode `String` to MsgPack | Yes | [dt_encode_string_msgpack](./specs/dt_encode_string_msgpack.yaml) TODO |  
-| | Decode `fixstr` & `str 8\|16\|32` from MsgPack | Yes | [dt_decode_string_msgpack](./specs/dt_decode_string_msgpack.yaml) TODO |  
-| | Encode `Boolean` to MsgPack | Yes | [dt_encode_boolean_msgpack](./specs/dt_encode_boolean_msgpack.yaml) TODO |  
-| | Decode `true` & `false` from MsgPack | Yes | [dt_decode_boolean_msgpack](./specs/dt_decode_boolean_msgpack.yaml) TODO |  
-| | Encode `Bytes` to MsgPack | Yes | [dt_encode_bytes_msgpack](./specs/dt_encode_bytes_msgpack.yaml) TODO |  
-| | Decode `bin 8\|16\|32` from MsgPack | Yes | [dt_decode_bytes_msgpack](./specs/dt_decode_bytes_msgpack.yaml) TODO |  
-| | Encode `Array<T>` to MsgPack | Yes | [dt_encode_array_msgpack](./specs/dt_encode_array_msgpack.yaml) TODO |  
-| | Decode `fixarray` & `array 16\|32` from MsgPack | Yes | [dt_decode_array_msgpack](./specs/dt_decode_array_msgpack.yaml) TODO |  
-| | Encode `Object` to MsgPack | Yes | [dt_encode_object_msgpack](./specs/dt_encode_object_msgpack.yaml) TODO |  
-| | Decode `Object` (`fixmap` & `map 16\|32`) from MsgPack | Yes | [dt_decode_object_msgpack](./specs/dt_decode_object_msgpack.yaml) TODO |  
-| | Encode `Map<K, V>` to MsgPack | Yes | [dt_encode_map_msgpack](./specs/dt_encode_map_msgpack.yaml) TODO |  
-| | Decode `Map<K, V>` (`ext 8\|16\|32` type `0x01`) from MsgPack | Yes | [dt_decode_map_msgpack](./spec/dt_decode_map_msgpack.yaml) TODO |  
