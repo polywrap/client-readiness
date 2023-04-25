@@ -12,7 +12,7 @@ A place to define a "readiness checklist" for all Polywrap clients to adhere to.
 | | Add a plugin package | Yes | [config_plugin_package](./specs/config_plugin_package.yaml) |  
 | | Add a wrap instance | Yes | [config_wrap_instance](./specs/config_embed_wrap_instance.yaml) TODO |  
 | | Add a plugin instance | Yes | [config_plugin_instance](./specs/config_plugin_instance.yaml) TODO |  
-| | Add a URI redirect | Yes | [config_uri_redirect](./specs/config_uri_redirect.yaml) TODO |  
+| | Add a URI redirect | Yes | [config_uri_redirect](./specs/config_uri_redirect.yaml) |  
 | | Add env variables | Yes | [config_env_variables](./specs/config_env_variables.yaml) TODO |  
 | | Add interface implementations | Yes | [config_interface_implementations](./specs/config_interface_implementations.yaml) TODO |  
 | | Add resolver | Yes | [config_resolver](./specs/config_resolver.yaml) TODO |  
@@ -30,8 +30,8 @@ A place to define a "readiness checklist" for all Polywrap clients to adhere to.
 | | Resolve `wrap://http/...` & `wrap://https/...` | Yes | [resolve_http](./specs/resolve_http.yaml) TODO |  
 | | Resolve `wrap://file/...` & `wrap://fs/...` | Yes | [resolve_file](./specs/resolve_file.yaml) TODO |  
 | | Resolve `wrap://ipfs/...` | Yes | [resolve_ipfs](./specs/resolve_ipfs.yaml) TODO |  
-| | Resolve `wrap://ens/...` content records | No | [resolve_ens_content_records](./specs/resolve_ens_content_record.yaml) TODO |  
-| | Resolve `wrap://ens/...` text records | No | [resolve_ens_text_records](./specs/resolve_ens_text_record.yaml) TODO |  
+| | Resolve `wrap://ens/...` contenthash | No | [resolve_ens_contenthash](./specs/resolve_ens_contenthash.yaml) TODO |  
+| | Resolve `wrap://ens/...` text-records | No | [resolve_ens_text_records](./specs/resolve_ens_text_record.yaml) TODO |  
 | **[WRAP Test Harness](https://github.com/polywrap/wrap-test-harness/tree/master/cases)** | | | |  
 | | `asyncify` test wrap | Yes | [wrap_test_harness_asyncify](./specs/wrap_test_harness_asyncify.yaml) TODO |  
 | | `bigint-type` test wrap | Yes | [wrap_test_harness_bigint_type](./specs/wrap_test_harness_bigint_type.yaml) TODO |  
