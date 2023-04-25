@@ -30,7 +30,7 @@ export async function runTestCase(input: unknown): Promise<void> {
 
   const resolver: IUriResolver<string> = {
     tryResolveUri: async (uri: Uri) => {
-      let response = uri.authority === authority
+      const response = uri.authority === authority
         ? Uri.from(result)
         : uri;
 

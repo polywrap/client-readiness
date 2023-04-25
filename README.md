@@ -10,13 +10,12 @@ A place to define a "readiness checklist" for all Polywrap clients to adhere to.
 | **Client Configuration** | | | |  
 | | Add a wrap package | Yes | [config_wrap_package](./specs/config_embed_wrap_package.yaml) |  
 | | Add a plugin package | Yes | [config_plugin_package](./specs/config_plugin_package.yaml) |  
-| | Add a wrap instance | Yes | [config_wrap_instance](./specs/config_embed_wrap_instance.yaml) TODO |  
 | | Add a plugin instance | Yes | [config_plugin_instance](./specs/config_plugin_instance.yaml) |  
 | | Add a URI redirect | Yes | [config_uri_redirect](./specs/config_uri_redirect.yaml) |  
 | | Add env variables | Yes | [config_env_variables](./specs/config_env_variables.yaml) |  
 | | Add interface implementations | Yes | [config_interface_implementations](./specs/config_interface_implementations.yaml) |  
 | | Add resolver | Yes | [config_resolver](./specs/config_resolver.yaml) |  
-| | Add resolver ext | Yes | [config_resolver_ext](./specs/config_resolver_ext.yaml) TODO |  
+| | Add resolver ext | Yes | [config_resolver_ext](./specs/config_resolver_ext.yaml) |  
 | **Invocation** | | | |  
 | | Invoke a wrap function (Wasm Runtime v0.1) | Yes | [invoke_wrap_wasm_v0_1](./specs/invoke_wrap_wasm_v0_1.yaml) TODO |  
 | | Invoke a plugin function | Yes | [invoke_plugin](./specs/invoke_plugin.yaml) TODO |  
