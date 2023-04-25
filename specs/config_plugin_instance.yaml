@@ -1,0 +1,16 @@
+required: true
+cases:
+  sanity:
+    input:
+      uri: wrap://plugin/counter
+      method: increment
+    output:
+      stdout:
+        - "$Test Start [config_plugin_instance.sanity]"
+        - Creating Plugin Instance
+        - Adding Plugin Instance to ClientConfig
+        - Invoking Plugin Instance
+        - counter = 1
+        - Invoking Plugin Instance
+        - counter = 2
+        - Success!
