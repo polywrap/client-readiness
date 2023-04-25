@@ -17,8 +17,8 @@ A place to define a "readiness checklist" for all Polywrap clients to adhere to.
 | | Add resolver | Yes | [config_resolver](./specs/config_resolver.yaml) |  
 | | Add resolver ext | Yes | [config_resolver_ext](./specs/config_resolver_ext.yaml) |  
 | **Invocation** | | | |  
-| | Invoke a wrap function (Wasm Runtime v0.1) | Yes | [invoke_wrap_wasm_v0_1](./specs/invoke_wrap_wasm_v0_1.yaml) TODO |  
-| | Invoke a plugin function | Yes | [invoke_plugin](./specs/invoke_plugin.yaml) TODO |  
+| | Invoke a wrap function (Wasm Runtime v0.1) | Yes | [invoke_wrap_wasm_v0_1](./specs/invoke_wrap_wasm_v0_1.yaml) |  
+| | Invoke a plugin function | Yes | [invoke_plugin](./specs/invoke_plugin.yaml) |  
 | | Subinvoke: `wrap -> wrap` | Yes | [subinvoke_wrap_wrap](./specs/subinvoke_wrap_wrap.yaml) TODO |  
 | | Subinvoke: `wrap -> plugin` | Yes | [subinvoke_wrap_plugin](./specs/subinvoke_wrap_plugin.yaml) TODO |  
 | | Subinvoke: `plugin -> wrap` | Yes | [subinvoke_plugin_wrap](./specs/subinvoke_plugin_wrap.yaml) TODO |  

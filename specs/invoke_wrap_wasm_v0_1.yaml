@@ -1,0 +1,15 @@
+required: true
+cases:
+  sanity:
+    input:
+      directory: $ROOT/wraps/numbers-type/implementations/as
+      method: u8Method
+      args:
+        first: 8
+        second: 10
+    output:
+      stdout:
+        - "$Test Start [invoke_wrap_wasm_v0_1.sanity]"
+        - Invoking u8Method
+        - Received 18
+        - Success!
