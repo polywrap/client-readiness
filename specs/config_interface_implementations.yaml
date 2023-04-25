@@ -1,0 +1,16 @@
+required: true
+cases:
+  sanity:
+    input:
+      interfaceUri: wrap://uri/animal
+      implementations:
+        - wrap://uri/dog
+        - wrap://uri/cat
+        - wrap://uri/cow
+    output:
+      stdout:
+        - "$Test Start [config_interface_implementations.sanity]"
+        - Adding Interface Implementations to ClientConfig
+        - Getting Implementations
+        - Found 3 Implementations
+        - Success!
