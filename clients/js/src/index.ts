@@ -7,32 +7,36 @@ async function main() {
     path.join(__dirname, "../../../specs")
   );
 
-  for (const spec of Object.keys(specs)) {
-    const feature = await import(`./features/${spec}`);
+  for (const specName of Object.keys(specs)) {
+    const spec = specs[specName];
+    const feature = await import(`./features/${specName}`);
 
     if (!feature.runTestCase || typeof feature.runTestCase !== "function") {
+      if (!spec.required) {
+        continue;
+      }
       throw Error(`Invalid feature definition: ${feature}`);
     }
 
     console.log("====================================");
-    console.log(`Begin Feature Spec Test Cases [${spec}]`);
+    console.log(`Begin Feature Spec Test Cases [${specName}]`);
     console.log("====================================");
 
-    const testCases = specs[spec];
+    const testCases = specs[specName].cases;
 
     for (const testCase of Object.keys(testCases)) {
-      console.log(`$Test Start [${spec}.${testCase}]`);
+      console.log(`$Test Start [${specName}.${testCase}]`);
 
       try {
         feature.runTestCase(testCases[testCase].input);
       } catch (e) {
-        console.error(`!Test Error [${spec}.${testCase}]`);
+        console.error(`!Test Error [${specName}.${testCase}]`);
         console.error(e);
       }
     }
 
     console.log("====================================");
-    console.log(`End Feature Spec Test Cases [${spec}]`);
+    console.log(`End Feature Spec Test Cases [${specName}]`);
     console.log("====================================");
   }
 }

@@ -1,0 +1,1 @@
+yarn start 2> stderr | tee stdout

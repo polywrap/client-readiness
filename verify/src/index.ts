@@ -31,9 +31,10 @@ async function main() {
 
   for (const featureSpec of Object.keys(featureSpecs)) {
     const spec = featureSpecs[featureSpec];
+    const cases = spec.cases;
 
-    for (const testCaseName of Object.keys(spec)) {
-      const testCase = spec[testCaseName];
+    for (const testCaseName of Object.keys(cases)) {
+      const testCase = cases[testCaseName];
 
       const verify = (
         marker: string,

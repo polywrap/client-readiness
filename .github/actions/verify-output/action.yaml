@@ -38,6 +38,6 @@ runs:
       working-directory: ./verify
 
     - name: Run
-      run: yarn start -- ../clients/${{ inputs.client-folder }}
+      run: ./run.sh ${{ inputs.client-folder }}
       shell: bash
       working-directory: ./verify

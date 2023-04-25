@@ -8,8 +8,13 @@ export interface TestCases {
   }
 }
 
+export interface Spec {
+  required: boolean;
+  cases: TestCases;
+}
+
 export interface FeatureSpecs {
-  [spec: string]: TestCases;
+  [spec: string]: Spec;
 }
 
 export function loadFeatureSpecs(directory: string): FeatureSpecs {
@@ -27,14 +32,26 @@ export function loadFeatureSpecs(directory: string): FeatureSpecs {
 
     const spec = yaml.parse(specYaml);
 
-    if (typeof spec !== "object") {
+    if (!spec || typeof spec !== "object") {
       throw Error(`Failed to load feature-spec ${specFile}, must be an object.`);
     }
 
-    for (const testCase of Object.keys(spec)) {
-      if (!spec[testCase].input) {
+    const required = spec.required;
+
+    if (typeof required !== "boolean") {
+      throw Error(`Failed to load feature-spec ${specFile}, must have property 'required'.`);
+    }
+
+    const cases = spec.cases;
+
+    if (typeof cases !== "object") {
+      throw Error(`Failed to load feature-spec ${specFile}, must have property 'cases'.`);
+    }
+
+    for (const testCase of Object.keys(cases)) {
+      if (!cases[testCase].input) {
         throw Error(
-          `Failed to load feature-spec test-case ${specFile}.${testCase}, missing 'input' property`
+          `Failed to load feature spec test case ${specFile}.cases.${testCase}, missing 'input' property`
         );
       }
     }
