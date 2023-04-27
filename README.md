@@ -32,17 +32,8 @@ A place to define a "readiness checklist" for all Polywrap clients to adhere to.
 | | Resolve `wrap://ens/` contenthash | No | [:mag:](./specs/resolve_ens_contenthash.yaml) | [:heavy_check_mark:](./clients/js/src/features/resolve_ens_contenthash.ts) |  
 | | Resolve `wrap://ens/` text-records | No | [:mag:](./specs/resolve_ens_text_record.yaml) | [:heavy_check_mark:](./clients/js/src/features/resolve_ens_text_record.ts) |  
 | **[WRAP Test Harness](https://github.com/polywrap/wrap-test-harness/tree/master/cases)** | | | | |  
-| | `asyncify` test wrap | Yes | [:mag:](./specs/wrap_test_harness_asyncify.yaml) TODO | :x: |  
-| | `bigint-type` test wrap | Yes | [:mag:](./specs/wrap_test_harness_bigint_type.yaml) TODO | :x: |  
+| | `env-type` test wrap | Yes | [:mag:](./specs/wrap_test_harness_env_type.yaml) | [:heavy_check_mark:](./clients/js/src/features/wrap_test_harness_env_type.ts) |  
+| | `interface-invoke` test wrap | Yes | [:mag:](./specs/wrap_test_harness_interface_invoke.yaml) | [:heavy_check_mark:](./clients/js/src/features/wrap_test_harness_interface_invoke.ts) |  
+| | `bigint-type` test wrap | Yes | [:mag:](./specs/wrap_test_harness_bigint_type.yaml) | [:heavy_check_mark:](./clients/js/src/features/wrap_test_harness_bigint_type.ts) |  
 | | `bignumber-type` test wrap | Yes | [:mag:](./specs/wrap_test_harness_bignumber_type.yaml) TODO | :x: |  
-| | `bytes-type` test wrap | Yes | [:mag:](./specs/wrap_test_harness_bytes_type.yaml) TODO | :x: |  
-| | `enum-type` test wrap | Yes | [:mag:](./specs/wrap_test_harness_enum_type.yaml) TODO | :x: |  
-| | `env-type` test wrap | Yes | [:mag:](./specs/wrap_test_harness_env_type.yaml) TODO | :x: |  
-| | `interface-invoke` test wrap | Yes | [:mag:](./specs/wrap_test_harness_interface_invoke.yaml) TODO | :x: |  
-| | `invalid-type` test wrap | Yes | [:mag:](./specs/wrap_test_harness_invalid_type.yaml) TODO | :x: |  
-| | `json-type` test wrap | Yes | [:mag:](./specs/wrap_test_harness_json_type.yaml) TODO | :x: |  
 | | `map-type` test wrap | Yes | [:mag:](./specs/wrap_test_harness_map_type.yaml) TODO | :x: |  
-| | `numbers-type` test wrap | Yes | [:mag:](./specs/wrap_test_harness_numbers_type.yaml) TODO | :x: |  
-| | `object-type` test wrap | Yes | [:mag:](./specs/wrap_test_harness_object_type.yaml) TODO | :x: |  
-| | `resolver` test wrap | Yes | [:mag:](./specs/wrap_test_harness_resolver.yaml) TODO | :x: |  
-| | `subinvoke` test wrap | Yes | [:mag:](./specs/wrap_test_harness_subinvoke.yaml) TODO | :x: |  

@@ -1,0 +1,25 @@
+required: true
+cases:
+  sanity:
+    input:
+      mainEnv:
+        object:
+          prop: "object string"
+        str: "string"
+        optFilledStr: "optional string"
+        number: 10
+        bool: true
+        en: "FIRST"
+        array: [32, 23]
+      extEnv:
+        externalArray: [1, 2, 3]
+        externalString: "iamexternal"
+    output:
+      stdout:
+        - "$Test Start [wrap_test_harness_env_type.sanity]"
+        - Invoking methodRequireEnv
+        - Success!
+        - Invoking subinvokeEnvMethod
+        - "response.local exists: true"
+        - "response.external exists: true"
+        - Success!
