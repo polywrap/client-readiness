@@ -25,7 +25,7 @@ A place to define a "readiness checklist" for all Polywrap clients to adhere to.
 | **`wrap://` Resolution** | | | | |  
 | | Resolve a wrap package | Yes | [:mag:](./specs/resolve_package.yaml) | [:x:](./clients/js/src/features/resolve_package.ts) |  
 | | Resolve a wrap instance | Yes | [:mag:](./specs/resolve_instance.yaml) | [:heavy_check_mark:](./clients/js/src/features/resolve_instance.ts) |  
-| | Resolve a redirect | Yes | [:mag:](./specs/resolve_redirect.yaml) TODO | :x: |  
+| | Resolve a redirect | Yes | [:mag:](./specs/resolve_redirect.yaml) | [:heavy_check_mark:](./clients/js/src/features/resolve_redirect.ts) |  
 | | Resolve `wrap://http/` &<br/>`wrap://https/` | Yes | [:mag:](./specs/resolve_http.yaml) TODO | :x: |  
 | | Resolve `wrap://file/` &<br/>`wrap://fs/` | Yes | [:mag:](./specs/resolve_file.yaml) TODO | :x: |  
 | | Resolve `wrap://ipfs/` | Yes | [:mag:](./specs/resolve_ipfs.yaml) TODO | :x: |  
