@@ -35,5 +35,5 @@ A place to define a "readiness checklist" for all Polywrap clients to adhere to.
 | | `env-type` test wrap | Yes | [:mag:](./specs/wrap_test_harness_env_type.yaml) | [:heavy_check_mark:](./clients/js/src/features/wrap_test_harness_env_type.ts) |  
 | | `interface-invoke` test wrap | Yes | [:mag:](./specs/wrap_test_harness_interface_invoke.yaml) | [:heavy_check_mark:](./clients/js/src/features/wrap_test_harness_interface_invoke.ts) |  
 | | `bigint-type` test wrap | Yes | [:mag:](./specs/wrap_test_harness_bigint_type.yaml) | [:heavy_check_mark:](./clients/js/src/features/wrap_test_harness_bigint_type.ts) |  
-| | `bignumber-type` test wrap | Yes | [:mag:](./specs/wrap_test_harness_bignumber_type.yaml) TODO | :x: |  
-| | `map-type` test wrap | Yes | [:mag:](./specs/wrap_test_harness_map_type.yaml) TODO | :x: |  
+| | `bignumber-type` test wrap | Yes | [:mag:](./specs/wrap_test_harness_bignumber_type.yaml) | [:heavy_check_mark:](./clients/js/src/features/wrap_test_harness_bignumber_type.ts) |  
+| | `map-type` test wrap | Yes | [:mag:](./specs/wrap_test_harness_map_type.yaml) | [:heavy_check_mark:](./clients/js/src/features/wrap_test_harness_map_type.ts) |  
