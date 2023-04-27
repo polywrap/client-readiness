@@ -1,0 +1,20 @@
+required: true
+cases:
+  fs:
+    input: wrap://fs/$ROOT/wraps/numbers-type/implementations/as
+    output:
+      stdout:
+        - "$Test Start [resolve_file.fs]"
+        - "URI Authority: fs"
+        - "Resolving: wrap://fs/$ROOT/wraps/numbers-type/implementations/as"
+        - "Received: package"
+        - Success!
+  file:
+    input: wrap://file/$ROOT/wraps/numbers-type/implementations/as
+    output:
+      stdout:
+        - "$Test Start [resolve_file.file]"
+        - "URI Authority: file"
+        - "Resolving: wrap://file/$ROOT/wraps/numbers-type/implementations/as"
+        - "Received: package"
+        - Success!
