@@ -2,3 +2,4 @@ stdout
 stderr
 wraps/*
 !wraps/install.sh
+!wraps/public
