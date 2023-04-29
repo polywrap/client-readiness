@@ -11,5 +11,5 @@ cases:
       stdout:
         - "$Test Start [invoke_wrap_wasm_v0_1.sanity]"
         - Invoking u8Method
-        - Received 18
+        - "Received: 18"
         - Success!

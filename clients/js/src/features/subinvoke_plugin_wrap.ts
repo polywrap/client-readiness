@@ -58,7 +58,7 @@ export async function runTestCase(input: unknown): Promise<void> {
           args
         });
         if (res.ok) {
-          console.log(`Received ${res.value}`);
+          console.log(`Received: ${res.value}`);
           return true;
         } else {
           return false;

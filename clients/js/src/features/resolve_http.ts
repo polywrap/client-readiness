@@ -26,7 +26,7 @@ export async function runTestCase(input: unknown): Promise<void> {
   const result = await client.tryResolveUri({ uri });
 
   if (result.ok) {
-    console.log(`Received ${result.value.type}`);
+    console.log(`Received: ${result.value.type}`);
     console.log("Success!");
   }
 }

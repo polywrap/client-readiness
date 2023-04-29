@@ -16,5 +16,5 @@ cases:
       stdout:
         - "$Test Start [subinvoke_wrap_wrap.sanity]"
         - Invoking addAndIncrement
-        - Received 3
+        - "Received: 3"
         - Success!

@@ -12,5 +12,5 @@ cases:
         - "$Test Start [subinvoke_plugin_wrap.sanity]"
         - Invoking Plugin
         - Subinvoking u8Method
-        - Received 18
+        - "Received: 18"
         - Success!

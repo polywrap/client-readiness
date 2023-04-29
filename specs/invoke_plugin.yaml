@@ -11,5 +11,5 @@ cases:
       stdout:
         - "$Test Start [invoke_plugin.sanity]"
         - Invoking add
-        - Received 18
+        - "Received: 18"
         - Success!
