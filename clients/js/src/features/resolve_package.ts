@@ -1,35 +1,21 @@
-import { ClientConfigBuilder, PolywrapClient, Uri } from "@polywrap/client-js";
+import { Input } from "../input";
+
+import { ClientConfigBuilder, PolywrapClient } from "@polywrap/client-js";
 import { WasmPackage } from "@polywrap/wasm-js";
 
 import path from "path";
 import fs from "fs";
 
 export async function runTestCase(input: unknown): Promise<void> {
-  if (!input || typeof input !== "object") {
-    throw Error(
-      "resolve_package test case input must be an object"
-    );
-  }
-
-  const { directory, uri } = input as any;
-
-  if (
-    typeof directory !== "string" ||
-    !directory.includes("$ROOT/")
-  ) {
-    throw Error(
-      "resolve_package input.directory must be a string, and start with $ROOT/"
-    );
-  }
-
-  if (typeof uri !== "string" || !Uri.isValidUri(uri)) {
-    throw Error("resolve_package input.method must be a valid URI");
-  }
-
-  const wrapDir = directory.replace(
-    "$ROOT/",
+  const inputObj = Input.expectObject<{
+    directory: unknown;
+    uri: unknown;
+  }>(input);
+  const wrapDir = Input.expectRootDir(
+    inputObj.directory,
     path.join(__dirname, "../../../../")
-  );
+  )
+  const uri = Input.expectUri(inputObj.uri).uri;
 
   const manifest = fs.readFileSync(
     path.join(wrapDir, "wrap.info")

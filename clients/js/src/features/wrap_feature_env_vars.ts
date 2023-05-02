@@ -1,22 +1,20 @@
+import { Input } from "../input";
+
 import { ClientConfigBuilder, PolywrapClient, Uri } from "@polywrap/client-js";
 import path from "path";
 
 export async function runTestCase(input: unknown): Promise<void> {
-  if (!input || typeof input !== "object") {
-    throw Error(
-      "wrap_test_harness_env_type test case input must be an object"
-    );
-  }
+  const inputObj = Input.expectObject<{
+    mainEnv: unknown;
+    extEnv: unknown;
+  }>(input);
 
-  const { mainEnv, extEnv } = input as any;
-
-  if (typeof mainEnv !== "object") {
-    throw Error("wrap_test_harness_env_type input.mainEnv must be an object");
-  }
-
-  if (typeof extEnv !== "object") {
-    throw Error("wrap_test_harness_env_type input.extEnv must be an object");
-  }
+  const mainEnv = Input.expectObject<Record<string, unknown>>(
+    inputObj.mainEnv
+  );
+  const extEnv = Input.expectObject<Record<string, unknown>>(
+    inputObj.extEnv
+  );
 
   const root = path.join(__dirname, "../../../../wraps");
   const externalWrapperPath = path.join(root, "/env-type/00-external/implementations/as");

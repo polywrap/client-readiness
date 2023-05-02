@@ -31,9 +31,17 @@ A place to define a "readiness checklist" for all Polywrap clients to adhere to.
 | | Resolve `wrap://ipfs/` | Yes | [:mag:](./specs/resolve_ipfs.yaml) | [:heavy_check_mark:](./clients/js/src/features/resolve_ipfs.ts) |  
 | | Resolve `wrap://ens/` contenthash | No | [:mag:](./specs/resolve_ens_contenthash.yaml) | [:heavy_check_mark:](./clients/js/src/features/resolve_ens_contenthash.ts) |  
 | | Resolve `wrap://ens/` text-records | No | [:mag:](./specs/resolve_ens_text_record.yaml) | [:heavy_check_mark:](./clients/js/src/features/resolve_ens_text_record.ts) |  
-| **[WRAP Test Harness](https://github.com/polywrap/wrap-test-harness/tree/master/cases)** | | | | |  
-| | `env-type` test wrap | Yes | [:mag:](./specs/wrap_test_harness_env_type.yaml) | [:heavy_check_mark:](./clients/js/src/features/wrap_test_harness_env_type.ts) |  
-| | `interface-invoke` test wrap | Yes | [:mag:](./specs/wrap_test_harness_interface_invoke.yaml) | [:heavy_check_mark:](./clients/js/src/features/wrap_test_harness_interface_invoke.ts) |  
-| | `bigint-type` test wrap | Yes | [:mag:](./specs/wrap_test_harness_bigint_type.yaml) | [:heavy_check_mark:](./clients/js/src/features/wrap_test_harness_bigint_type.ts) |  
-| | `bignumber-type` test wrap | Yes | [:mag:](./specs/wrap_test_harness_bignumber_type.yaml) | [:heavy_check_mark:](./clients/js/src/features/wrap_test_harness_bignumber_type.ts) |  
-| | `map-type` test wrap | Yes | [:mag:](./specs/wrap_test_harness_map_type.yaml) | [:heavy_check_mark:](./clients/js/src/features/wrap_test_harness_map_type.ts) |  
+| **[WRAP Features](https://github.com/polywrap/wrap-test-harness/tree/master/cases)** | | | | |  
+| | Wrap `Env` Variables | Yes | [:mag:](./specs/wrap_feature_env_vars.yaml) | [:heavy_check_mark:](./clients/js/src/features/wrap_feature_env_vars.ts) |  
+| | Wrap Interface Invocations | Yes | [:mag:](./specs/wrap_feature_interface_invoke.yaml) | [:heavy_check_mark:](./clients/js/src/features/wrap_feature_interface_invoke.ts) |  
+| **[WRAP ABI Type Support](https://github.com/polywrap/wrap-test-harness/tree/master/cases)** | | | | |  
+| | `(U)Int(8\|16\|32)` | Yes | [:mag:](./specs/wrap_type_ints.yaml) | [:heavy_check_mark:](./clients/js/src/features/wrap_type_ints.ts) |  
+| | `String` | Yes | TODO | TODO |  
+| | `Bytes` | Yes | [:mag:](./specs/wrap_type_bytes.yaml) | [:heavy_check_mark:](./clients/js/src/features/wrap_type_bytes.ts) |  
+| | `Object` | Yes | [:mag:](./specs/wrap_type_object.yaml) | [:heavy_check_mark:](./clients/js/src/features/wrap_type_object.ts) |  
+| | `Enum` | Yes | [:mag:](./specs/wrap_type_enum.yaml) | [:heavy_check_mark:](./clients/js/src/features/wrap_type_enum.ts) |  
+| | `BigInt` | Yes | [:mag:](./specs/wrap_type_bigint.yaml) | [:heavy_check_mark:](./clients/js/src/features/wrap_type_bigint.ts) |  
+| | `BigNumber` | Yes | [:mag:](./specs/wrap_type_bignumber.yaml) | [:heavy_check_mark:](./clients/js/src/features/wrap_type_bignumber.ts) |  
+| | `JSON` | Yes | [:mag:](./specs/wrap_type_json.yaml) | [:heavy_check_mark:](./clients/js/src/features/wrap_type_json.ts) |  
+| | `Array<T>` | Yes | TODO | TODO |  
+| | `Map<K, V>` | Yes | [:mag:](./specs/wrap_type_map.yaml) | [:heavy_check_mark:](./clients/js/src/features/wrap_type_map.ts) |  

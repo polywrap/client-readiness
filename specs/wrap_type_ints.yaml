@@ -1,0 +1,74 @@
+required: true
+cases:
+  i8:
+    input:
+      method: i8Method
+      args:
+        first: 5
+        second: -6
+    output:
+      stdout:
+        - "$Test Start [wrap_type_ints.i8]"
+        - Invoking i8Method
+        - "Result: -1"
+        - Success!
+  u8:
+    input:
+      method: u8Method
+      args:
+        first: 5
+        second: 6
+    output:
+      stdout:
+        - "$Test Start [wrap_type_ints.u8]"
+        - Invoking u8Method
+        - "Result: 11"
+        - Success!
+  i16:
+    input:
+      method: i16Method
+      args:
+        first: 500
+        second: -679
+    output:
+      stdout:
+        - "$Test Start [wrap_type_ints.i16]"
+        - Invoking i16Method
+        - "Result: -179"
+        - Success!
+  u16:
+    input:
+      method: u16Method
+      args:
+        first: 500
+        second: 679
+    output:
+      stdout:
+        - "$Test Start [wrap_type_ints.u16]"
+        - Invoking u16Method
+        - "Result: 1179"
+        - Success!
+  i32:
+    input:
+      method: i32Method
+      args:
+        first: 55000
+        second: -32800
+    output:
+      stdout:
+        - "$Test Start [wrap_type_ints.i32]"
+        - Invoking i32Method
+        - "Result: 22200"
+        - Success!
+  u32:
+    input:
+      method: u32Method
+      args:
+        first: 75535
+        second: 88935
+    output:
+      stdout:
+        - "$Test Start [wrap_type_ints.u32]"
+        - Invoking u32Method
+        - "Result: 164470"
+        - Success!

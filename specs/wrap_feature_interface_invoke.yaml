@@ -4,6 +4,6 @@ cases:
     input: true
     output:
       stdout:
-        - "$Test Start [wrap_test_harness_interface_invoke.sanity]"
+        - "$Test Start [wrap_feature_interface_invoke.sanity]"
         - Invoking moduleMethod
         - Success!

@@ -7,7 +7,7 @@ cases:
         Heyo: 50
     output:
       stdout:
-        - "$Test Start [wrap_test_harness_map_type.sanity]"
+        - "$Test Start [wrap_type_map.sanity]"
         - Invoking returnMap
         - "key 'Hello' = 1"
         - "key 'Heyo' = 50"

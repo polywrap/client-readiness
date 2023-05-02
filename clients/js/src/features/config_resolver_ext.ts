@@ -1,3 +1,5 @@
+import { Input } from "../input";
+
 import {
   ClientConfigBuilder,
   PolywrapClient,
@@ -9,25 +11,12 @@ import {
 } from "@polywrap/plugin-js";
 
 export async function runTestCase(input: unknown): Promise<void> {
-  if (!input || typeof input !== "object") {
-    throw Error(
-      "config_resolver_ext test case input must be an object"
-    );
-  }
-
-  const { authority, result } = input as any;
-
-  if (typeof authority !== "string") {
-    throw Error(
-      "config_resolver_ext input.authority must be a string"
-    );
-  }
-
-  if (typeof result !== "string") {
-    throw Error(
-      "config_resolver_ext input.result must be a string"
-    );
-  }
+  const inputObj = Input.expectObject<{
+    authority: unknown;
+    result: unknown;
+  }>(input);
+  const authority = Input.expectString(inputObj.authority);
+  const result = Input.expectString(inputObj.result);
 
   console.log("Creating CustomResolverExt Plugin");
 

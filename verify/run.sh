@@ -4,5 +4,4 @@ then
   exit
 fi
 
-
-yarn start -- ../clients/$1
+yarn start -- ../clients/$1 $2

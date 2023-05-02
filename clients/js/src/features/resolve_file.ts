@@ -1,3 +1,5 @@
+import { Input } from "../input";
+
 import {
   ClientConfigBuilder,
   PolywrapClient,
@@ -6,16 +8,14 @@ import {
 import path from "path";
 
 export async function runTestCase(input: unknown): Promise<void> {
-  if (typeof input !== "string" || !Uri.isValidUri(input)) {
-    throw Error(
-      "resolve_file test case input must be a string & valid URI"
-    );
-  }
-
-  const uri = Uri.from(input.replace(
-    "$ROOT/",
-    path.join(__dirname, "../../../../")
-  ));
+  const inputUri = Input.expectUri(input);
+  const uri = Uri.from(
+    inputUri.authority + "/" +
+    Input.expectRootDir(
+      inputUri.path,
+      path.join(__dirname, "../../../../")
+    )
+  );
 
   console.log(`URI Authority: ${uri.authority}`);
 

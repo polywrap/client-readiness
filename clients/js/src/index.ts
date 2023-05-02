@@ -3,11 +3,18 @@ import { loadFeatureSpecs } from "./load-feature-specs";
 import path from "path";
 
 async function main() {
+  // Optional 2nd argument, spec filter
+  let filter = process.argv.length > 2 ? process.argv[2] : undefined;
+
   const specs = loadFeatureSpecs(
     path.join(__dirname, "../../../specs")
   );
 
   for (const specName of Object.keys(specs)) {
+    if (filter && filter !== specName) {
+      continue;
+    }
+
     const spec = specs[specName];
     const feature = await import(`./features/${specName}`);
 

@@ -5,7 +5,7 @@ then
 fi
 
 cd ./clients/$1
-./run.sh
+./run.sh $2
 
 cd ../../verify
-./run.sh $1
+./run.sh $1 $2

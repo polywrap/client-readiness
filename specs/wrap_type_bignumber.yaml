@@ -8,7 +8,7 @@ cases:
           prop1: "98.7654321987654321"
     output:
       stdout:
-        - "$Test Start [wrap_test_harness_bignumber_type.sanity]"
+        - "$Test Start [wrap_type_bignumber.sanity]"
         - Invoking method
         - "Result: 121932.631356500531347203169112635269"
         - Success!

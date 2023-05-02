@@ -1,13 +1,9 @@
+import { Input } from "../input";
+
 import { Uri } from "@polywrap/client-js";
 
 export function runTestCase(input: unknown): void {
-  if (typeof input !== "string") {
-    throw Error(
-      "URI test case input is not a string"
-    );
-  }
-
-  const str = input;
+  const str = Input.expectString(input);
 
   const uri = new Uri(str);
 

@@ -1,25 +1,14 @@
+import { Input } from "../input";
+
 import { ClientConfigBuilder, PolywrapClient } from "@polywrap/client-js";
 
 export async function runTestCase(input: unknown): Promise<void> {
-  if (!input || typeof input !== "object") {
-    throw Error(
-      "config_interface_implementations test case input must be an object"
-    );
-  }
-
-  const { interfaceUri, implementations } = input as any;
-
-  if (typeof interfaceUri !== "string") {
-    throw Error(
-      "config_interface_implementations input.interfaceUri must be a string"
-    );
-  }
-
-  if (!implementations || !Array.isArray(implementations)) {
-    throw Error(
-      "config_interface_implementations input.implementations must be an array"
-    );
-  }
+  const inputObj = Input.expectObject<{
+    interfaceUri: unknown;
+    implementations: unknown;
+  }>(input);
+  const interfaceUri = Input.expectUri(inputObj.interfaceUri).uri;
+  const implementations = Input.expectArray<string>(inputObj.implementations);
 
   console.log("Adding Interface Implementations to ClientConfig");
 

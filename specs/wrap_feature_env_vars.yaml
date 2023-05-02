@@ -16,7 +16,7 @@ cases:
         externalString: "iamexternal"
     output:
       stdout:
-        - "$Test Start [wrap_test_harness_env_type.sanity]"
+        - "$Test Start [wrap_feature_env_vars.sanity]"
         - Invoking methodRequireEnv
         - Success!
         - Invoking subinvokeEnvMethod

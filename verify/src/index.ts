@@ -12,6 +12,9 @@ async function main() {
   const cwd = process.cwd();
   const clientDir = path.join(cwd, arg);
 
+  // Optional 2nd argument, spec filter
+  const filter = process.argv.length > 3 ? process.argv[3] : undefined;
+
   // Read stdout & stderr log files
   const stdout = fs.readFileSync(
     path.join(clientDir, "stdout"),
@@ -30,6 +33,10 @@ async function main() {
   const errors = [];
 
   for (const featureSpec of Object.keys(featureSpecs)) {
+    if (filter && filter !== featureSpec) {
+      continue;
+    }
+
     const spec = featureSpecs[featureSpec];
     const cases = spec.cases;
 

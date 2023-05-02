@@ -1,42 +1,36 @@
 import { Input } from "../input";
 
 import { ClientConfigBuilder, PolywrapClient } from "@polywrap/client-js";
-import { PluginPackage } from "@polywrap/plugin-js";
+import path from "path";
 
 export async function runTestCase(input: unknown): Promise<void> {
   const inputObj = Input.expectObject<{
-    uri: unknown;
     method: unknown;
     args: unknown;
   }>(input);
-  const uri = Input.expectUri(inputObj.uri).uri;
   const method = Input.expectString(inputObj.method);
   const args = Input.expectObject<Record<string, unknown>>(
     inputObj.args
   );
 
-  const pluginPackage = PluginPackage.from(() => ({
-    add: (args: { a: number, b: number }) => {
-      return args.a + args.b;
-    }
-  }));
+  const root = path.join(__dirname, "../../../../wraps");
+  const uri = `fs/${root}/object-type/implementations/as`;
 
   const config = new ClientConfigBuilder()
-    .addPackage(uri, pluginPackage)
+    .addDefaults()
     .build();
-
   const client = new PolywrapClient(config);
 
   console.log(`Invoking ${method}`);
 
-  const result = await client.invoke({
+  let response = await client.invoke({
     uri,
     method,
-    args
+    args: args,
   });
 
-  if (result.ok) {
-    console.log(`Received: ${result.value}`);
-    console.log("Success!");
-  }
+  if (!response.ok) throw response.error;
+
+  console.log("Result:", JSON.stringify(response.value, null, 2));
+  console.log("Success!");
 }

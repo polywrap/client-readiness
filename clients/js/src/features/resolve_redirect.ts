@@ -1,25 +1,14 @@
+import { Input } from "../input";
+
 import { ClientConfigBuilder, PolywrapClient } from "@polywrap/client-js";
 
 export async function runTestCase(input: unknown): Promise<void> {
-  if (!input || typeof input !== "object") {
-    throw Error(
-      "resolve_redirect test case input must be an object"
-    );
-  }
-
-  const { from, to } = input as any;
-
-  if (typeof from !== "string") {
-    throw Error(
-      "resolve_redirect input.from must be a string"
-    );
-  }
-
-  if (typeof to !== "string") {
-    throw Error(
-      "resolve_redirect input.to must be a string"
-    );
-  }
+  const inputObj = Input.expectObject<{
+    from: unknown;
+    to: unknown;
+  }>(input);
+  const from = Input.expectUri(inputObj.from).uri;
+  const to = Input.expectUri(inputObj.to).uri;
 
   const config = new ClientConfigBuilder()
     .addRedirect(from, to)

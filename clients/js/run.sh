@@ -1,1 +1,1 @@
-yarn start 2> stderr | tee stdout
+yarn start -- $1 2> stderr | tee stdout

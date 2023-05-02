@@ -1,25 +1,16 @@
+import { Input } from "../input";
+
 import { ClientConfigBuilder, PolywrapClient } from "@polywrap/client-js";
 
 export async function runTestCase(input: unknown): Promise<void> {
-  if (!input || typeof input !== "object") {
-    throw Error(
-      "config_env_variables test case input must be an object"
-    );
-  }
-
-  const { uri, env } = input as any;
-
-  if (typeof uri !== "string") {
-    throw Error(
-      "config_env_variables input.uri must be a string"
-    );
-  }
-
-  if (!env || typeof env !== "object") {
-    throw Error(
-      "config_env_variables input.env must be an object"
-    );
-  }
+  const inputObj = Input.expectObject<{
+    uri: unknown;
+    env: unknown;
+  }>(input);
+  const uri = Input.expectUri(inputObj.uri).uri;
+  const env = Input.expectObject<Record<string, unknown>>(
+    inputObj.env
+  );
 
   console.log("Adding Env to ClientConfig");
 

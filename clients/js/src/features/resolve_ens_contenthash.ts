@@ -1,17 +1,12 @@
+import { Input } from "../input";
+
 import {
   ClientConfigBuilder,
-  PolywrapClient,
-  Uri
+  PolywrapClient
 } from "@polywrap/client-js";
 
 export async function runTestCase(input: unknown): Promise<void> {
-  if (typeof input !== "string" || !Uri.isValidUri(input)) {
-    throw Error(
-      "resolve_ens_contenthash test case input must be a string & valid URI"
-    );
-  }
-
-  const uri = Uri.from(input);
+  const uri = Input.expectUri(input);
 
   console.log(`URI Authority: ${uri.authority}`);
 

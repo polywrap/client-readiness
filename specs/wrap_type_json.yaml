@@ -1,0 +1,26 @@
+required: true
+cases:
+  parse:
+    input:
+      method: parse
+      args:
+        value: '{ "foo": "bar", "bar": "bar" }'
+    output:
+      stdout:
+        - "$Test Start [wrap_type_json.parse]"
+        - Invoking parse
+        - 'Result: {"foo":"bar","bar":"bar"}'
+        - Success!
+  stringify:
+    input:
+      method: stringify
+      args:
+        values:
+          - '{ "bar": "foo" }'
+          - '{ "baz": "fuz" }'
+    output:
+      stdout:
+        - "$Test Start [wrap_type_json.stringify]"
+        - Invoking stringify
+        - 'Result: {"bar":"foo"}{"baz":"fuz"}'
+        - Success!

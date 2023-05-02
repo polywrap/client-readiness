@@ -1,18 +1,15 @@
+import { Input } from "../input";
+
 import { ClientConfigBuilder, PolywrapClient } from "@polywrap/client-js";
 import path from "path";
 
 export async function runTestCase(input: unknown): Promise<void> {
-  if (!input || typeof input !== "object") {
-    throw Error(
-      "wrap_test_harness_map_type test case input must be an object"
-    );
-  }
-
-  const { map } = input as any;
-
-  if (typeof map !== "object") {
-    throw Error("wrap_test_harness_map_type input.map must be an object");
-  }
+  const inputObj = Input.expectObject<{
+    map: unknown;
+  }>(input);
+  const map = Input.expectObject<Record<string, unknown>>(
+    inputObj.map
+  );
 
   const root = path.join(__dirname, "../../../../wraps");
   const uri = `fs/${root}/map-type/implementations/as`;
