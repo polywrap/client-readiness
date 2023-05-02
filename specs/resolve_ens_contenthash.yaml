@@ -1,0 +1,11 @@
+required: false
+cases:
+  sanity:
+    input: wrap://ens/wrap-link.eth
+    output:
+      stdout:
+        - "$Test Start [resolve_ens_contenthash.sanity]"
+        - "URI Authority: ens"
+        - "Resolving: wrap://ens/wrap-link.eth"
+        - "Received: package"
+        - Success!

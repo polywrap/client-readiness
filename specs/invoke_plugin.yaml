@@ -1,0 +1,15 @@
+required: true
+cases:
+  sanity:
+    input:
+      uri: wrap://plugin/calculator
+      method: add
+      args:
+        a: 8
+        b: 10
+    output:
+      stdout:
+        - "$Test Start [invoke_plugin.sanity]"
+        - Invoking add
+        - "Received: 18"
+        - Success!

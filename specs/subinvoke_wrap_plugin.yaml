@@ -1,0 +1,18 @@
+required: true
+cases:
+  sanity:
+    input:
+      rootWrap:
+        directory: $ROOT/wraps/subinvoke/01-invoke/implementations/as
+        uri: ens/invoke.eth
+      subWrapUri: ens/imported-subinvoke.eth
+      method: addAndIncrement
+      args:
+        a: 1
+        b: 1
+    output:
+      stdout:
+        - "$Test Start [subinvoke_wrap_plugin.sanity]"
+        - Invoking addAndIncrement
+        - "Received: 3"
+        - Success!

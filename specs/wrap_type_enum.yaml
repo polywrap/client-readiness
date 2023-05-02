@@ -1,0 +1,24 @@
+required: true
+cases:
+  enum_number:
+    input:
+      method: method1
+      args:
+        en: 2
+    output:
+      stdout:
+        - "$Test Start [wrap_type_enum.enum_number]"
+        - Invoking method1
+        - "Result: 2"
+        - Success!
+  enum_string:
+    input:
+      method: method1
+      args:
+        en: "OPTION2"
+    output:
+      stdout:
+        - "$Test Start [wrap_type_enum.enum_string]"
+        - Invoking method1
+        - "Result: 1"
+        - Success!

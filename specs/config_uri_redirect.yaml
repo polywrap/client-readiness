@@ -1,0 +1,13 @@
+required: true
+cases:
+  sanity:
+    input:
+      from: wrap://uri/a
+      to: wrap://uri/b
+    output:
+      stdout:
+        - "$Test Start [config_uri_redirect.sanity]"
+        - Adding URI Redirect to ClientConfig
+        - Resolving Redirect
+        - Received URI 'wrap://uri/b'
+        - Success!

@@ -1,0 +1,17 @@
+required: true
+cases:
+  sanity:
+    input:
+      directory: $ROOT/wraps/numbers-type/implementations/as
+      method: u8Method
+      args:
+        first: 8
+        second: 10
+    output:
+      stdout:
+        - "$Test Start [config_embed_wrap_package.sanity]"
+        - Reading wrap.info & wrap.wasm from $ROOT/wraps/numbers-type/implementations/as
+        - Creating WrapPackage from raw wrap.info & wrap.wasm bytes
+        - Adding WrapPackage to ClientConfig
+        - Invoking WrapPackage
+        - Success!

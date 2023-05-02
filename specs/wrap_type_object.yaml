@@ -1,0 +1,30 @@
+required: true
+cases:
+  sanity:
+    input:
+      method: method1
+      args:
+        arg1:
+          prop: "arg1 prop"
+          nested:
+            prop: "arg1 nested prop"
+    output:
+      stdout:
+        - "$Test Start [wrap_type_object.sanity]"
+        - Invoking method1
+        - |
+          Result: [
+            {
+              "prop": "arg1 prop",
+              "nested": {
+                "prop": "arg1 nested prop"
+              }
+            },
+            {
+              "prop": "",
+              "nested": {
+                "prop": ""
+              }
+            }
+          ]
+        - Success!

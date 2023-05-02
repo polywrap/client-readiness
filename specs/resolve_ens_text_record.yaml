@@ -1,0 +1,11 @@
+required: false
+cases:
+  sanity:
+    input: wrap://ens/uniswap.wraps.eth:v3
+    output:
+      stdout:
+        - "$Test Start [resolve_ens_text_record.sanity]"
+        - "URI Authority: ens"
+        - "Resolving: wrap://ens/uniswap.wraps.eth:v3"
+        - "Received: package"
+        - Success!

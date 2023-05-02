@@ -1,0 +1,14 @@
+required: true
+cases:
+  sanity:
+    input:
+      authority: custom
+      result: wrap://uri/result
+    output:
+      stdout:
+        - "$Test Start [config_resolver_ext.sanity]"
+        - Creating CustomResolverExt Plugin
+        - Adding CustomResolverExt & ExtendableUriResolver to ClientConfig
+        - Resolving a wrap://custom URI
+        - Received URI 'wrap://uri/result'
+        - Success!

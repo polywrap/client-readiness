@@ -1,0 +1,14 @@
+required: true
+cases:
+  sanity:
+    input:
+      map:
+        Hello: 1
+        Heyo: 50
+    output:
+      stdout:
+        - "$Test Start [wrap_type_map.sanity]"
+        - Invoking returnMap
+        - "key 'Hello' = 1"
+        - "key 'Heyo' = 50"
+        - Success!

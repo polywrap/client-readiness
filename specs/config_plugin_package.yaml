@@ -1,0 +1,16 @@
+required: true
+cases:
+  sanity:
+    input:
+      uri: wrap://plugin/calculator
+      method: add
+      args:
+        a: 8
+        b: 10
+    output:
+      stdout:
+        - "$Test Start [config_plugin_package.sanity]"
+        - Creating PluginPackage
+        - Adding PluginPackage to ClientConfig
+        - Invoking PluginPackage
+        - Success!

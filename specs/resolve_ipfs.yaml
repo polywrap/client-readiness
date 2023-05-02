@@ -1,0 +1,20 @@
+required: true
+cases:
+  ipfs_cid_v0:
+    input: wrap://ipfs/QmfRCVA1MSAjUbrXXjya4xA9QHkbWeiKRsT7Um1cvrR7FY
+    output:
+      stdout:
+        - "$Test Start [resolve_ipfs.ipfs_cid_v0]"
+        - "URI Authority: ipfs"
+        - "Resolving: wrap://ipfs/QmfRCVA1MSAjUbrXXjya4xA9QHkbWeiKRsT7Um1cvrR7FY"
+        - "Received: package"
+        - Success!
+  ipfs_cid_v1:
+    input: wrap://ipfs/bafybeih5ydxfp7q53ukh7rkolrfqttwjuykfnju4yefrl4b55vsdapgm2m
+    output:
+      stdout:
+        - "$Test Start [resolve_ipfs.ipfs_cid_v1]"
+        - "URI Authority: ipfs"
+        - "Resolving: wrap://ipfs/bafybeih5ydxfp7q53ukh7rkolrfqttwjuykfnju4yefrl4b55vsdapgm2m"
+        - "Received: package"
+        - Success!

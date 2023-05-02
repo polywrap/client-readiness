@@ -1,0 +1,9 @@
+required: true
+cases:
+  sanity:
+    input: true
+    output:
+      stdout:
+        - "$Test Start [wrap_feature_interface_invoke.sanity]"
+        - Invoking moduleMethod
+        - Success!

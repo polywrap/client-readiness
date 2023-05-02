@@ -1,0 +1,16 @@
+required: true
+cases:
+  sanity:
+    input:
+      directory: $ROOT/wraps/numbers-type/implementations/as
+      method: u8Method
+      args:
+        first: 8
+        second: 10
+    output:
+      stdout:
+        - "$Test Start [subinvoke_plugin_wrap.sanity]"
+        - Invoking Plugin
+        - Subinvoking u8Method
+        - "Received: 18"
+        - Success!

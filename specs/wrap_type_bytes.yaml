@@ -1,0 +1,14 @@
+required: true
+cases:
+  sanity:
+    input:
+      method: bytesMethod
+      args:
+        arg:
+          prop: [65, 114, 103, 117, 109, 101, 110, 116, 32, 86, 97, 108, 117, 101]
+    output:
+      stdout:
+        - "$Test Start [wrap_type_bytes.sanity]"
+        - Invoking bytesMethod
+        - "Result: [65,114,103,117,109,101,110,116,32,86,97,108,117,101,32,83,97,110,105,116,121,33]"
+        - Success!
