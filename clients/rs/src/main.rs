@@ -31,7 +31,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         println!("====================================");
 
         for (test_case_name, test_case) in spec.cases.iter() {
-            println!("Test Start [{}.{}]", spec_name, test_case_name);
+            println!("$Test Start [{}.{}]", spec_name, test_case_name);
 
             match feature(&test_case.input) {
                 Ok(_) => (),

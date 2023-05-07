@@ -5,7 +5,6 @@ edition = "2021"
 
 [dependencies]
 polywrap_client = "0.1.5"
-polywrap_client_builder = "0.1.5"
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 serde_yaml = "0.8"

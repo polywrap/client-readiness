@@ -7,7 +7,7 @@ use crate::input::Input;
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
     let str = Input::expect_string(input)?;
 
-    let uri = Uri::new(str.as_str());
+    let uri = Uri::try_from(str)?;
 
     println!("WRAP URI successfully created.");
     println!("uri - {}", uri);

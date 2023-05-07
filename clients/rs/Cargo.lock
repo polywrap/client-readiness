@@ -1356,18 +1356,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "polywrap_client_builder"
-version = "0.1.5"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9d30569ea514ac28b5b6b9ce34ac9727b999515bcf6654a9d4992ee87e98e238"
-dependencies = [
- "polywrap_core",
- "polywrap_resolvers",
- "serde",
- "serde_json",
-]
-
-[[package]]
 name = "polywrap_core"
 version = "0.1.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1717,7 +1705,6 @@ name = "rust-client-readiness"
 version = "0.1.0"
 dependencies = [
  "polywrap_client",
- "polywrap_client_builder",
  "serde",
  "serde_json",
  "serde_yaml",
