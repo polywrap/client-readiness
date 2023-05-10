@@ -4,6 +4,7 @@ use serde_json::Value;
 
 mod uri;
 mod config_embed_wrap_package;
+mod config_env_variables;
 
 type RunTestCaseFn = fn(&Value) -> Result<(), Box<dyn Error>>;
 type Features = HashMap<String, RunTestCaseFn>;

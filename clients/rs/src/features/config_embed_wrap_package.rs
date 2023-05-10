@@ -1,16 +1,8 @@
-use std::{error::Error, path::Path, fs::{File, self}, io::Read, sync::Arc};
+use std::{error::Error, path::Path, fs::{self}, sync::Arc};
 use polywrap_client::{wasm::wasm_package::WasmPackage, core::{file_reader::SimpleFileReader, invoker::Invoker}, builder::types::{BuilderConfig, ClientBuilder, ClientConfigHandler}, client::PolywrapClient};
 use serde_json::Value;
 
 use crate::input::{expect_root_dir, expect_object, expect_string};
-
-fn read_file_to_string(file_path: &str) -> std::io::Result<String> {
-  let path = Path::new(file_path);
-  let mut file = File::open(path)?;
-  let mut content = String::new();
-  file.read_to_string(&mut content)?;
-  Ok(content)
-}
 
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   let input_obj = expect_object::<serde_json::Map<String, Value>>(input)?;
