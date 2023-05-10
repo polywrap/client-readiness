@@ -77,9 +77,9 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
     // TODO: no ergonomic way of retrieving plugin state
     let plugin_counter = todo!();
 
-    if result.is_ok() {
-      println!("counter = {plugin_counter}")
-    }
+    // if result.is_ok() {
+    //   println!("counter = {plugin_counter}")
+    // }
   }
 
   println!("Success!");
