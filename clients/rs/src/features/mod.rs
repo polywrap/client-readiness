@@ -6,6 +6,7 @@ mod uri;
 mod config_embed_wrap_package;
 mod config_env_variables;
 mod config_interface_implementations;
+mod config_plugin_instance;
 
 type RunTestCaseFn = fn(&Value) -> Result<(), Box<dyn Error>>;
 type Features = HashMap<String, RunTestCaseFn>;
