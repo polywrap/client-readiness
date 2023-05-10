@@ -2,10 +2,11 @@ use std::error::Error;
 use serde_json::Value;
 
 use polywrap_client::core::uri::Uri;
-use crate::input::Input;
+
+use crate::input::expect_string;
 
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
-    let str = Input::expect_string(input)?;
+    let str = expect_string(input)?;
 
     let uri = Uri::try_from(str)?;
 

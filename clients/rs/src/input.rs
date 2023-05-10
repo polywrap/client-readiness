@@ -1,46 +1,58 @@
-use serde::{de::{Deserializer, self}, Deserialize, Serialize};
+use polywrap_client::core::uri::Uri;
+use serde_json::Value;
+use std::error::Error;
+use std::fmt;
 
-#[derive(Serialize, Debug)]
-pub struct InputDir(String);
-
-#[derive(Deserialize)]
-struct InputDirIntermediate {
-    input: String,
-    #[serde(rename = "rootDir")]
-    root_dir: String,
+#[derive(Debug, Clone)]
+pub enum InputError {
+    ExpectedObject,
+    ExpectedRootDir,
+    ExpectedString,
+    ExpectedUri,
+    ExpectedArray,
 }
 
-impl<'de> Deserialize<'de> for InputDir {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let intermediate = InputDirIntermediate::deserialize(deserializer)?;
-
-        if intermediate.input.starts_with("$ROOT/") {
-          Ok(InputDir(intermediate.input.replace("$ROOT/", &intermediate.root_dir)))
-        } else {
-          Err(de::Error::custom("expected a string that starts with $ROOT/"))
+impl fmt::Display for InputError {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match *self {
+            InputError::ExpectedObject => f.write_str("expected an object"),
+            InputError::ExpectedRootDir => f.write_str("expected a string that starts with $ROOT/"),
+            InputError::ExpectedString => f.write_str("expected a string"),
+            InputError::ExpectedUri => f.write_str("expected a valid WRAP URI"),
+            InputError::ExpectedArray => f.write_str("expected an array"),
         }
     }
 }
 
-#[cfg(test)]
-mod tests {
-    use serde_json::{json, Value};
+impl Error for InputError {}
 
-    use crate::input::InputDir;
+pub fn expect_object<T: serde::de::DeserializeOwned>(input: &Value) -> Result<T, InputError> {
+    if !input.is_object() {
+        return Err(InputError::ExpectedObject);
+    }
+    serde_json::from_value(input.clone()).map_err(|_| InputError::ExpectedObject)
+}
 
-  #[test]
-  pub fn it_deserializes_root_dir() {
-    let value: Value = json!({
-      "input": "$ROOT/foo/bar",
-      "rootDir": "hee/"
-    });
+pub fn expect_root_dir(input: &Value, root_dir: &str) -> Result<String, InputError> {
+    let s = input.as_str().ok_or(InputError::ExpectedRootDir)?;
+    if !s.contains("$ROOT/") {
+        return Err(InputError::ExpectedRootDir);
+    }
+    Ok(s.replace("$ROOT/", root_dir))
+}
 
+pub fn expect_string(input: &Value) -> Result<String, InputError> {
+    input.as_str().map(String::from).ok_or(InputError::ExpectedString)
+}
 
-    let obj: InputDir = serde_json::from_value(value).unwrap();
+pub fn expect_uri(input: &Value) -> Result<Uri, InputError> {
+    let s = input.as_str().ok_or(InputError::ExpectedUri)?;
+    Uri::try_from(s).map_err(|_| InputError::ExpectedUri)
+}
 
-    assert_eq!(obj.0, "hee/foo/bar")
-  }
+pub fn expect_array<T: serde::de::DeserializeOwned>(input: &Value) -> Result<Vec<T>, InputError> {
+    if !input.is_array() {
+        return Err(InputError::ExpectedArray);
+    }
+    serde_json::from_value(input.clone()).map_err(|_| InputError::ExpectedArray)
 }

@@ -3,6 +3,7 @@ use std::error::Error;
 use serde_json::Value;
 
 mod uri;
+mod config_embed_wrap_package;
 
 type RunTestCaseFn = fn(&Value) -> Result<(), Box<dyn Error>>;
 type Features = HashMap<String, RunTestCaseFn>;
