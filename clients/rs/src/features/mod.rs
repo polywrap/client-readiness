@@ -12,6 +12,7 @@ mod config_resolver;
 mod config_resolver_ext;
 mod config_uri_redirect;
 mod invoke_plugin;
+mod invoke_wrap_wasm_v0_1;
 
 type RunTestCaseFn = fn(&Value) -> Result<(), Box<dyn Error>>;
 type Features = HashMap<String, RunTestCaseFn>;
