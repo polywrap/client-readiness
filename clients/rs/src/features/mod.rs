@@ -11,6 +11,7 @@ mod config_plugin_package;
 mod config_resolver;
 mod config_resolver_ext;
 mod config_uri_redirect;
+mod invoke_plugin;
 
 type RunTestCaseFn = fn(&Value) -> Result<(), Box<dyn Error>>;
 type Features = HashMap<String, RunTestCaseFn>;
