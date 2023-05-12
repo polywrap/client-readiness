@@ -21,6 +21,7 @@ mod resolve_file;
 mod resolve_http;
 mod resolve_package;
 mod resolve_redirect;
+mod subinvoke_plugin_wrap;
 
 type RunTestCaseFn = fn(&Value) -> Result<(), Box<dyn Error>>;
 type Features = HashMap<String, RunTestCaseFn>;
