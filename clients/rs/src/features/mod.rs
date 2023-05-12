@@ -25,6 +25,7 @@ mod subinvoke_plugin_wrap;
 mod subinvoke_wrap_plugin;
 mod wrap_feature_env_vars;
 mod wrap_feature_interface_invoke;
+mod wrap_type_bigint;
 
 type RunTestCaseFn = fn(&Value) -> Result<(), Box<dyn Error>>;
 type Features = HashMap<String, RunTestCaseFn>;

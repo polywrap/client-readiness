@@ -1,21 +1,6 @@
 use std::{error::Error};
 use polywrap_client::{core::{uri::Uri, invoker::Invoker}, builder::types::{BuilderConfig, ClientBuilder, ClientConfigHandler}, client::PolywrapClient, msgpack::msgpack};
-use serde::{Deserialize};
 use serde_json::{Value};
-
-#[derive(Deserialize)]
-struct InputObj {
-  #[serde(rename = "mainEnv")]
-  main_env: Value,
-  #[serde(rename = "extEnv")]
-  ext_env: Value
-}
-
-#[derive(Deserialize)]
-struct SubinvokeMethodResult {
-  local: Value,
-  external: Value
-}
 
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   let root = std::env::current_dir()?.join("../../../../wraps");
