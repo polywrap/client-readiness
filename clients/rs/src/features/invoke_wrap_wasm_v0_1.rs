@@ -3,7 +3,7 @@ use polywrap_client::{core::{invoker::Invoker, file_reader::SimpleFileReader}, b
 use serde::{Deserialize};
 use serde_json::Value;
 
-use crate::input::{expect_object, expect_string, expect_root_dir};
+use crate::input::{expect_object, expect_string, expect_root_dir, expect_uri};
 
 #[derive(Deserialize)]
 struct InputObj {
