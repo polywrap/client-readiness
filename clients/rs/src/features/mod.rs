@@ -26,6 +26,7 @@ mod subinvoke_wrap_plugin;
 mod wrap_feature_env_vars;
 mod wrap_feature_interface_invoke;
 mod wrap_type_bigint;
+mod wrap_type_bignumber;
 mod wrap_type_bytes;
 
 type RunTestCaseFn = fn(&Value) -> Result<(), Box<dyn Error>>;
