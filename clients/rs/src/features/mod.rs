@@ -24,6 +24,7 @@ mod resolve_redirect;
 mod subinvoke_plugin_wrap;
 mod subinvoke_wrap_plugin;
 mod wrap_feature_env_vars;
+mod wrap_feature_interface_invoke;
 
 type RunTestCaseFn = fn(&Value) -> Result<(), Box<dyn Error>>;
 type Features = HashMap<String, RunTestCaseFn>;
