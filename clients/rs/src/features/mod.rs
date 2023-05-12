@@ -14,6 +14,13 @@ mod config_uri_redirect;
 mod invoke_plugin;
 mod invoke_wrap_wasm_v0_1;
 mod resolve_instance;
+mod resolve_ipfs;
+mod resolve_ens_contenthash;
+mod resolve_ens_text_record;
+mod resolve_file;
+mod resolve_http;
+mod resolve_package;
+mod resolve_redirect;
 
 type RunTestCaseFn = fn(&Value) -> Result<(), Box<dyn Error>>;
 type Features = HashMap<String, RunTestCaseFn>;
