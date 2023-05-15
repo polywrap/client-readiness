@@ -1,5 +1,5 @@
 use std::{error::Error, sync::{Arc, Mutex}};
-use polywrap_client::{core::{invoker::Invoker}, builder::types::{BuilderConfig, ClientBuilder, ClientConfigHandler}, client::PolywrapClient, plugin::{with_methods::PluginModuleWithMethods, method::PluginMethod, module::PluginModule, package::PluginPackage}, wrap_manifest::versions::{WrapManifest01, WrapManifest01Abi}};
+use polywrap_client::{core::{invoker::Invoker}, builder::types::{BuilderConfig, ClientBuilder, ClientConfigHandler}, client::PolywrapClient, plugin::{module::PluginModule, package::PluginPackage}, wrap_manifest::versions::{WrapManifest01, WrapManifest01Abi}};
 use serde::{Deserialize, Serialize};
 use serde_json::{Value, Map};
 

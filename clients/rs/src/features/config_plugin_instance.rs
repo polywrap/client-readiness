@@ -1,5 +1,5 @@
 use std::{error::Error, sync::{Mutex, Arc}};
-use polywrap_client::{core::{invoker::Invoker}, builder::types::{BuilderConfig, ClientBuilder, ClientConfigHandler}, client::PolywrapClient, plugin::{implementor::plugin_impl, module::PluginModule, wrapper::PluginWrapper}};
+use polywrap_client::{core::{invoker::Invoker}, builder::types::{BuilderConfig, ClientBuilder, ClientConfigHandler}, client::PolywrapClient, plugin::{module::PluginModule, wrapper::PluginWrapper}};
 use serde::{Deserialize};
 use serde_json::Value;
 
@@ -29,7 +29,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
     }
 
     pub fn increment(&mut self) {
-      self.counter = self.counter + 1;
+      self.counter += 1;
     }
   }
 
@@ -67,7 +67,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   for _ in 0..2 {
     println!("Invoking Plugin Instance");
 
-    let result = client.invoke_raw(
+    let _result = client.invoke_raw(
       &uri,
       &method,
       None,
@@ -76,7 +76,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
     );
 
     // TODO: no ergonomic way of retrieving plugin state
-    let plugin_counter = todo!();
+    todo!();
 
     // if result.is_ok() {
     //   println!("counter = {plugin_counter}")

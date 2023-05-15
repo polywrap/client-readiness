@@ -28,23 +28,23 @@ fn main() -> Result<(), Box<dyn Error>> {
         let feature = features.get(spec_name).unwrap();
 
         println!("====================================");
-        println!("Begin Feature Spec Test Cases [{}]", spec_name);
+        println!("Begin Feature Spec Test Cases [{spec_name}]");
         println!("====================================");
 
         for (test_case_name, test_case) in spec.cases.iter() {
-            println!("$Test Start [{}.{}]", spec_name, test_case_name);
+            println!("$Test Start [{spec_name}.{test_case_name}]");
 
             match feature(&test_case.input) {
                 Ok(_) => (),
                 Err(error) => {
-                    eprintln!("!Test Error [{}.{}]", spec_name, test_case_name);
-                    eprintln!("{}", error);
+                    eprintln!("!Test Error [{spec_name}.{test_case_name}]");
+                    eprintln!("{error}");
                 }
             }
         }
 
         println!("====================================");
-        println!("End Feature Spec Test Cases [{}]", spec_name);
+        println!("End Feature Spec Test Cases [{spec_name}]");
         println!("====================================");
     }
 

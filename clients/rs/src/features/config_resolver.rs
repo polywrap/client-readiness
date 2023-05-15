@@ -1,5 +1,5 @@
 use std::{error::Error, sync::Arc};
-use polywrap_client::{core::{resolvers::{uri_resolver::{UriResolver, UriResolverHandler}, uri_resolution_context::UriPackageOrWrapper, uri_resolver_like::UriResolverLike}, uri::Uri}, builder::types::{BuilderConfig, ClientBuilder, ClientConfigHandler}, client::PolywrapClient};
+use polywrap_client::{core::{resolvers::{uri_resolver::{UriResolver, UriResolverHandler}, uri_resolution_context::UriPackageOrWrapper, uri_resolver_like::UriResolverLike}}, builder::types::{BuilderConfig, ClientBuilder, ClientConfigHandler}, client::PolywrapClient};
 use serde::{Deserialize};
 use serde_json::Value;
 

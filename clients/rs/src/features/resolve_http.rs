@@ -1,5 +1,5 @@
 use std::{error::Error};
-use polywrap_client::{core::{resolvers::{uri_resolver::{UriResolverHandler}, uri_resolution_context::UriPackageOrWrapper, uri_resolver_like::UriResolverLike}, uri::Uri}, builder::types::{BuilderConfig, ClientConfigHandler}, client::PolywrapClient};
+use polywrap_client::{core::{resolvers::{uri_resolver::{UriResolverHandler}, uri_resolution_context::UriPackageOrWrapper}}, builder::types::{BuilderConfig, ClientConfigHandler}, client::PolywrapClient};
 use serde_json::Value;
 
 use crate::input::{expect_uri};

@@ -1,5 +1,5 @@
 use std::{error::Error, fs, path::Path, sync::Arc};
-use polywrap_client::{core::{client::Client, file_reader::SimpleFileReader, resolvers::uri_resolver::UriResolverHandler}, builder::types::{BuilderConfig, ClientBuilder, ClientConfigHandler}, client::PolywrapClient, wasm::{wasm_package::WasmPackage, wasm_wrapper::WasmWrapper}};
+use polywrap_client::{core::{file_reader::SimpleFileReader, resolvers::uri_resolver::UriResolverHandler}, builder::types::{BuilderConfig, ClientBuilder, ClientConfigHandler}, client::PolywrapClient, wasm::{wasm_wrapper::WasmWrapper}};
 use serde::{Deserialize};
 use serde_json::Value;
 
@@ -16,10 +16,10 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   let uri = expect_uri(&input_obj.uri)?;
   let wrap_dir = expect_root_dir(
     &input_obj.directory,
-    &std::env::current_dir()?.join("../../../../").to_str().unwrap()
+    std::env::current_dir()?.join("../../../../").to_str().unwrap()
   )?;
 
-  let manifest = fs::read(Path::new(&wrap_dir).join("wrap.info"))?;
+  let _manifest = fs::read(Path::new(&wrap_dir).join("wrap.info"))?;
   let wasm_module = fs::read(Path::new(&wrap_dir).join("wrap.wasm"))?;
 
   let wrap_instance = WasmWrapper::new(wasm_module, Arc::new(SimpleFileReader::new()));

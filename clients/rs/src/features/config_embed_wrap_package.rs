@@ -9,7 +9,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
 
   let wrap_dir = expect_root_dir(
       input_obj.get("directory").ok_or("Expected directory field")?,
-      &std::env::current_dir()?.join("../../../../").to_str().unwrap(),
+      std::env::current_dir()?.join("../../../../").to_str().unwrap(),
   )?;
 
   let method = expect_string(input_obj.get("method").ok_or("Expected method field")?)?;
@@ -17,7 +17,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
       input_obj.get("args").ok_or("Expected args field")?,
   )?;
 
-  println!("Reading wrap.info & wrap.wasm from {}", wrap_dir);
+  println!("Reading wrap.info & wrap.wasm from {wrap_dir}");
 
   let manifest = fs::read(Path::new(&wrap_dir).join("wrap.info"))?;
   let wasm_module = fs::read(Path::new(&wrap_dir).join("wrap.wasm"))?;
