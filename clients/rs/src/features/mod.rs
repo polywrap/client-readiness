@@ -32,6 +32,7 @@ mod wrap_type_enum;
 mod wrap_type_ints;
 mod wrap_type_json;
 mod wrap_type_map;
+mod wrap_type_object;
 
 type RunTestCaseFn = fn(&Value) -> Result<(), Box<dyn Error>>;
 type Features = HashMap<String, RunTestCaseFn>;
@@ -68,6 +69,7 @@ pub fn get() -> Features {
   features.insert("wrap_type_ints".to_string(), wrap_type_ints::run_test_case);
   features.insert("wrap_type_json".to_string(), wrap_type_json::run_test_case);
   features.insert("wrap_type_map".to_string(), wrap_type_map::run_test_case);
+  features.insert("wrap_type_object".to_string(), wrap_type_object::run_test_case);
 
   features
 }
