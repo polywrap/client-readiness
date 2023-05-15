@@ -44,7 +44,7 @@ pub fn get() -> Features {
   features.insert("config_interface_implementations".to_string(), config_interface_implementations::run_test_case);
   features.insert("config_plugin_instance".to_string(), config_plugin_instance::run_test_case);
   features.insert("config_plugin_package".to_string(), config_plugin_package::run_test_case);
-  // features.insert("config_resolver_ext".to_string(), config_resolver_ext::run_test_case);
+  features.insert("config_resolver_ext".to_string(), config_resolver_ext::run_test_case);
   features.insert("config_resolver".to_string(), config_resolver::run_test_case);
   features.insert("config_uri_redirect".to_string(), config_uri_redirect::run_test_case);
   features.insert("invoke_plugin".to_string(), invoke_plugin::run_test_case);

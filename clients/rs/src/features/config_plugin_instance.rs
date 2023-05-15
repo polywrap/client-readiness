@@ -44,7 +44,8 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
           match method_name {
             "increment" => {
               self.increment();
-              Ok(vec![])
+              let msgpack_null = vec![192];
+              Ok(msgpack_null)
             },
             _ => panic!("Unrecognized method: {method_name}")
           }

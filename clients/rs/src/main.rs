@@ -5,6 +5,7 @@ use std::path::PathBuf;
 mod feature_specs;
 mod features;
 mod input;
+mod utils;
 
 fn main() -> Result<(), Box<dyn Error>> {
     // Optional 2nd argument, spec filter

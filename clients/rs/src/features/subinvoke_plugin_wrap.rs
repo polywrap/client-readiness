@@ -4,7 +4,6 @@ use polywrap_client::{
     core::{invoker::Invoker, uri::Uri, file_reader::SimpleFileReader, package::WrapPackage},
     plugin::{module::PluginModule, package::PluginPackage},
     wasm::wasm_package::WasmPackage,
-    wrap_manifest::versions::{WrapManifest01, WrapManifest01Abi},
 };
 use serde::{Deserialize};
 use serde_json::{Value};
@@ -13,7 +12,7 @@ use std::{
     sync::{Arc, Mutex}, fs, path::Path,
 };
 
-use crate::input::{expect_object, expect_root_dir, expect_string};
+use crate::{input::{expect_object, expect_root_dir, expect_string}, utils::get_default_manifest};
 
 #[derive(Deserialize)]
 struct InputObj {
@@ -96,31 +95,13 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
     let wrap_package = WasmPackage::new(Arc::new(SimpleFileReader::new()), Some(manifest), Some(wasm_module));
     let wrap_uri: Uri =  "embed/foo".try_into()?;
 
-    let default_manifest = WrapManifest01 {
-      abi: WrapManifest01Abi {
-          enum_types: None,
-          env_type: None,
-          imported_enum_types: None,
-          imported_env_types: None,
-          imported_module_types: None,
-          imported_object_types: None,
-          interface_types: None,
-          module_type: None,
-          object_types: None,
-          version: None,
-      },
-      name: String::from(""),
-      type_: String::from(""),
-      version: String::from(""),
-    };
-
     let plugin_package = PluginPackage::new(
         Arc::new(Mutex::new(Box::new(Plugin::new(
           subinvoke_args,
           subinvoke_method,
           wrap_uri.clone(),
         )))),
-        default_manifest,
+        get_default_manifest(),
     );
 
     let mut config: BuilderConfig = BuilderConfig::new(None);

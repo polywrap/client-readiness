@@ -1,6 +1,6 @@
 use polywrap_client::{
   plugin::{module::PluginModule, package::PluginPackage},
-  wrap_manifest::versions::{WrapManifest01, WrapManifest01Abi}, wasm::wasm_package::WasmPackage, core::{file_reader::SimpleFileReader, package::WrapPackage, invoker::Invoker}, builder::types::{BuilderConfig, ClientBuilder, ClientConfigHandler}, client::PolywrapClient,
+  wasm::wasm_package::WasmPackage, core::{file_reader::SimpleFileReader, package::WrapPackage, invoker::Invoker}, builder::types::{BuilderConfig, ClientBuilder, ClientConfigHandler}, client::PolywrapClient,
 };
 use serde::{Deserialize, Serialize};
 use serde_json::{Value};
@@ -9,7 +9,7 @@ use std::{
   fs, path::Path, sync::{Arc, Mutex},
 };
 
-use crate::input::{expect_object, expect_root_dir, expect_string, expect_uri};
+use crate::{input::{expect_object, expect_root_dir, expect_string, expect_uri}, utils::get_default_manifest};
 
 #[derive(Deserialize)]
 struct InputObj {
@@ -79,28 +79,10 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
 
   let wrap_package = WasmPackage::new(Arc::new(SimpleFileReader::new()), Some(manifest), Some(wasm_module));
   let root_wrap_uri = expect_uri(&root_wrap_obj.uri)?;
-
-  let default_manifest = WrapManifest01 {
-    abi: WrapManifest01Abi {
-        enum_types: None,
-        env_type: None,
-        imported_enum_types: None,
-        imported_env_types: None,
-        imported_module_types: None,
-        imported_object_types: None,
-        interface_types: None,
-        module_type: None,
-        object_types: None,
-        version: None,
-    },
-    name: String::from(""),
-    type_: String::from(""),
-    version: String::from(""),
-  };
   
   let sub_wrap_package = PluginPackage::new(
       Arc::new(Mutex::new(Box::new(Plugin {}))),
-      default_manifest,
+      get_default_manifest(),
   );
 
   let mut config: BuilderConfig = BuilderConfig::new(None);
