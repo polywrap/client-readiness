@@ -20,10 +20,11 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   let input_obj = expect_object::<InputObj>(input)?;
   let map = expect_object::<GenericMap<String, i32>>(&input_obj.map)?;
 
-  let root = std::env::current_dir()?.join("../../../../wraps").to_str().unwrap();
+  let binding = std::env::current_dir()?.join("../../../../wraps");
+  let root = binding.to_str().unwrap();
   let uri: Uri = format!("fs/{root}/map-type/implementations/as").try_into()?;
 
-  let mut config: BuilderConfig = BuilderConfig::new(None);
+  let config: BuilderConfig = BuilderConfig::new(None);
 
   let config = config.build();
   let client: PolywrapClient = PolywrapClient::new(config);

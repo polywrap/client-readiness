@@ -25,10 +25,12 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   let ext_env = input_obj.ext_env;
 
   let root = std::env::current_dir()?.join("../../../../wraps");
-  let external_wrapper_path = root.join("/env-type/00-external/implementations/as").to_str().unwrap();
+  let binding = root.join("/env-type/00-external/implementations/as");
+  let external_wrapper_path = binding.to_str().unwrap();
   let external_wrapper_uri: Uri = format!("file/{external_wrapper_path}").try_into()?;
 
-  let wrapper_path = root.join("/env-type/01-main/implementations/as").to_str().unwrap();
+  let binding = root.join("/env-type/01-main/implementations/as");
+  let wrapper_path = binding.to_str().unwrap();
   let wrapper_uri: Uri = format!("file/{wrapper_path}").try_into()?;
 
   let mut envs: HashMap<String, Env> = HashMap::new();

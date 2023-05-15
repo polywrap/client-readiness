@@ -1,9 +1,9 @@
 use std::{error::Error, sync::{Arc}, fs, path::Path};
-use polywrap_client::{core::{invoker::Invoker, file_reader::SimpleFileReader}, builder::types::{BuilderConfig, ClientBuilder, ClientConfigHandler}, client::PolywrapClient, wrap_manifest::versions::{WrapManifest01Abi, WrapManifest01}, plugin::{package::PluginPackage, module::PluginModule}, wasm::wasm_package::WasmPackage};
+use polywrap_client::{core::{invoker::Invoker, file_reader::SimpleFileReader}, builder::types::{BuilderConfig, ClientBuilder, ClientConfigHandler}, client::PolywrapClient, wasm::wasm_package::WasmPackage};
 use serde::{Deserialize};
 use serde_json::Value;
 
-use crate::input::{expect_object, expect_string, expect_root_dir, expect_uri};
+use crate::input::{expect_object, expect_string, expect_root_dir};
 
 #[derive(Deserialize)]
 struct InputObj {

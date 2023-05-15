@@ -1,5 +1,5 @@
 use std::{error::Error, sync::{Mutex, Arc}};
-use polywrap_client::{core::{client::Client, invoker::Invoker}, builder::types::{BuilderConfig, ClientBuilder, ClientConfigHandler}, client::PolywrapClient, plugin::{implementor::plugin_impl, module::PluginModule, wrapper::PluginWrapper}};
+use polywrap_client::{core::{invoker::Invoker}, builder::types::{BuilderConfig, ClientBuilder, ClientConfigHandler}, client::PolywrapClient, plugin::{implementor::plugin_impl, module::PluginModule, wrapper::PluginWrapper}};
 use serde::{Deserialize};
 use serde_json::Value;
 
@@ -37,9 +37,9 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
       fn _wrap_invoke(
           &mut self,
           method_name: &str,
-          params: &[u8],
-          env: Option<&polywrap_client::core::env::Env>,
-          invoker: std::sync::Arc<dyn polywrap_client::core::invoker::Invoker>,
+          _: &[u8],
+          _: Option<&polywrap_client::core::env::Env>,
+          _: std::sync::Arc<dyn polywrap_client::core::invoker::Invoker>,
       ) -> Result<Vec<u8>, polywrap_client::plugin::error::PluginError> {
           match method_name {
             "increment" => {
