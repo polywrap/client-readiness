@@ -73,7 +73,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   });
 
   let mut config: BuilderConfig = BuilderConfig::new(None);
-  config.add_package(uri.try_into()?, Arc::new(plugin_package));
+  config.add_package(uri.clone().try_into()?, Arc::new(plugin_package));
   
   let config = config.build();
   let client: PolywrapClient = PolywrapClient::new(config);

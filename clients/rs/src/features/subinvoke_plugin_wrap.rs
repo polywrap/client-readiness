@@ -23,24 +23,18 @@ struct InputObj {
 }
 
 #[derive(Debug)]
-struct Wrap {
-    package: WasmPackage,
-    uri: Uri,
-}
-
-#[derive(Debug)]
 struct Plugin {
     subinvoke_args: Value,
     subinvoke_method: String,
-    wrap: Wrap,
+    subinvoke_uri: Uri,
 }
 
 impl Plugin {
-    pub fn new(subinvoke_args: Value, subinvoke_method: String, wrap: Wrap) -> Self {
+    pub fn new(subinvoke_args: Value, subinvoke_method: String, subinvoke_uri: Uri) -> Self {
         Self {
             subinvoke_args,
             subinvoke_method,
-            wrap,
+            subinvoke_uri,
         }
     }
 
@@ -51,7 +45,7 @@ impl Plugin {
         let subinvoke_method = &self.subinvoke_method;
         println!("Subinvoking {subinvoke_method}");
         let res = invoker.invoke_raw(
-            &self.wrap.uri,
+            &self.subinvoke_uri,
             subinvoke_method,
             Some(&polywrap_client::msgpack::serialize(&self.subinvoke_args)?),
             None,
@@ -85,28 +79,11 @@ impl PluginModule for Plugin {
     }
 }
 
-const default_manifest: WrapManifest01 = WrapManifest01 {
-  abi: WrapManifest01Abi {
-      enum_types: None,
-      env_type: None,
-      imported_enum_types: None,
-      imported_env_types: None,
-      imported_module_types: None,
-      imported_object_types: None,
-      interface_types: None,
-      module_type: None,
-      object_types: None,
-      version: None,
-  },
-  name: String::from(""),
-  type_: String::from(""),
-  version: String::from(""),
-};
-
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
     let input_obj = expect_object::<InputObj>(input)?;
-    let root_dir = std::env::current_dir()?
-        .join("../../../../")
+    let binding = std::env::current_dir()?
+        .join("../../../../");
+    let root_dir = binding
         .to_str()
         .unwrap();
     let wrap_dir = expect_root_dir(&input_obj.directory, root_dir)?;
@@ -116,23 +93,39 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
     let manifest = fs::read(Path::new(&wrap_dir).join("wrap.info"))?;
     let wasm_module = fs::read(Path::new(&wrap_dir).join("wrap.wasm"))?;
 
-    let wrap = Wrap {
-      package: WasmPackage::new(Arc::new(SimpleFileReader::new()), Some(manifest), Some(wasm_module)),
-      uri: "embed/foo".try_into()?
+    let wrap_package = WasmPackage::new(Arc::new(SimpleFileReader::new()), Some(manifest), Some(wasm_module));
+    let wrap_uri: Uri =  "embed/foo".try_into()?;
+
+    let default_manifest = WrapManifest01 {
+      abi: WrapManifest01Abi {
+          enum_types: None,
+          env_type: None,
+          imported_enum_types: None,
+          imported_env_types: None,
+          imported_module_types: None,
+          imported_object_types: None,
+          interface_types: None,
+          module_type: None,
+          object_types: None,
+          version: None,
+      },
+      name: String::from(""),
+      type_: String::from(""),
+      version: String::from(""),
     };
 
     let plugin_package = PluginPackage::new(
         Arc::new(Mutex::new(Box::new(Plugin::new(
           subinvoke_args,
           subinvoke_method,
-          wrap,
+          wrap_uri.clone(),
         )))),
         default_manifest,
     );
 
     let mut config: BuilderConfig = BuilderConfig::new(None);
     let packages = vec![
-      (wrap.uri.clone(), Arc::new(wrap.package) as Arc<dyn WrapPackage>),
+      (wrap_uri, Arc::new(wrap_package) as Arc<dyn WrapPackage>),
       ("plugin/bar".try_into()?, Arc::new(plugin_package))
     ];
     config.add_packages(packages);

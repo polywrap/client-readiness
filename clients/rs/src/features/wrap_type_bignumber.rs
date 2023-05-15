@@ -1,30 +1,33 @@
 use std::{error::Error};
-use polywrap_client::{core::{uri::Uri, invoker::Invoker}, builder::types::{BuilderConfig, ClientConfigHandler}, client::PolywrapClient};
+use polywrap_client::{core::{uri::Uri}, builder::types::{BuilderConfig, ClientConfigHandler}, client::PolywrapClient};
 use serde::{Deserialize};
 use serde_json::{Value};
 
-use crate::input::expect_object;
+use crate::input::{expect_object, expect_string};
 
 #[derive(Deserialize)]
 struct InputObj {
+  method: Value,
   args: Value,
 }
 
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   let input_obj = expect_object::<InputObj>(input)?;
+  let method = expect_string(&input_obj.method)?;
   let args = input_obj.args;
 
   let root = std::env::current_dir()?.join("../../../../wraps").to_str().unwrap();
-  let uri: Uri = format!("fs/{root}/bignumber-type/implementations/as").try_into()?;
+  let uri: Uri = format!("fs/{root}/enum-type/implementations/as").try_into()?;
 
   let mut config: BuilderConfig = BuilderConfig::new(None);
 
   let config = config.build();
   let client: PolywrapClient = PolywrapClient::new(config);
 
-  println!("Invoking method");
+  println!("Invoking {method}");
 
-  let result = client.invoke_raw(
+  //TODO: enum display?
+  let result = client.invoke::<Value>(
     &uri,
     "method",
     Some(&polywrap_client::msgpack::serialize(&args)?),
@@ -34,9 +37,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
 
   match result {
     Ok(result) => {
-      let bignumber: String = polywrap_client::msgpack::decode(&result)?;
-
-      println!("Result: {bignumber}");
+      println!("Result: {result}");
       println!("Success!");
     },
     Err(err) => panic!("{err}"),

@@ -28,6 +28,10 @@ mod wrap_feature_interface_invoke;
 mod wrap_type_bigint;
 mod wrap_type_bignumber;
 mod wrap_type_bytes;
+mod wrap_type_enum;
+mod wrap_type_ints;
+mod wrap_type_json;
+mod wrap_type_map;
 
 type RunTestCaseFn = fn(&Value) -> Result<(), Box<dyn Error>>;
 type Features = HashMap<String, RunTestCaseFn>;

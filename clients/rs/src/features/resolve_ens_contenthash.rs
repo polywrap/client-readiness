@@ -6,12 +6,12 @@ use crate::input::{expect_uri};
 
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   let uri = expect_uri(input)?;
-  let uri_authority = uri.authority;
+  let uri_authority = &uri.authority;
   let uri_string = uri.to_string();
 
   println!("URI Authority: {uri_authority}");
 
-  let mut config: BuilderConfig = BuilderConfig::new(None);
+  let config: BuilderConfig = BuilderConfig::new(None);
   
   let config = config.build();
   let client: PolywrapClient = PolywrapClient::new(config);
@@ -25,7 +25,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
     UriPackageOrWrapper::Package(_, _) => "package",
   };
 
-  if let UriPackageOrWrapper::Uri(result_uri) = result {
+  if let UriPackageOrWrapper::Uri(_) = result {
     println!("Received: '{result_type}'");
     println!("Success!");
   }

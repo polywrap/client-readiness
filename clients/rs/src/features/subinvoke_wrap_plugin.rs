@@ -42,7 +42,7 @@ impl PluginModule for Plugin {
       method_name: &str,
       params: &[u8],
       _: Option<&polywrap_client::core::env::Env>,
-      invoker: std::sync::Arc<dyn polywrap_client::core::invoker::Invoker>,
+      _: std::sync::Arc<dyn polywrap_client::core::invoker::Invoker>,
   ) -> Result<Vec<u8>, polywrap_client::plugin::error::PluginError> {
       match method_name {
           "add" => {
@@ -56,28 +56,11 @@ impl PluginModule for Plugin {
   }
 }
 
-const default_manifest: WrapManifest01 = WrapManifest01 {
-abi: WrapManifest01Abi {
-    enum_types: None,
-    env_type: None,
-    imported_enum_types: None,
-    imported_env_types: None,
-    imported_module_types: None,
-    imported_object_types: None,
-    interface_types: None,
-    module_type: None,
-    object_types: None,
-    version: None,
-},
-name: String::from(""),
-type_: String::from(""),
-version: String::from(""),
-};
-
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   let input_obj = expect_object::<InputObj>(input)?;
-  let root_dir = std::env::current_dir()?
-      .join("../../../../")
+  let binding = std::env::current_dir()?
+      .join("../../../../");
+  let root_dir = binding
       .to_str()
       .unwrap();
   let sub_wrap_uri = expect_uri(&input_obj.sub_wrap_uri)?;
@@ -97,6 +80,24 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   let wrap_package = WasmPackage::new(Arc::new(SimpleFileReader::new()), Some(manifest), Some(wasm_module));
   let root_wrap_uri = expect_uri(&root_wrap_obj.uri)?;
 
+  let default_manifest = WrapManifest01 {
+    abi: WrapManifest01Abi {
+        enum_types: None,
+        env_type: None,
+        imported_enum_types: None,
+        imported_env_types: None,
+        imported_module_types: None,
+        imported_object_types: None,
+        interface_types: None,
+        module_type: None,
+        object_types: None,
+        version: None,
+    },
+    name: String::from(""),
+    type_: String::from(""),
+    version: String::from(""),
+  };
+  
   let sub_wrap_package = PluginPackage::new(
       Arc::new(Mutex::new(Box::new(Plugin {}))),
       default_manifest,
@@ -104,7 +105,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
 
   let mut config: BuilderConfig = BuilderConfig::new(None);
   let packages = vec![
-    (root_wrap_uri, Arc::new(wrap_package) as Arc<dyn WrapPackage>),
+    (root_wrap_uri.clone(), Arc::new(wrap_package) as Arc<dyn WrapPackage>),
     (sub_wrap_uri, Arc::new(sub_wrap_package))
   ];
   config.add_packages(packages);

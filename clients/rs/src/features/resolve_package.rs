@@ -1,5 +1,5 @@
 use std::{error::Error, fs, path::Path, sync::Arc};
-use polywrap_client::{core::{file_reader::SimpleFileReader, resolvers::uri_resolver::UriResolverHandler}, builder::types::{BuilderConfig, ClientBuilder, ClientConfigHandler}, client::PolywrapClient, wasm::{wasm_package::WasmPackage, wasm_wrapper::WasmWrapper}};
+use polywrap_client::{core::{file_reader::SimpleFileReader, resolvers::uri_resolver::UriResolverHandler}, builder::types::{BuilderConfig, ClientBuilder, ClientConfigHandler}, client::PolywrapClient, wasm::{wasm_package::WasmPackage}};
 use serde::{Deserialize};
 use serde_json::Value;
 

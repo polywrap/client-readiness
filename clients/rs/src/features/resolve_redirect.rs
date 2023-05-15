@@ -19,7 +19,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   println!("Adding URI Redirect to ClientConfig");
 
   let mut config: BuilderConfig = BuilderConfig::new(None);
-  config.add_redirect(from.try_into()?, to.try_into()?);
+  config.add_redirect(from.clone().try_into()?, to.try_into()?);
   
   let config = config.build();
   let client: PolywrapClient = PolywrapClient::new(config);

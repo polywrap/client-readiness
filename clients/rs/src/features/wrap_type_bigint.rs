@@ -1,5 +1,5 @@
 use std::{error::Error};
-use polywrap_client::{core::{uri::Uri, invoker::Invoker}, builder::types::{BuilderConfig, ClientConfigHandler}, client::PolywrapClient};
+use polywrap_client::{core::{uri::Uri}, builder::types::{BuilderConfig, ClientConfigHandler}, client::PolywrapClient};
 use serde::{Deserialize};
 use serde_json::{Value};
 
@@ -24,7 +24,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
 
   println!("Invoking method");
 
-  let result = client.invoke_raw(
+  let result = client.invoke::<String>(
     &uri,
     "method",
     Some(&polywrap_client::msgpack::serialize(&args)?),
@@ -34,9 +34,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
 
   match result {
     Ok(result) => {
-      let bigint: String = polywrap_client::msgpack::decode(&result)?;
-
-      println!("Result: {bigint}");
+      println!("Result: {result}");
       println!("Success!");
     },
     Err(err) => panic!("{err}"),
