@@ -5,7 +5,7 @@ from input import Input
 def run_test_case(input: Any) -> None:
     str_value = Input.expect_string(input)
 
-    uri = Uri(str_value)
+    uri = Uri.from_str(str_value)
 
     print("WRAP URI successfully created.")
     print(f"uri - {uri}")
