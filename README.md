@@ -45,3 +45,27 @@ A place to define a "readiness checklist" for all Polywrap clients to adhere to.
 | | `JSON` | Yes | [:mag:](./specs/wrap_type_json.yaml) | [:heavy_check_mark:](./clients/js/src/features/wrap_type_json.ts) |  
 | | `Array<T>` | Yes | TODO | TODO |  
 | | `Map<K, V>` | Yes | [:mag:](./specs/wrap_type_map.yaml) | [:heavy_check_mark:](./clients/js/src/features/wrap_type_map.ts) |  
+
+
+## Build & Contribute
+
+### Prerequisites
+
+- [NVM](https://github.com/nvm-sh/nvm)
+- [Curl](https://curl.se/)
+- [Yarn](https://yarnpkg.com/)
+
+### Install
+
+```bash
+./install.sh
+```
+
+### Usage
+
+```bash
+./run.sh [implementation] [feature]
+```
+
+- implementation (e.g: js|rs|py)
+- feature (e.g: resolve_http|uri) -> check [specs](./specs) for all features
