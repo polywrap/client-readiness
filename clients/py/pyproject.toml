@@ -8,7 +8,18 @@ version = "0.1.0"
 python = "^3.10"
 pyyaml = "^5.4.1"
 importlib-metadata = "^4.8.1"
-polywrap-client = "^0.1.0a29"
+polywrap-msgpack = { path = "../../../python-client/packages/polywrap-msgpack", develop = true }
+polywrap-manifest = { path = "../../../python-client/packages/polywrap-manifest", develop = true }
+polywrap-core = { path = "../../../python-client/packages/polywrap-core", develop = true }
+polywrap-wasm = { path = "../../../python-client/packages/polywrap-wasm", develop = true }
+polywrap-plugin = { path = "../../../python-client/packages/polywrap-plugin", develop = true }
+polywrap-uri-resolvers = { path = "../../../python-client/packages/polywrap-uri-resolvers", develop = true }
+polywrap-client = { path = "../../../python-client/packages/polywrap-client", develop = true }
+polywrap-client-config-builder = { path = "../../../python-client/packages/polywrap-client-config-builder", develop = true }
+
+[tool.poetry.group.dev.dependencies]
+pydantic = "^1.10.9"
+black = "^23.3.0"
 
 [build-system]
 requires = ["poetry-core>=1.1.0"]
