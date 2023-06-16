@@ -1,20 +1,20 @@
 required: true
 cases:
   http:
-    input: wrap://http/raw.githubusercontent.com/polywrap/client-readiness/init-scaffolding/wraps/public
+    input: wrap://http/raw.githubusercontent.com/polywrap/client-readiness/main/wraps/public
     output:
       stdout:
         - "$Test Start [resolve_http.http]"
         - "URI Authority: http"
-        - "Resolving: wrap://http/raw.githubusercontent.com/polywrap/client-readiness/init-scaffolding/wraps/public"
+        - "Resolving: wrap://http/raw.githubusercontent.com/polywrap/client-readiness/main/wraps/public"
         - "Received: package"
         - Success!
   https:
-    input: wrap://https/raw.githubusercontent.com/polywrap/client-readiness/init-scaffolding/wraps/public
+    input: wrap://https/raw.githubusercontent.com/polywrap/client-readiness/main/wraps/public
     output:
       stdout:
         - "$Test Start [resolve_http.https]"
         - "URI Authority: https"
-        - "Resolving: wrap://https/raw.githubusercontent.com/polywrap/client-readiness/init-scaffolding/wraps/public"
+        - "Resolving: wrap://https/raw.githubusercontent.com/polywrap/client-readiness/main/wraps/public"
         - "Received: package"
         - Success!
