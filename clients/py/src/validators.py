@@ -24,7 +24,17 @@ def validate_uri(v: Any) -> Uri:
     if isinstance(v, Uri):
         return v
 
-    if not isinstance(v, str) or not Uri.is_canonical_uri(v):
+    if not isinstance(v, str):
         raise ValueError("expected a valid WRAP URI")
 
     return Uri.from_str(v)
+
+
+class UriStr(Uri):
+    @classmethod
+    def __get_validators__(cls):
+        yield cls.validate
+
+    @classmethod
+    def validate(cls, v: Any):
+        return validate_uri(v)

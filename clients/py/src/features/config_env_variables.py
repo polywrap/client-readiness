@@ -3,14 +3,14 @@ from polywrap_client_config_builder import PolywrapClientConfigBuilder
 from pydantic import BaseModel, validator
 from typing import Any, TypedDict
 import sys
-from validators import validate_uri
+from validators import UriStr, validate_uri
 
 
 Env = TypedDict("Env", {"str": str, "num": int})
 
 
 class TestCaseInput(BaseModel):
-    uri: Any
+    uri: UriStr
     env: Env
 
     @validator("uri")
