@@ -47,8 +47,8 @@ def main():
             try:
                 feature.run_test_case(test_case.input)
             except Exception as e:
-                print(f"!Test Error [{spec_name}.{test_case_name}]")
-                print(e)
+                print(f"!Test Error [{spec_name}.{test_case_name}]", file=sys.stderr)
+                print(e, file=sys.stderr)
 
         print("====================================")
         print(f"End Feature Spec Test Cases [{spec_name}]")

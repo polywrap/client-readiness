@@ -5,6 +5,7 @@ from polywrap_uri_resolvers import SimpleFileReader, FsUriResolver
 from polywrap_core import Uri
 from pathlib import Path
 
+
 def run_test_case(_: Any) -> None:
     root = Path(__file__).parent.parent.parent.parent.parent / "wraps"
     interface_uri = Uri.from_str("wrap://ens/interface.eth")

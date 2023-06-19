@@ -30,9 +30,7 @@ def run_test_case(input: Any) -> None:
     response = client.invoke(
         uri=uri,
         method="returnMap",
-        args={
-            "map": input_obj.map
-        },
+        args={"map": input_obj.map},
     )
 
     if not response:

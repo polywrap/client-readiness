@@ -1,5 +1,4 @@
 from typing import Any
-import sys
 from pathlib import Path
 from polywrap_core import Uri
 
@@ -27,7 +26,7 @@ class TestCaseInput(BaseModel):
 def run_test_case(input: Any) -> None:
     input_obj = TestCaseInput.validate(input)
 
-    print(f"Reading wrap.info & wrap.wasm from {input_obj.directory}")
+    print(f"Reading wrap.info & wrap.wasm from {input['directory']}")
 
     with open(Path(input_obj.directory, "wrap.info"), "rb") as file:
         manifest = file.read()
@@ -43,7 +42,7 @@ def run_test_case(input: Any) -> None:
 
     config = (
         PolywrapClientConfigBuilder()
-        .set_package(Uri("embed", "foo"), wrap_package)
+        .set_package(Uri("embed", "str"), wrap_package)
         .build()
     )
     client = PolywrapClient(config)
@@ -56,4 +55,4 @@ def run_test_case(input: Any) -> None:
         )
         print("Success!")
     except Exception as e:
-        print(e, file=sys.stderr)
+        print(e)

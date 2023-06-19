@@ -1,6 +1,5 @@
 from typing import Any
 from pydantic import BaseModel
-import sys
 from polywrap_client import PolywrapClient
 from polywrap_core import Uri, UriPackageOrWrapper, UriResolver
 from polywrap_client_config_builder import PolywrapClientConfigBuilder
@@ -42,4 +41,4 @@ def run_test_case(input: Any) -> None:
             print(f"Received URI '{uri}'")
             print("Success!")
         case _:
-            print("Failed to resolve URI.", file=sys.stderr)
+            print("Failed to resolve URI.")

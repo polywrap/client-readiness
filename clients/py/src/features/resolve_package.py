@@ -34,14 +34,10 @@ def run_test_case(input: Any) -> None:
         wasm_module = f.read()
 
     wrap_package = WasmPackage(
-        file_reader=NotImplemented,manifest=manifest, wasm_module=wasm_module
+        file_reader=NotImplemented, manifest=manifest, wasm_module=wasm_module
     )
 
-    config = (
-        PolywrapClientConfigBuilder()
-        .set_package(uri, wrap_package)
-        .build()
-    )
+    config = PolywrapClientConfigBuilder().set_package(uri, wrap_package).build()
 
     client = PolywrapClient(config)
 
@@ -51,7 +47,7 @@ def run_test_case(input: Any) -> None:
 
     match result:
         case UriPackage():
-            print("Received: UriPackage")
+            print("Received: package")
             print("Success!")
         case _:
             print("Failed!")

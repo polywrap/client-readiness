@@ -1,5 +1,4 @@
 from typing import Any
-import sys
 from polywrap_client import PolywrapClient
 from polywrap_client_config_builder import PolywrapClientConfigBuilder
 from polywrap_plugin import PluginModule, PluginWrapper
@@ -20,7 +19,7 @@ class Plugin(PluginModule[None]):
     def __init__(self, config: None):
         super().__init__(config)
 
-    def increment(self):
+    def increment(self, *_: Any):
         self.counter += 1
 
 
@@ -49,6 +48,6 @@ def run_test_case(input: Any) -> None:
 
             print(f"counter = {plugin.counter}")
         except Exception as e:
-            print(e, file=sys.stderr)
+            print(e)
 
     print("Success!")

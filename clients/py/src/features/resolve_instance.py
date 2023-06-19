@@ -32,13 +32,11 @@ def run_test_case(input: Any) -> None:
     with open(wrap_dir / "wrap.wasm", "rb") as f:
         wasm_module = f.read()
 
-    wrap_instance = WasmWrapper(file_reader=NotImplemented,manifest=manifest, wasm_module=wasm_module)
-
-    config = (
-        PolywrapClientConfigBuilder()
-        .set_wrapper(uri, wrap_instance)
-        .build()
+    wrap_instance = WasmWrapper(
+        file_reader=NotImplemented, manifest=manifest, wasm_module=wasm_module
     )
+
+    config = PolywrapClientConfigBuilder().set_wrapper(uri, wrap_instance).build()
 
     client = PolywrapClient(config)
 
@@ -48,7 +46,7 @@ def run_test_case(input: Any) -> None:
 
     match result:
         case UriWrapper():
-            print("Received: UriWrapper")
+            print("Received: wrapper")
             print("Success!")
         case _:
             print("Failed!")

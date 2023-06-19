@@ -207,14 +207,14 @@ files = [
 
 [[package]]
 name = "platformdirs"
-version = "3.5.3"
+version = "3.6.0"
 description = "A small Python package for determining appropriate platform-specific dirs, e.g. a \"user data dir\"."
 category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "platformdirs-3.5.3-py3-none-any.whl", hash = "sha256:0ade98a4895e87dc51d47151f7d2ec290365a585151d97b4d8d6312ed6132fed"},
-    {file = "platformdirs-3.5.3.tar.gz", hash = "sha256:e48fabd87db8f3a7df7150a4a5ea22c546ee8bc39bc2473244730d4b56d2cc4e"},
+    {file = "platformdirs-3.6.0-py3-none-any.whl", hash = "sha256:ffa199e3fbab8365778c4a10e1fbf1b9cd50707de826eb304b50e57ec0cc8d38"},
+    {file = "platformdirs-3.6.0.tar.gz", hash = "sha256:57e28820ca8094678b807ff529196506d7a21e17156cb1cddb3e74cebce54640"},
 ]
 
 [package.extras]
@@ -223,152 +223,136 @@ test = ["appdirs (==1.4.4)", "covdefaults (>=2.3)", "pytest (>=7.3.1)", "pytest-
 
 [[package]]
 name = "polywrap-client"
-version = "0.1.0a29"
+version = "0.1.0a33"
 description = ""
 category = "main"
 optional = false
-python-versions = "^3.10"
-files = []
-develop = true
+python-versions = ">=3.10,<4.0"
+files = [
+    {file = "polywrap_client-0.1.0a33-py3-none-any.whl", hash = "sha256:10ee0fe785930015fe8b6e5b1d818ca643324da674f62736ea91c9dceb4d7373"},
+    {file = "polywrap_client-0.1.0a33.tar.gz", hash = "sha256:47c4448432e62ce90a8851c61a6e0a1d46395e57ac58cf55518caa8644769ab5"},
+]
 
 [package.dependencies]
-polywrap-core = {path = "../polywrap-core", develop = true}
-polywrap-manifest = {path = "../polywrap-manifest", develop = true}
-polywrap-msgpack = {path = "../polywrap-msgpack", develop = true}
-
-[package.source]
-type = "directory"
-url = "../../../python-client/packages/polywrap-client"
+polywrap-core = ">=0.1.0a33,<0.2.0"
+polywrap-manifest = ">=0.1.0a33,<0.2.0"
+polywrap-msgpack = ">=0.1.0a33,<0.2.0"
 
 [[package]]
 name = "polywrap-client-config-builder"
-version = "0.1.0a29"
+version = "0.1.0a33"
 description = ""
 category = "main"
 optional = false
-python-versions = "^3.10"
-files = []
-develop = true
+python-versions = ">=3.10,<4.0"
+files = [
+    {file = "polywrap_client_config_builder-0.1.0a33-py3-none-any.whl", hash = "sha256:6e1f28fa2ed530c8bde86588cb419587eb208c7439728823a311d67bb585a997"},
+    {file = "polywrap_client_config_builder-0.1.0a33.tar.gz", hash = "sha256:d2d4689d779178297674cafe43964a3461dd2968458b2390aa2fb17ec0040e13"},
+]
 
 [package.dependencies]
-polywrap-core = {path = "../polywrap-core", develop = true}
-polywrap-uri-resolvers = {path = "../polywrap-uri-resolvers", develop = true}
-
-[package.source]
-type = "directory"
-url = "../../../python-client/packages/polywrap-client-config-builder"
+polywrap-core = ">=0.1.0a33,<0.2.0"
+polywrap-uri-resolvers = ">=0.1.0a33,<0.2.0"
 
 [[package]]
 name = "polywrap-core"
-version = "0.1.0a29"
+version = "0.1.0a33"
 description = ""
 category = "main"
 optional = false
-python-versions = "^3.10"
-files = []
-develop = true
+python-versions = ">=3.10,<4.0"
+files = [
+    {file = "polywrap_core-0.1.0a33-py3-none-any.whl", hash = "sha256:bdfab6d5c84e352f9d6a199af38fcff228e503d174d1878fb1f741477e18f761"},
+    {file = "polywrap_core-0.1.0a33.tar.gz", hash = "sha256:e85c70f9ef144423da553885811371bc06105f392064550cf82c752c2340c00d"},
+]
 
 [package.dependencies]
-polywrap-manifest = {path = "../polywrap-manifest", develop = true}
-polywrap-msgpack = {path = "../polywrap-msgpack", develop = true}
-
-[package.source]
-type = "directory"
-url = "../../../python-client/packages/polywrap-core"
+polywrap-manifest = ">=0.1.0a33,<0.2.0"
+polywrap-msgpack = ">=0.1.0a33,<0.2.0"
 
 [[package]]
 name = "polywrap-manifest"
-version = "0.1.0a29"
+version = "0.1.0a33"
 description = "WRAP manifest"
 category = "main"
 optional = false
-python-versions = "^3.10"
-files = []
-develop = true
+python-versions = ">=3.10,<4.0"
+files = [
+    {file = "polywrap_manifest-0.1.0a33-py3-none-any.whl", hash = "sha256:ea077ac6e5b5e4b014afa480710b6ba1fdc5411c1d92d7b13950d8fc420bf3b6"},
+    {file = "polywrap_manifest-0.1.0a33.tar.gz", hash = "sha256:10e3b7f1fba145a27c9eabe93c60ecdb3c1c69a8b578855de0712b93244a0731"},
+]
 
 [package.dependencies]
-polywrap-msgpack = {path = "../polywrap-msgpack", develop = true}
-pydantic = "^1.10.2"
-
-[package.source]
-type = "directory"
-url = "../../../python-client/packages/polywrap-manifest"
+polywrap-msgpack = ">=0.1.0a33,<0.2.0"
+pydantic = ">=1.10.2,<2.0.0"
 
 [[package]]
 name = "polywrap-msgpack"
-version = "0.1.0a29"
+version = "0.1.0a33"
 description = "WRAP msgpack encoding"
 category = "main"
 optional = false
-python-versions = "^3.10"
-files = []
-develop = true
+python-versions = ">=3.10,<4.0"
+files = [
+    {file = "polywrap_msgpack-0.1.0a33-py3-none-any.whl", hash = "sha256:78ce2ab4bb8358bd5acc1729bc93156980691bce66c663fcb93bc6a872ad583a"},
+    {file = "polywrap_msgpack-0.1.0a33.tar.gz", hash = "sha256:082042bd02844437abc3f8be90e8a7a6ebf889d9f7e2d2d3ef5fd45f2a5c863e"},
+]
 
 [package.dependencies]
-msgpack = "^1.0.4"
-
-[package.source]
-type = "directory"
-url = "../../../python-client/packages/polywrap-msgpack"
+msgpack = ">=1.0.4,<2.0.0"
 
 [[package]]
 name = "polywrap-plugin"
-version = "0.1.0a29"
+version = "0.1.0a33"
 description = "Plugin package"
 category = "main"
 optional = false
-python-versions = "^3.10"
-files = []
-develop = true
+python-versions = ">=3.10,<4.0"
+files = [
+    {file = "polywrap_plugin-0.1.0a33-py3-none-any.whl", hash = "sha256:4e729bc975ef00ab27d3bd29720cf03d1d74a02079c8536437c6dd8515b4f44a"},
+    {file = "polywrap_plugin-0.1.0a33.tar.gz", hash = "sha256:902daa63fa6f1fe6d6f404f74b07c260b10b6f9ccd26e9703abf4aa5e6777623"},
+]
 
 [package.dependencies]
-polywrap-core = {path = "../polywrap-core", develop = true}
-polywrap-manifest = {path = "../polywrap-manifest", develop = true}
-polywrap-msgpack = {path = "../polywrap-msgpack", develop = true}
-
-[package.source]
-type = "directory"
-url = "../../../python-client/packages/polywrap-plugin"
+polywrap-core = ">=0.1.0a33,<0.2.0"
+polywrap-manifest = ">=0.1.0a33,<0.2.0"
+polywrap-msgpack = ">=0.1.0a33,<0.2.0"
 
 [[package]]
 name = "polywrap-uri-resolvers"
-version = "0.1.0a29"
+version = "0.1.0a33"
 description = ""
 category = "main"
 optional = false
-python-versions = "^3.10"
-files = []
-develop = true
+python-versions = ">=3.10,<4.0"
+files = [
+    {file = "polywrap_uri_resolvers-0.1.0a33-py3-none-any.whl", hash = "sha256:3130714cc3a8f427cdbe75866c1a14a1d9b8b59c4c8ed31bcbba9ed34f35b8d5"},
+    {file = "polywrap_uri_resolvers-0.1.0a33.tar.gz", hash = "sha256:e44db1cbd067fa5bfadd0f59dd0351e0fbcd94666d34fc59e3b13308f8b256fd"},
+]
 
 [package.dependencies]
-polywrap-core = {path = "../polywrap-core", develop = true}
-polywrap-wasm = {path = "../polywrap-wasm", develop = true}
-
-[package.source]
-type = "directory"
-url = "../../../python-client/packages/polywrap-uri-resolvers"
+polywrap-core = ">=0.1.0a33,<0.2.0"
+polywrap-wasm = ">=0.1.0a33,<0.2.0"
 
 [[package]]
 name = "polywrap-wasm"
-version = "0.1.0a29"
+version = "0.1.0a33"
 description = ""
 category = "main"
 optional = false
-python-versions = "^3.10"
-files = []
-develop = true
+python-versions = ">=3.10,<4.0"
+files = [
+    {file = "polywrap_wasm-0.1.0a33-py3-none-any.whl", hash = "sha256:42fb5bc75c3c5fde5fff1d6d8db939d399132ad279128c0144a108f8c15d321d"},
+    {file = "polywrap_wasm-0.1.0a33.tar.gz", hash = "sha256:b8fd1a6f7d5709b274c51d222e905c4bd38e083a14ddae9598acc1650710f5da"},
+]
 
 [package.dependencies]
-polywrap-core = {path = "../polywrap-core", develop = true}
-polywrap-manifest = {path = "../polywrap-manifest", develop = true}
-polywrap-msgpack = {path = "../polywrap-msgpack", develop = true}
-unsync = "^1.4.0"
-unsync-stubs = "^0.1.2"
-wasmtime = "^6.0.0"
-
-[package.source]
-type = "directory"
-url = "../../../python-client/packages/polywrap-wasm"
+polywrap-core = ">=0.1.0a33,<0.2.0"
+polywrap-manifest = ">=0.1.0a33,<0.2.0"
+polywrap-msgpack = ">=0.1.0a33,<0.2.0"
+unsync = ">=1.4.0,<2.0.0"
+unsync-stubs = ">=0.1.2,<0.2.0"
+wasmtime = ">=6.0.0,<7.0.0"
 
 [[package]]
 name = "pydantic"
@@ -547,4 +531,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "9d0fff2b44816be4f57ab23825a8dafa4b21b11a7b62e9946d21f4f85effffea"
+content-hash = "42d5fff31bbe8c777aeaf02b1c049fdf413b99491c7574764fd0d82c5b6a458d"

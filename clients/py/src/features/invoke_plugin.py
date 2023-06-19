@@ -1,6 +1,5 @@
 from typing import Any, TypedDict
 from pydantic import BaseModel
-import sys
 from polywrap_client import PolywrapClient
 from polywrap_client_config_builder import PolywrapClientConfigBuilder
 from polywrap_plugin import PluginModule, PluginPackage
@@ -47,4 +46,4 @@ def run_test_case(input: Any) -> None:
         print(f"Received: {result}")
         print("Success!")
     except Exception as e:
-        print(f"Failed to invoke method. {e}", file=sys.stderr)
+        print(f"Failed to invoke method. {e}")

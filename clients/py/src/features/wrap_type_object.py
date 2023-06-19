@@ -7,19 +7,24 @@ from polywrap_core import Uri
 from pathlib import Path
 import json
 
+
 class NestedArg(BaseModel):
     prop: str
+
 
 class Arg(BaseModel):
     prop: str
     nested: NestedArg
 
+
 class Args(BaseModel):
     arg1: Arg
+
 
 class TestCaseInput(BaseModel):
     method: str
     args: Args
+
 
 def run_test_case(input: Any) -> None:
     input_obj = TestCaseInput.parse_obj(input)
@@ -38,9 +43,7 @@ def run_test_case(input: Any) -> None:
     print(f"Invoking {input_obj.method}")
 
     response = client.invoke(
-        uri=uri,
-        method=input_obj.method,
-        args=input_obj.args.dict()
+        uri=uri, method=input_obj.method, args=input_obj.args.dict()
     )
 
     if not response:

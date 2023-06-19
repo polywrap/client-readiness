@@ -53,7 +53,9 @@ def run_test_case(input: Any) -> None:
     config = (
         PolywrapClientConfigBuilder()
         .set_envs(envs)
-        .set_redirect(Uri.from_str("ens/external-env.polywrap.eth"), external_wrapper_uri)
+        .set_redirect(
+            Uri.from_str("ens/external-env.polywrap.eth"), external_wrapper_uri
+        )
         .add_resolver(FsUriResolver(SimpleFileReader()))
         .build()
     )
@@ -88,8 +90,8 @@ def run_test_case(input: Any) -> None:
     if not subinvoke_env_method_result:
         raise Exception(f"Error: {subinvoke_env_method_result}")
 
-    print("response.local exists:", bool(subinvoke_env_method_result.get("local")))
+    print("response.local exists:", "true" if subinvoke_env_method_result.get("local") else "false" )
     print(
-        "response.external exists:", bool(subinvoke_env_method_result.get("external"))
+        "response.external exists:", "true" if subinvoke_env_method_result.get("external") else "false"
     )
     print("Success!")

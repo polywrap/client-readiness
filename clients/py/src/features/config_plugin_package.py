@@ -1,6 +1,5 @@
 from typing import Any, TypedDict
 from pydantic import BaseModel, validator
-import sys
 from polywrap_client import PolywrapClient
 from polywrap_client_config_builder import PolywrapClientConfigBuilder
 from polywrap_plugin import PluginModule, PluginPackage
@@ -27,7 +26,7 @@ class Plugin(PluginModule[None]):
     def __init__(self, config: None):
         super().__init__(config)
 
-    def add(self, args: Args):
+    def add(self, args: Args, *_: Any):
         return args["a"] + args["b"]
 
 
@@ -52,4 +51,4 @@ def run_test_case(input: Any) -> None:
         client.invoke(uri=input_obj.uri, method=input_obj.method, args=input_obj.args)
         print("Success!")
     except Exception as e:
-        print(e, file=sys.stderr)
+        print(e)

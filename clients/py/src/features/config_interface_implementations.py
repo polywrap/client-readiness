@@ -1,5 +1,4 @@
 from typing import Any, List, cast
-import sys
 from polywrap_client import PolywrapClient
 from polywrap_client_config_builder import PolywrapClientConfigBuilder
 from polywrap_core import Uri
@@ -36,4 +35,4 @@ def run_test_case(input: Any) -> None:
             print(f"Found {len(result)} Implementations")
             print("Success!")
     except Exception as e:
-        print(e, file=sys.stderr)
+        print(e)

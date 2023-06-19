@@ -2,7 +2,6 @@ from polywrap_client import PolywrapClient
 from polywrap_client_config_builder import PolywrapClientConfigBuilder
 from pydantic import BaseModel, validator
 from typing import Any, TypedDict
-import sys
 from validators import UriStr, validate_uri
 
 
@@ -33,4 +32,4 @@ def run_test_case(input: Any) -> None:
             print(f"env.{key} = {result[key]}")
         print("Success!")
     else:
-        print("Failed to fetch env.", file=sys.stderr)
+        print("Failed to fetch env.")

@@ -45,5 +45,5 @@ def run_test_case(input: Any) -> None:
     if not response:
         raise Exception(f"Error: {response}")
 
-    print("Result:", response)
+    print(f"Result: [{','.join(map(str, list(response)))}]")
     print("Success!")
