@@ -3,23 +3,28 @@ cases:
   sanity:
     input:
       mainEnv:
-        object:
-          prop: "object string"
         str: "string"
         optFilledStr: "optional string"
         number: 10
         bool: true
         en: "FIRST"
+        object:
+          prop: "object string"
         array: [32, 23]
-      extEnv:
-        externalArray: [1, 2, 3]
-        externalString: "iamexternal"
+      subinvokerEnv:
+        str: "stringg"
+        number: 11
+        bool: false
+        en: "SECOND"
+        object:
+          prop: "object stringg"
+        array: [1, 2, 3]
     output:
       stdout:
         - "$Test Start [wrap_feature_env_vars.sanity]"
         - Invoking methodRequireEnv
+        - "response.str: string"
         - Success!
-        - Invoking subinvokeEnvMethod
-        - "response.local exists: true"
-        - "response.external exists: true"
+        - Invoking subinvokeMethodRequireEnv
+        - "response.str: string"
         - Success!
