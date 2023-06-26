@@ -1,6 +1,8 @@
 import features.config.*
 import features.invoke.*
 import features.subinvoke.*
+import features.uri.*
+import features.wrapFeature.*
 import util.*
 
 fun main(args: Array<String>) {
@@ -20,7 +22,10 @@ fun main(args: Array<String>) {
         "invoke_wrap_wasm_v0_1",
         "subinvoke_plugin_wrap",
         "subinvoke_wrap_plugin",
-        "subinvoke_wrap_wrap"
+        "subinvoke_wrap_wrap",
+        "uri",
+        "wrap_feature_env_vars",
+        "wrap_feature_interface_invoke"
     )
 
     specs.forEach { name ->
@@ -45,6 +50,9 @@ fun loadSpec(name: String, loader: SpecReader): Spec<*> {
         "subinvoke_plugin_wrap" -> loader.readSpec<PluginWrapInput>(name)
         "subinvoke_wrap_plugin" -> loader.readSpec<WrapPluginInput>(name)
         "subinvoke_wrap_wrap" -> loader.readSpec<WrapWrapInput>(name)
+        "uri" -> loader.readSpec<UriInput>(name)
+        "wrap_feature_env_vars" -> loader.readSpec<EnvVarsInput>(name)
+        "wrap_feature_interface_invoke" -> loader.readSpec<InterfaceInvokeInput>(name)
         else -> throw Exception("Spec not implemented: $name")
     }
 }
@@ -84,6 +92,9 @@ fun runTest(name: String, spec: Spec<*>) {
         "subinvoke_plugin_wrap" -> runTestCase(name, spec, ::pluginWrap)
         "subinvoke_wrap_plugin" -> runTestCase(name, spec, ::wrapPlugin)
         "subinvoke_wrap_wrap" -> runTestCase(name, spec, ::wrapWrap)
+        "uri" -> runTestCase(name, spec, ::uri)
+        "wrap_feature_env_vars" -> runTestCase(name, spec, ::envVars)
+        "wrap_feature_interface_invoke" -> runTestCase(name, spec, ::interfaceInvoke)
         else -> throw Exception("Spec not implemented: $name")
     }
 }
