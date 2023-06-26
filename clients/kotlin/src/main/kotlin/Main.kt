@@ -1,22 +1,44 @@
-import features.config.EmbedWrapPackageInput
-import features.config.embedWrapPackage
-import util.Input
-import util.Spec
-import util.root
+import features.config.*
+import features.invoke.*
+import util.*
 
 fun main(args: Array<String>) {
     val filter: String? = if (args.size > 2) args[2] else null
-    val input = Input(root().resolve("specs"))
+    val loader = SpecReader(root().resolve("specs"))
 
-    val configEmbedWrapPackageName = "config_embed_wrap_package"
-    val configEmbedWrapPackageSpec: Spec<EmbedWrapPackageInput> = input.readSpec(configEmbedWrapPackageName)
-
-    val specs: Map<String, Spec<*>> = mapOf(
-        configEmbedWrapPackageName to configEmbedWrapPackageSpec
+    val specs: List<String> = listOf(
+        "config_embed_wrap_package",
+        "config_env_variables",
+        "config_interface_implementations",
+        "config_plugin_instance",
+        "config_plugin_package",
+        "config_resolver",
+        "config_resolver_ext",
+        "config_uri_redirect",
+        "invoke_plugin",
+        "invoke_wrap_wasm_v0_1",
     )
 
-    specs.forEach { (name, spec) ->
-        if (filter != name && spec.required) runTestCase(name, spec, ::embedWrapPackage)
+    specs.forEach { name ->
+        if (filter == name) return
+        val spec = loadSpec(name, loader)
+        if (spec.required) runTest(name, spec)
+    }
+}
+
+fun loadSpec(name: String, loader: SpecReader): Spec<*> {
+    return when (name) {
+        "config_embed_wrap_package" -> loader.readSpec<EmbedWrapPackageInput>(name)
+        "config_env_variables" -> loader.readSpec<EnvVariablesInput>(name)
+        "config_interface_implementations" -> loader.readSpec<InterfaceImplementationsInput>(name)
+        "config_plugin_instance" -> loader.readSpec<PluginInstanceInput>(name)
+        "config_plugin_package" -> loader.readSpec<PluginPackageInput>(name)
+        "config_resolver" -> loader.readSpec<ResolverInput>(name)
+        "config_resolver_ext" -> loader.readSpec<ResolverExtInput>(name)
+        "config_uri_redirect" -> loader.readSpec<UriRedirectInput>(name)
+        "invoke_plugin" -> loader.readSpec<PluginInput>(name)
+        "invoke_wrap_wasm_v0_1" -> loader.readSpec<WrapWasmV01Input>(name)
+        else -> throw Exception("Spec not implemented: $name")
     }
 }
 
@@ -40,3 +62,18 @@ inline fun <reified K> runTestCase(specName: String, spec: Spec<*>, fn: (input: 
     println("====================================")
 }
 
+fun runTest(name: String, spec: Spec<*>) {
+    when (name) {
+        "config_embed_wrap_package" -> runTestCase(name, spec, ::embedWrapPackage)
+        "config_env_variables" -> runTestCase(name, spec, ::envVariables)
+        "config_interface_implementations" -> runTestCase(name, spec, ::interfaceImplementations)
+        "config_plugin_instance" -> runTestCase(name, spec, ::pluginInstance)
+        "config_plugin_package" -> runTestCase(name, spec, ::pluginPackage)
+        "config_resolver" -> runTestCase(name, spec, ::resolver)
+        "config_resolver_ext" -> runTestCase(name, spec, ::resolverExt)
+        "config_uri_redirect" -> runTestCase(name, spec, ::uriRedirect)
+        "invoke_plugin" -> runTestCase(name, spec, ::plugin)
+        "invoke_wrap_wasm_v0_1" -> runTestCase(name, spec, ::wrapWasmV01)
+        else -> throw Exception("Spec not implemented: $name")
+    }
+}

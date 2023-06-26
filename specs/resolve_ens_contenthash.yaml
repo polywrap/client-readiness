@@ -1,7 +1,7 @@
 required: false
 cases:
   sanity:
-    input: wrap://ens/wrap-link.eth
+    input: "wrap://ens/wrap-link.eth"
     output:
       stdout:
         - "$Test Start [resolve_ens_contenthash.sanity]"

@@ -3,7 +3,7 @@ cases:
   sanity:
     input:
       directory: $ROOT/wraps/numbers-type/implementations/as
-      uri: wrap://embed/wrap
+      uri: "wrap://embed/wrap"
     output:
       stdout:
         - "$Test Start [resolve_package.sanity]"

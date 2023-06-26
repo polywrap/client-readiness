@@ -1,4 +1,4 @@
-package features.config
+package features.invoke
 
 import io.polywrap.configBuilder.polywrapClient
 import io.polywrap.core.InvokeResult
@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
 import util.pathFromTemplate
 
 @Serializable
-data class EmbedWrapPackageInput(
+data class WrapWasmV01Input(
     val directory: String,
     val method: String,
     val args: ArgsU8Method
@@ -20,25 +20,17 @@ data class EmbedWrapPackageInput(
     )
 }
 
-fun embedWrapPackage(input: EmbedWrapPackageInput) {
+fun wrapWasmV01(input: WrapWasmV01Input) {
     val wrapDir = pathFromTemplate(input.directory)
-
-    println("Reading wrap.info & wrap.wasm from ${input.directory}")
-
     val manifest = wrapDir.resolve("wrap.info").toFile().readBytes()
     val wasmModule = wrapDir.resolve("wrap.wasm").toFile().readBytes()
-
-    println("Creating WrapPackage from raw wrap.info & wrap.wasm bytes")
-
     val wrapPackage = WasmPackage(manifest, wasmModule)
-
-    println("Adding WrapPackage to ClientConfig")
 
     val client = polywrapClient {
         addPackage("embed/foo" to wrapPackage)
     }
 
-    println("Invoking WrapPackage")
+    println("Invoking ${input.method}")
 
     val result: InvokeResult<Int> = client.invoke(
         uri = Uri.fromString("embed/foo"),
@@ -47,6 +39,7 @@ fun embedWrapPackage(input: EmbedWrapPackageInput) {
     )
 
     if (result.isSuccess) {
+        println("Received: ${result.getOrThrow()}")
         println("Success!")
     }
 }
