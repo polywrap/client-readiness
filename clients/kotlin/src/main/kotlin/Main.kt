@@ -1,5 +1,6 @@
 import features.config.*
 import features.invoke.*
+import features.subinvoke.*
 import util.*
 
 fun main(args: Array<String>) {
@@ -17,6 +18,9 @@ fun main(args: Array<String>) {
         "config_uri_redirect",
         "invoke_plugin",
         "invoke_wrap_wasm_v0_1",
+        "subinvoke_plugin_wrap",
+        "subinvoke_wrap_plugin",
+        "subinvoke_wrap_wrap"
     )
 
     specs.forEach { name ->
@@ -38,6 +42,9 @@ fun loadSpec(name: String, loader: SpecReader): Spec<*> {
         "config_uri_redirect" -> loader.readSpec<UriRedirectInput>(name)
         "invoke_plugin" -> loader.readSpec<PluginInput>(name)
         "invoke_wrap_wasm_v0_1" -> loader.readSpec<WrapWasmV01Input>(name)
+        "subinvoke_plugin_wrap" -> loader.readSpec<PluginWrapInput>(name)
+        "subinvoke_wrap_plugin" -> loader.readSpec<WrapPluginInput>(name)
+        "subinvoke_wrap_wrap" -> loader.readSpec<WrapWrapInput>(name)
         else -> throw Exception("Spec not implemented: $name")
     }
 }
@@ -74,6 +81,9 @@ fun runTest(name: String, spec: Spec<*>) {
         "config_uri_redirect" -> runTestCase(name, spec, ::uriRedirect)
         "invoke_plugin" -> runTestCase(name, spec, ::plugin)
         "invoke_wrap_wasm_v0_1" -> runTestCase(name, spec, ::wrapWasmV01)
+        "subinvoke_plugin_wrap" -> runTestCase(name, spec, ::pluginWrap)
+        "subinvoke_wrap_plugin" -> runTestCase(name, spec, ::wrapPlugin)
+        "subinvoke_wrap_wrap" -> runTestCase(name, spec, ::wrapWrap)
         else -> throw Exception("Spec not implemented: $name")
     }
 }
