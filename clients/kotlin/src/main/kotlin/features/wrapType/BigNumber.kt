@@ -1,15 +1,21 @@
 package features.wrapType
 
 import io.polywrap.configBuilder.ConfigBuilder
+import io.polywrap.core.InvokeResult
 import io.polywrap.core.resolution.Uri
-import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 import util.root
 
 @Serializable
 data class BigNumberInput (
-    val args: Map<String, @Contextual Any>
-)
+    val args: MethodInput
+) {
+    @Serializable
+    data class MethodInput(val arg1: String, val obj: MethodObj)
+
+    @Serializable
+    data class MethodObj(val prop1: String)
+}
 
 fun bigNumber(input: BigNumberInput) {
     val root = root().resolve("wraps")
@@ -19,12 +25,12 @@ fun bigNumber(input: BigNumberInput) {
 
     println("Invoking method")
 
-    val response = client.invoke<String>(
+    val response: InvokeResult<String> = client.invoke(
         uri = Uri.fromString(uri),
         method = "method",
         args = input.args
-    ).getOrThrow()
+    )
 
-    println("Result: $response")
+    println("Result: ${response.getOrThrow()}")
     println("Success!")
 }

@@ -14,7 +14,7 @@ data class IntsInput(
 
 fun ints(input: IntsInput) {
     val root = root().resolve("wraps")
-    val uri = "fs/$root/ints-type/implementations/as"
+    val uri = "fs/$root/numbers-type/implementations/as"
 
     val client = ConfigBuilder().addDefaults().build()
 
