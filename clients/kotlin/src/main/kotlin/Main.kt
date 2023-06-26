@@ -3,6 +3,7 @@ import features.invoke.*
 import features.subinvoke.*
 import features.uri.*
 import features.wrapFeature.*
+import features.wrapType.*
 import util.*
 
 fun main(args: Array<String>) {
@@ -25,7 +26,15 @@ fun main(args: Array<String>) {
         "subinvoke_wrap_wrap",
         "uri",
         "wrap_feature_env_vars",
-        "wrap_feature_interface_invoke"
+        "wrap_feature_interface_invoke",
+        "wrap_type_bigint",
+        "wrap_type_bignumber",
+        "wrap_type_bytes",
+        "wrap_type_enum",
+        "wrap_type_ints",
+        "wrap_type_json",
+        "wrap_type_map",
+        "wrap_type_object"
     )
 
     specs.forEach { name ->
@@ -53,6 +62,14 @@ fun loadSpec(name: String, loader: SpecReader): Spec<*> {
         "uri" -> loader.readSpec<UriInput>(name)
         "wrap_feature_env_vars" -> loader.readSpec<EnvVarsInput>(name)
         "wrap_feature_interface_invoke" -> loader.readSpec<InterfaceInvokeInput>(name)
+        "wrap_type_bigint" -> loader.readSpec<BigIntInput>(name)
+        "wrap_type_bignumber" -> loader.readSpec<BigNumberInput>(name)
+        "wrap_type_bytes" -> loader.readSpec<BytesInput>(name)
+        "wrap_type_enum" -> loader.readSpec<EnumInput>(name)
+        "wrap_type_ints" -> loader.readSpec<IntsInput>(name)
+        "wrap_type_json" -> loader.readSpec<JsonInput>(name)
+        "wrap_type_map" -> loader.readSpec<MapInput>(name)
+        "wrap_type_object" -> loader.readSpec<ObjectInput>(name)
         else -> throw Exception("Spec not implemented: $name")
     }
 }
@@ -95,6 +112,14 @@ fun runTest(name: String, spec: Spec<*>) {
         "uri" -> runTestCase(name, spec, ::uri)
         "wrap_feature_env_vars" -> runTestCase(name, spec, ::envVars)
         "wrap_feature_interface_invoke" -> runTestCase(name, spec, ::interfaceInvoke)
+        "wrap_type_bigint" -> runTestCase(name, spec, ::bigInt)
+        "wrap_type_bignumber" -> runTestCase(name, spec, ::bigNumber)
+        "wrap_type_bytes" -> runTestCase(name, spec, ::bytes)
+        "wrap_type_enum" -> runTestCase(name, spec, ::enum)
+        "wrap_type_ints" -> runTestCase(name, spec, ::ints)
+        "wrap_type_json" -> runTestCase(name, spec, ::json)
+        "wrap_type_map" -> runTestCase(name, spec, ::mapType)
+        "wrap_type_object" -> runTestCase(name, spec, ::objectType)
         else -> throw Exception("Spec not implemented: $name")
     }
 }
