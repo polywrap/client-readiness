@@ -12,7 +12,7 @@ data class BytesInput(
     val args: Map<String, @Contextual Any>
 )
 
-fun bytes(input: BytesInput) {
+fun bytesType(input: BytesInput) {
     val root = root().resolve("wraps")
     val uri = "fs/$root/bytes-type/implementations/as"
 

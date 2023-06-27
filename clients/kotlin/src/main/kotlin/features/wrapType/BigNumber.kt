@@ -17,7 +17,7 @@ data class BigNumberInput (
     data class MethodObj(val prop1: String)
 }
 
-fun bigNumber(input: BigNumberInput) {
+fun bigNumberType(input: BigNumberInput) {
     val root = root().resolve("wraps")
     val uri = "fs/$root/bignumber-type/implementations/as"
 

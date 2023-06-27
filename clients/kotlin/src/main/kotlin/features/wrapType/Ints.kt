@@ -12,7 +12,7 @@ data class IntsInput(
     val args: Map<String, @Contextual Any>
 )
 
-fun ints(input: IntsInput) {
+fun intsType(input: IntsInput) {
     val root = root().resolve("wraps")
     val uri = "fs/$root/numbers-type/implementations/as"
 

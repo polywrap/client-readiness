@@ -12,7 +12,7 @@ data class EnumInput(
     val args: Map<String, @Contextual Any>
 )
 
-fun enum(input: EnumInput) {
+fun enumType(input: EnumInput) {
     val root = root().resolve("wraps")
     val uri = "fs/$root/enum-type/implementations/as"
 

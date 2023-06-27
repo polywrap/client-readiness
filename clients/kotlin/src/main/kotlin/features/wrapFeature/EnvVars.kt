@@ -13,7 +13,7 @@ data class EnvVarsInput(
     val subinvokerEnv: Map<String, @Contextual Any>
 )
 
-fun envVars(input: EnvVarsInput) {
+fun envVarsFeature(input: EnvVarsInput) {
     val wrapsDir = root().resolve("wraps")
     val mainPath = wrapsDir.resolve("env-type/00-main/implementations/as")
     val mainUri = "file/${mainPath}"

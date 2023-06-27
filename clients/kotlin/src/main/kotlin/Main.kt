@@ -1,5 +1,6 @@
 import features.config.*
 import features.invoke.*
+import features.resolve.*
 import features.subinvoke.*
 import features.uri.*
 import features.wrapFeature.*
@@ -21,6 +22,14 @@ fun main(args: Array<String>) {
         "config_uri_redirect",
         "invoke_plugin",
         "invoke_wrap_wasm_v0_1",
+        "resolve_ens_contenthash",
+        "resolve_ens_text_record",
+        "resolve_file",
+        "resolve_http",
+        "resolve_instance",
+        "resolve_ipfs",
+        "resolve_package",
+        "resolve_redirect",
         "subinvoke_plugin_wrap",
         "subinvoke_wrap_plugin",
         "subinvoke_wrap_wrap",
@@ -56,6 +65,14 @@ fun loadSpec(name: String, loader: SpecReader): Spec<*> {
         "config_uri_redirect" -> loader.readSpec<UriRedirectInput>(name)
         "invoke_plugin" -> loader.readSpec<PluginInput>(name)
         "invoke_wrap_wasm_v0_1" -> loader.readSpec<WrapWasmV01Input>(name)
+        "resolve_ens_contenthash" -> loader.readSpec<EnsContentHashInput>(name)
+        "resolve_ens_text_record" -> loader.readSpec<EnsTextRecordInput>(name)
+        "resolve_file" -> loader.readSpec<FileInput>(name)
+        "resolve_http" -> loader.readSpec<HttpInput>(name)
+        "resolve_instance" -> loader.readSpec<InstanceInput>(name)
+        "resolve_ipfs" -> loader.readSpec<IpfsInput>(name)
+        "resolve_package" -> loader.readSpec<PackageInput>(name)
+        "resolve_redirect" -> loader.readSpec<RedirectInput>(name)
         "subinvoke_plugin_wrap" -> loader.readSpec<PluginWrapInput>(name)
         "subinvoke_wrap_plugin" -> loader.readSpec<WrapPluginInput>(name)
         "subinvoke_wrap_wrap" -> loader.readSpec<WrapWrapInput>(name)
@@ -104,20 +121,28 @@ fun runTest(name: String, spec: Spec<*>) {
         "config_resolver" -> runTestCase(name, spec, ::resolver)
         "config_resolver_ext" -> runTestCase(name, spec, ::resolverExt)
         "config_uri_redirect" -> runTestCase(name, spec, ::uriRedirect)
-        "invoke_plugin" -> runTestCase(name, spec, ::plugin)
-        "invoke_wrap_wasm_v0_1" -> runTestCase(name, spec, ::wrapWasmV01)
+        "invoke_plugin" -> runTestCase(name, spec, ::invokePlugin)
+        "invoke_wrap_wasm_v0_1" -> runTestCase(name, spec, ::invokeWrapWasmV01)
+        "resolve_ens_contenthash" -> runTestCase(name, spec, ::resolveEnsContentHash)
+        "resolve_ens_text_record" -> runTestCase(name, spec, ::resolveEnsTextRecord)
+        "resolve_file" -> runTestCase(name, spec, ::resolveFile)
+        "resolve_http" -> runTestCase(name, spec, ::resolveHttp)
+        "resolve_instance" -> runTestCase(name, spec, ::resolveInstance)
+        "resolve_ipfs" -> runTestCase(name, spec, ::resolveIpfs)
+        "resolve_package" -> runTestCase(name, spec, ::resolvePackage)
+        "resolve_redirect" -> runTestCase(name, spec, ::resolveRedirect)
         "subinvoke_plugin_wrap" -> runTestCase(name, spec, ::pluginWrap)
         "subinvoke_wrap_plugin" -> runTestCase(name, spec, ::wrapPlugin)
         "subinvoke_wrap_wrap" -> runTestCase(name, spec, ::wrapWrap)
         "uri" -> runTestCase(name, spec, ::uri)
-        "wrap_feature_env_vars" -> runTestCase(name, spec, ::envVars)
-        "wrap_feature_interface_invoke" -> runTestCase(name, spec, ::interfaceInvoke)
-        "wrap_type_bigint" -> runTestCase(name, spec, ::bigInt)
-        "wrap_type_bignumber" -> runTestCase(name, spec, ::bigNumber)
-        "wrap_type_bytes" -> runTestCase(name, spec, ::bytes)
-        "wrap_type_enum" -> runTestCase(name, spec, ::enum)
-        "wrap_type_ints" -> runTestCase(name, spec, ::ints)
-        "wrap_type_json" -> runTestCase(name, spec, ::json)
+        "wrap_feature_env_vars" -> runTestCase(name, spec, ::envVarsFeature)
+        "wrap_feature_interface_invoke" -> runTestCase(name, spec, ::interfaceInvokeFeature)
+        "wrap_type_bigint" -> runTestCase(name, spec, ::bigIntType)
+        "wrap_type_bignumber" -> runTestCase(name, spec, ::bigNumberType)
+        "wrap_type_bytes" -> runTestCase(name, spec, ::bytesType)
+        "wrap_type_enum" -> runTestCase(name, spec, ::enumType)
+        "wrap_type_ints" -> runTestCase(name, spec, ::intsType)
+        "wrap_type_json" -> runTestCase(name, spec, ::jsonType)
         "wrap_type_map" -> runTestCase(name, spec, ::mapType)
         "wrap_type_object" -> runTestCase(name, spec, ::objectType)
         else -> throw Exception("Spec not implemented: $name")

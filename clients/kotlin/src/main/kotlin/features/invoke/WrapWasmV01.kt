@@ -20,7 +20,7 @@ data class WrapWasmV01Input(
     )
 }
 
-fun wrapWasmV01(input: WrapWasmV01Input) {
+fun invokeWrapWasmV01(input: WrapWasmV01Input) {
     val wrapDir = pathFromTemplate(input.directory)
     val manifest = wrapDir.resolve("wrap.info").toFile().readBytes()
     val wasmModule = wrapDir.resolve("wrap.wasm").toFile().readBytes()

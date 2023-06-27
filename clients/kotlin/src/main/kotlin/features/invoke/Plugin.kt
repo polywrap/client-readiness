@@ -13,7 +13,7 @@ data class PluginInput(
     val args: ArgsAdd
 )
 
-fun plugin(input: PluginInput) {
+fun invokePlugin(input: PluginInput) {
     val client = polywrapClient {
         addPackage(input.uri to addPlugin(null))
     }

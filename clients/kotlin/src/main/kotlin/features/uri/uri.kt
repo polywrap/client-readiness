@@ -1,6 +1,8 @@
 package features.uri
 
 import io.polywrap.core.resolution.Uri
+import util.uriAuthority
+import util.uriPath
 
 typealias UriInput = String
 
@@ -15,8 +17,8 @@ fun uri(input: UriInput) {
     println("WRAP URI successfully created.")
 
     val uri = ffiUri.toStringUri()
-    val authority = uri.substring("wrap://".length).split("/")[0]
-    val path = uri.substring("wrap://".length + authority.length + 1)
+    val authority = uriAuthority(uri)
+    val path = uriPath(uri)
 
     println("uri - $uri")
     println("uri.authority - $authority")

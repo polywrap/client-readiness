@@ -12,11 +12,23 @@ fun root(): Path {
     return Path(root)
 }
 
-fun pathFromTemplate(template: String): Path {
+fun pathStringFromTemplate(template: String): String {
     if (template.contains("\$ROOT")) {
         val root = root().toString()
-        val path = template.replace("\$ROOT", root)
-        return Path(path)
+        return template.replace("\$ROOT", root)
     }
-    return Path(template)
+    return template
+}
+
+fun pathFromTemplate(template: String): Path {
+    val updated = pathStringFromTemplate(template)
+    return Path(updated)
+}
+
+fun uriAuthority(uri: String): String {
+    return uri.substring("wrap://".length).split("/")[0]
+}
+
+fun uriPath(uri: String): String {
+    return uri.substring("wrap://".length + uriAuthority(uri).length + 1)
 }

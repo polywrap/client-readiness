@@ -12,7 +12,7 @@ data class JsonInput(
     val args: Map<String, @Contextual Any>
 )
 
-fun json(input: JsonInput) {
+fun jsonType(input: JsonInput) {
     val root = root().resolve("wraps")
     val uri = "fs/$root/json-type/implementations/as"
 
