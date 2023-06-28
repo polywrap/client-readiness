@@ -31,7 +31,7 @@ fun pluginInstance(input: PluginInstanceInput) {
 
     for (i in 0 until 2) {
         println("Invoking Plugin Instance")
-        val result: Result<Unit> = client.invoke(Uri.fromString(input.uri), input.method, null, null)
+        val result: Result<Unit> = client.invoke(Uri(input.uri), input.method, null, null)
         if (result.isSuccess) {
             println("counter = ${plugin.counter}")
         }

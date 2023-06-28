@@ -24,7 +24,7 @@ fun interfaceInvokeFeature(input: InterfaceInvokeInput) {
     println("Invoking moduleMethod")
 
     val result: InvokeResult<Unit> = client.invoke(
-        uri = Uri.fromString(wrapperUri),
+        uri = Uri(wrapperUri),
         method = "moduleMethod",
         args = mapOf(
             "arg" to mapOf(

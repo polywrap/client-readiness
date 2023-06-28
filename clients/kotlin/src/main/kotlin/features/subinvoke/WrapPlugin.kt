@@ -44,7 +44,7 @@ fun wrapPlugin(input: WrapPluginInput) {
     println("Invoking ${input.method}")
 
     val result: InvokeResult<Int> = client.invoke(
-        uri = Uri.fromString(input.rootWrap.uri),
+        uri = Uri(input.rootWrap.uri),
         method = input.method,
         args = input.args
     )

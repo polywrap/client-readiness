@@ -21,7 +21,7 @@ fun bytesType(input: BytesInput) {
     println("Invoking ${input.method}")
 
     val response = client.invoke<ByteArray>(
-        uri = Uri.fromString(uri),
+        uri = Uri(uri),
         method = input.method,
         args = input.args
     ).getOrThrow()

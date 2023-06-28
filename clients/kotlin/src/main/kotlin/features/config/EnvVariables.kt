@@ -1,6 +1,7 @@
 package features.config
 
 import io.polywrap.configBuilder.polywrapClient
+import io.polywrap.core.resolution.Uri
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 
@@ -19,7 +20,8 @@ fun envVariables(input: EnvVariablesInput) {
 
     println("Fetching Env")
 
-    val result = client.getEnvByUri(input.uri)?.getOrNull()
+    val uri = Uri(input.uri)
+    val result = client.getEnvByUri(uri).getOrNull()
 
     if (result != null) {
         for (key in result.keys) {

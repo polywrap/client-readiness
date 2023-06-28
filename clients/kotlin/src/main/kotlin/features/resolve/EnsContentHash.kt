@@ -13,7 +13,7 @@ fun resolveEnsContentHash(input: EnsContentHashInput) {
 
     println("Resolving: $input")
 
-    val result = client.loadWrapper(Uri.fromString(input))
+    val result = client.loadWrapper(Uri(input))
 
     if (result.isSuccess) {
         println("Received: wrapper")

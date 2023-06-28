@@ -41,7 +41,7 @@ fun embedWrapPackage(input: EmbedWrapPackageInput) {
     println("Invoking WrapPackage")
 
     val result: InvokeResult<Int> = client.invoke(
-        uri = Uri.fromString("embed/foo"),
+        uri = Uri("embed/foo"),
         method = input.method,
         args = input.args
     )

@@ -37,7 +37,7 @@ fun pluginWrap(input: PluginWrapInput) {
     println("Invoking Plugin")
 
     val result: InvokeResult<Int> = client.invoke(
-        uri = Uri.fromString("plugin/bar"),
+        uri = Uri("plugin/bar"),
         method = "performSubinvoke",
         args = mapOf(
             "uri" to "embed/foo",

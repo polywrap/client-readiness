@@ -21,7 +21,7 @@ fun mapType(input: MapInput) {
     println("Invoking method")
 
     val response = client.invoke<MsgPackMap<String, Int>>(
-        uri = Uri.fromString(uri),
+        uri = Uri(uri),
         method = "returnMap",
         args = mapOf("map" to input.map.toMsgPackMap())
     ).getOrThrow()

@@ -20,7 +20,7 @@ fun resolver(input: ResolverInput) {
 //        ): FfiUriPackageOrWrapper {
 //            val isAuthority = uri.toStringUri().startsWith("wrap://${input.authority}")
 //            val response = if (isAuthority) {
-//                Uri.fromString(input.result)
+//                Uri(input.result)
 //            } else {
 //                uri
 //            }
@@ -36,7 +36,7 @@ fun resolver(input: ResolverInput) {
 //    println("Resolving a wrap://${input.authority} URI")
 //
 //    val res = client.loadWrapper(
-//        uri = Uri.fromString("wrap://${input.authority}/foo")
+//        uri = Uri("wrap://${input.authority}/foo")
 //    )
 
     //  console.log(res)

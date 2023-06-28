@@ -21,7 +21,7 @@ fun jsonType(input: JsonInput) {
     println("Invoking ${input.method}")
 
     val response = client.invoke<String>(
-        uri = Uri.fromString(uri),
+        uri = Uri(uri),
         method = input.method,
         args = input.args
     ).getOrThrow()

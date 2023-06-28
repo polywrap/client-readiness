@@ -16,7 +16,7 @@ fun resolveFile(input: FileInput) {
 
     println("Resolving: $input")
 
-    val result = client.loadWrapper(Uri.fromString(uri))
+    val result = client.loadWrapper(Uri(uri))
 
     if (result.isSuccess) {
         println("Received: wrapper")

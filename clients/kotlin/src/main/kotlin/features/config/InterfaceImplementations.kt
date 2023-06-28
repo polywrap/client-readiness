@@ -1,6 +1,7 @@
 package features.config
 
 import io.polywrap.configBuilder.polywrapClient
+import io.polywrap.core.resolution.Uri
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -18,7 +19,8 @@ fun interfaceImplementations(input: InterfaceImplementationsInput) {
 
     println("Getting Implementations")
 
-    val result = client.getImplementations(input.interfaceUri).getOrNull()
+    val uri = Uri(input.interfaceUri)
+    val result = client.getImplementations(uri).getOrNull()
 
     if (!result.isNullOrEmpty()) {
         println("Found ${result.size} Implementations")

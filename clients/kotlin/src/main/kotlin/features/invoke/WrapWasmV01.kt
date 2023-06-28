@@ -33,7 +33,7 @@ fun invokeWrapWasmV01(input: WrapWasmV01Input) {
     println("Invoking ${input.method}")
 
     val result: InvokeResult<Int> = client.invoke(
-        uri = Uri.fromString("embed/foo"),
+        uri = Uri("embed/foo"),
         method = input.method,
         args = input.args
     )

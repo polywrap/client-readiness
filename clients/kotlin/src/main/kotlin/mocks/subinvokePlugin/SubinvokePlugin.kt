@@ -25,7 +25,11 @@ class SubinvokePlugin(config: Config? = null) : Module<SubinvokePlugin.Config?>(
 
     override suspend fun performSubinvoke(args: ArgsSubinvoke, invoker: Invoker): Int {
         println("Subinvoking ${args.method}")
-        val res: Int? = invoker.invoke<Int>(Uri.fromString(args.uri), args.method, args.args).getOrNull()
+        val res: Int? = invoker.invoke<Int>(
+            uri = Uri(args.uri),
+            method = args.method,
+            args = args.args
+        ).getOrNull()
         return if (res != null) {
             println("Received: $res")
             res

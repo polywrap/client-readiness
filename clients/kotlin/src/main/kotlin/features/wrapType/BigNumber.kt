@@ -26,7 +26,7 @@ fun bigNumberType(input: BigNumberInput) {
     println("Invoking method")
 
     val response: InvokeResult<String> = client.invoke(
-        uri = Uri.fromString(uri),
+        uri = Uri(uri),
         method = "method",
         args = input.args
     )

@@ -34,7 +34,7 @@ fun envVarsFeature(input: EnvVarsInput) {
     println("Invoking methodRequireEnv")
 
     val methodRequireEnvResult: InvokeResult<String> = client.invoke(
-        uri = Uri.fromString(mainUri),
+        uri = Uri(mainUri),
         method = "methodRequireEnv",
         args = mapOf("arg" to "string")
     )
@@ -49,7 +49,7 @@ fun envVarsFeature(input: EnvVarsInput) {
     println("Invoking subinvokeMethodRequireEnv")
 
     val subinvokeEnvMethodResult: InvokeResult<String> = client.invoke(
-        uri = Uri.fromString(subinvokerUri),
+        uri = Uri(subinvokerUri),
         method = "subinvokeMethodRequireEnv",
         args = mapOf("arg" to "string")
     )

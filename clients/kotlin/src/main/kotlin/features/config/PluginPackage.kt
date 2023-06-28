@@ -26,7 +26,7 @@ fun pluginPackage(input: PluginPackageInput) {
 
     println("Invoking PluginPackage")
 
-    val result: Result<Int> = client.invoke(Uri.fromString(input.uri), input.method, input.args)
+    val result: Result<Int> = client.invoke(Uri(input.uri), input.method, input.args)
 
     if (result.isSuccess) {
         println("Success!")

@@ -27,7 +27,7 @@ fun objectType(input: ObjectInput) {
     println("Invoking ${input.method}")
 
     val response = client.invoke<List<Output>>(
-        uri = Uri.fromString(uri),
+        uri = Uri(uri),
         method = input.method,
         args = input.args
     ).getOrThrow()

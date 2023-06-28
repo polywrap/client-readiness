@@ -2,7 +2,6 @@ package features.resolve
 
 import io.polywrap.configBuilder.polywrapClient
 import io.polywrap.core.resolution.Uri
-import io.polywrap.wasm.WasmPackage
 import io.polywrap.wasm.WasmWrapper
 import kotlinx.serialization.Serializable
 import util.pathFromTemplate
@@ -24,7 +23,7 @@ fun resolveInstance(input: InstanceInput) {
 
     println("Resolving URI: ${input.uri}")
 
-    val result = client.loadWrapper(Uri.fromString(input.uri))
+    val result = client.loadWrapper(Uri(input.uri))
 
     if (result.isSuccess) {
         println("Received: wrapper")
