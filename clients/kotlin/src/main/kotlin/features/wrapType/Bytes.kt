@@ -1,16 +1,21 @@
 package features.wrapType
 
 import io.polywrap.configBuilder.ConfigBuilder
+import io.polywrap.core.InvokeResult
 import io.polywrap.core.resolution.Uri
-import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 import util.root
 
 @Serializable
 data class BytesInput(
     val method: String,
-    val args: Map<String, @Contextual Any>
-)
+    val args: BytesArgs
+) {
+    @Serializable
+    data class BytesArgs(val arg: BytesList)
+    @Serializable
+    data class BytesList(val prop: ByteArray)
+}
 
 fun bytesType(input: BytesInput) {
     val root = root().resolve("wraps")
@@ -20,12 +25,17 @@ fun bytesType(input: BytesInput) {
 
     println("Invoking ${input.method}")
 
-    val response = client.invoke<ByteArray>(
+    val response: InvokeResult<ByteArray> = client.invoke(
         uri = Uri(uri),
         method = input.method,
         args = input.args
-    ).getOrThrow()
+    )
 
-    println("Result: ${response.contentToString()}")
-    println("Success!")
+    if (response.isFailure) {
+        throw response.exceptionOrNull()!!
+    } else {
+        val bytes = response.getOrThrow().contentToString()
+        println("Result: $bytes")
+        println("Success!")
+    }
 }

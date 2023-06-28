@@ -1,19 +1,22 @@
 package features.wrapType
 
 import io.polywrap.configBuilder.ConfigBuilder
+import io.polywrap.core.InvokeResult
 import io.polywrap.core.resolution.Uri
-import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 import util.root
 
 @Serializable
 data class ObjectInput(
     val method: String,
-    val args: Map<String, @Contextual Any>
-)
+    val args: ObjectArgs
+) {
+    @Serializable
+    data class ObjectArgs(val arg1: Output)
+}
 
 @Serializable
-private data class Output(val prop: String, val nested: Nested) {
+data class Output(val prop: String, val nested: Nested) {
     @Serializable
     data class Nested(val prop: String)
 }
@@ -26,12 +29,16 @@ fun objectType(input: ObjectInput) {
 
     println("Invoking ${input.method}")
 
-    val response = client.invoke<List<Output>>(
+    val response: InvokeResult<List<Output>> = client.invoke(
         uri = Uri(uri),
         method = input.method,
         args = input.args
-    ).getOrThrow()
+    )
 
-    println("Result: $response")
-    println("Success!")
+    if (response.isFailure) {
+        throw response.exceptionOrNull()!!
+    } else {
+        println("Result: ${response.getOrThrow()}")
+        println("Success!")
+    }
 }

@@ -1,16 +1,22 @@
 package features.wrapType
 
 import io.polywrap.configBuilder.ConfigBuilder
+import io.polywrap.core.InvokeResult
 import io.polywrap.core.resolution.Uri
-import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 import util.root
 
 @Serializable
 data class EnumInput(
     val method: String,
-    val args: Map<String, @Contextual Any>
-)
+    val args: EnumArgs
+) {
+    @Serializable
+    data class EnumArgs(val en: String)
+
+    @Serializable
+    data class NumEnumArgs(val en: Int)
+}
 
 fun enumType(input: EnumInput) {
     val root = root().resolve("wraps")
@@ -20,12 +26,25 @@ fun enumType(input: EnumInput) {
 
     println("Invoking ${input.method}")
 
-    val response = client.invoke<Int>(
-        uri = Uri(uri),
-        method = input.method,
-        args = input.args
-    ).getOrThrow()
+    val numeric = input.args.en.toIntOrNull()
+    val response: InvokeResult<Int> = if (numeric != null) {
+        client.invoke(
+            uri = Uri(uri),
+            method = input.method,
+            args = EnumInput.NumEnumArgs(numeric)
+        )
+    } else {
+        client.invoke(
+            uri = Uri(uri),
+            method = input.method,
+            args = input.args
+        )
+    }
 
-    println("Result: $response")
-    println("Success!")
+    if (response.isFailure) {
+        throw response.exceptionOrNull()!!
+    } else {
+        println("Result: ${response.getOrThrow()}")
+        println("Success!")
+    }
 }

@@ -31,6 +31,10 @@ fun bigIntType(input: BigIntInput) {
         args = input.args
     )
 
-    println("Result: ${response.getOrThrow()}")
-    println("Success!")
+    if (response.isFailure) {
+        throw response.exceptionOrNull()!!
+    } else {
+        println("Result: ${response.getOrThrow()}")
+        println("Success!")
+    }
 }
