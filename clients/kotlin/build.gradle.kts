@@ -31,3 +31,9 @@ kotlin {
 application {
     mainClass.set("MainKt")
 }
+
+tasks.named<JavaExec>("run") {
+    val appArgsStr: String? = project.findProperty("appArgs") as String?
+    val appArgs = appArgsStr?.split(",") ?: emptyList()
+    args(appArgs)
+}

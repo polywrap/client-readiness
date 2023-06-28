@@ -8,7 +8,7 @@ import features.wrapType.*
 import util.*
 
 fun main(args: Array<String>) {
-    val filter: String? = if (args.size > 2) args[2] else null
+    val filter: String? = if (args.isNotEmpty()) args[0] else null
     val loader = SpecReader(root().resolve("specs"))
 
     val specs: List<String> = listOf(
@@ -47,9 +47,10 @@ fun main(args: Array<String>) {
     )
 
     specs.forEach { name ->
-        if (filter == name) return
-        val spec = loadSpec(name, loader)
-        if (spec.required) runTest(name, spec)
+        if (filter == null || filter == name) {
+            val spec = loadSpec(name, loader)
+            if (spec.required) runTest(name, spec)
+        }
     }
 }
 
