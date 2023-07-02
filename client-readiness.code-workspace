@@ -9,8 +9,8 @@
         "path": "clients/py"
       },
       {
-          "name": "javascript-client",
-          "path": "clients/js"
+        "name": "javascript-client",
+        "path": "clients/js"
       },
   ],
   "settings": {
