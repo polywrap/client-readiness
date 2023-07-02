@@ -24,7 +24,7 @@ jobs:
           node-version: '${{ steps.nvm.outputs.NVMRC }}'
 
       - name: Install
-        run: ./install.sh
+        run: ./install.sh && ./clients/js/install.sh
 
       - name: Run
         run: ./run.sh js
