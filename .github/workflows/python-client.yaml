@@ -1,4 +1,4 @@
-name: JavaScript-Client
+name: Python-Client
 
 on:
   push:
@@ -23,12 +23,20 @@ jobs:
         with:
           node-version: '${{ steps.nvm.outputs.NVMRC }}'
 
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install poetry
+        run: curl -sSL https://install.python-poetry.org | python3 -
+
       - name: Root Install
         run: ./install.sh
 
-      - name: Javascript Client Install
-        run: yarn install
-        working-directory: ./clients/js
+      - name: Python Client Install
+        run: poetry install
+        working-directory: ./clients/py
 
       - name: Run
-        run: ./run.sh js
+        run: ./run.sh py
