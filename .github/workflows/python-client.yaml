@@ -31,8 +31,12 @@ jobs:
       - name: Install poetry
         run: curl -sSL https://install.python-poetry.org | python3 -
 
-      - name: Install
-        run: ./install.sh && ./clients/py/install.sh
+      - name: Root Install
+        run: ./install.sh
+
+      - name: Python Client Install
+        run: poetry install
+        working-directory: ./clients/py
 
       - name: Run
         run: ./run.sh py

@@ -23,8 +23,12 @@ jobs:
         with:
           node-version: '${{ steps.nvm.outputs.NVMRC }}'
 
-      - name: Install
-        run: ./install.sh && ./clients/js/install.sh
+      - name: Root Install
+        run: ./install.sh
+
+      - name: Javascript Client Install
+        run: yarn install
+        working-directory: ./clients/js
 
       - name: Run
         run: ./run.sh js
