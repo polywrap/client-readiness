@@ -1,5 +1,5 @@
 use std::{error::Error, sync::{Arc, Mutex}};
-use polywrap_client::{core::{invoker::Invoker}, builder::types::{BuilderConfig, ClientBuilder, ClientConfigHandler}, client::PolywrapClient, plugin::{module::PluginModule, package::PluginPackage}, wrap_manifest::versions::{WrapManifest01, WrapManifest01Abi}};
+use polywrap_client::{core::{invoker::Invoker}, client::PolywrapClient, plugin::{module::PluginModule, package::PluginPackage}, wrap_manifest::versions::{WrapManifest01, WrapManifest01Abi}, builder::PolywrapClientConfigBuilder};
 use serde::{Deserialize, Serialize};
 use serde_json::{Value, Map};
 
@@ -40,14 +40,14 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
           &mut self,
           method_name: &str,
           params: &[u8],
-          _: Option<&polywrap_client::core::env::Env>,
+          _: Option<&[u8]>,
           _: std::sync::Arc<dyn polywrap_client::core::invoker::Invoker>,
       ) -> Result<Vec<u8>, polywrap_client::plugin::error::PluginError> {
           match method_name {
             "add" => {
-              let args: AddArgs = polywrap_client::msgpack::decode(params)?;
+              let args: AddArgs = polywrap_client::msgpack::from_slice(params)?;
               let result = self.add(&args);
-              Ok(polywrap_client::msgpack::serialize(&result)?)
+              Ok(polywrap_client::msgpack::to_vec(&result)?)
             },
             _ => panic!("Unrecognized method: {method_name}")
           }
@@ -77,7 +77,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
 
   println!("Adding PluginPackage to ClientConfig");
 
-  let mut config: BuilderConfig = BuilderConfig::new(None);
+  let mut config = PolywrapClientConfigBuilder::new(None);
   config.add_package(uri.clone(), Arc::new(plugin_package));
   
   let config: polywrap_client::core::client::ClientConfig = config.build();
@@ -88,7 +88,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   let result = client.invoke_raw(
     &uri,
     &method,
-    Some(&polywrap_client::msgpack::serialize(&args)?),
+    Some(&polywrap_client::msgpack::to_vec(&args)?),
     None,
     None
   );

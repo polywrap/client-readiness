@@ -1,5 +1,5 @@
-use std::{error::Error, sync::Arc};
-use polywrap_client::{core::{resolvers::{uri_resolver::{UriResolver, UriResolverHandler}, uri_resolution_context::UriPackageOrWrapper, uri_resolver_like::UriResolverLike}}, builder::types::{BuilderConfig, ClientBuilder, ClientConfigHandler}, client::PolywrapClient};
+use std::{error::Error, sync::{Arc, Mutex}};
+use polywrap_client::{client::PolywrapClient, core::resolution::{uri_resolution_context::{UriPackageOrWrapper, UriResolutionContext}, uri_resolver::UriResolver}, builder::PolywrapClientConfigBuilder};
 use serde::{Deserialize};
 use serde_json::Value;
 
@@ -29,9 +29,9 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
             &self,
             uri: &polywrap_client::core::uri::Uri,
             _: std::sync::Arc<dyn polywrap_client::core::invoker::Invoker>,
-            _: &mut polywrap_client::core::resolvers::uri_resolution_context::UriResolutionContext,
+            _: Arc<Mutex<UriResolutionContext>>,
         ) -> Result<UriPackageOrWrapper, polywrap_client::core::error::Error> {
-      if uri.authority == self.authority {
+      if uri.authority() == self.authority {
         Ok(UriPackageOrWrapper::Uri(self.result.clone().try_into()?))
       } else {
         Ok(UriPackageOrWrapper::Uri(uri.clone()))
@@ -39,7 +39,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
     }
   }
 
-  let mut config: BuilderConfig = BuilderConfig::new(None);
+  let mut config = PolywrapClientConfigBuilder::new(None);
   config.add_resolver(UriResolverLike::Resolver(Arc::new(Resolver {
     authority: authority.clone(),
     result,

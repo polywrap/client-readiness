@@ -1,5 +1,5 @@
 use std::{error::Error, sync::{Mutex, Arc}};
-use polywrap_client::{core::{invoker::Invoker}, builder::types::{BuilderConfig, ClientBuilder, ClientConfigHandler}, client::PolywrapClient, plugin::{module::PluginModule, wrapper::PluginWrapper}};
+use polywrap_client::{core::{invoker::Invoker}, client::PolywrapClient, plugin::{module::PluginModule, wrapper::PluginWrapper}, builder::PolywrapClientConfigBuilder};
 use serde::{Deserialize};
 use serde_json::Value;
 
@@ -38,7 +38,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
           &mut self,
           method_name: &str,
           _: &[u8],
-          _: Option<&polywrap_client::core::env::Env>,
+          _: Option<&[u8]>,
           _: std::sync::Arc<dyn polywrap_client::core::invoker::Invoker>,
       ) -> Result<Vec<u8>, polywrap_client::plugin::error::PluginError> {
           match method_name {
@@ -58,7 +58,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
 
   let plugin_wrapper = PluginWrapper::new(Arc::new(Mutex::new(Box::new(plugin))));
 
-  let mut config: BuilderConfig = BuilderConfig::new(None);
+  let mut config = PolywrapClientConfigBuilder::new(None);
   config.add_wrapper(uri.clone(), Arc::new(plugin_wrapper));
   
   let config = config.build();

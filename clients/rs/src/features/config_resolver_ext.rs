@@ -1,5 +1,5 @@
 use std::{error::Error, sync::{Arc, Mutex}};
-use polywrap_client::{core::{resolvers::{uri_resolver::UriResolverHandler, uri_resolution_context::UriPackageOrWrapper}, uri::Uri}, builder::types::{BuilderConfig, ClientBuilder, ClientConfigHandler}, client::PolywrapClient, plugin::{module::PluginModule, package::PluginPackage}, wrap_manifest::versions::{WrapManifest01, WrapManifest01Abi}};
+use polywrap_client::{core::{uri::Uri, resolution::uri_resolution_context::UriPackageOrWrapper}, client::PolywrapClient, plugin::{module::PluginModule, package::PluginPackage}, wrap_manifest::versions::{WrapManifest01, WrapManifest01Abi}, builder::PolywrapClientConfigBuilder};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
@@ -40,12 +40,12 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
         &mut self,
         method_name: &str,
         params: &[u8],
-        _: Option<&polywrap_client::core::env::Env>,
+        _: Option<&[u8]>,
         _: std::sync::Arc<dyn polywrap_client::core::invoker::Invoker>,
     ) -> Result<Vec<u8>, polywrap_client::plugin::error::PluginError> {
         match method_name {
           "tryResolveUri" => {
-            let args: TryResolveUriArgs = polywrap_client::msgpack::decode(params)?;
+            let args: TryResolveUriArgs = polywrap_client::msgpack::from_slice(params)?;
 
             if args.authority == self.authority {
               let result = TryResolveUriResult {
@@ -69,7 +69,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
                 uri: self.result.clone().try_into().unwrap()
               };
 
-              return Ok(polywrap_client::msgpack::serialize(&result)?)
+              return Ok(polywrap_client::msgpack::to_vec(&result)?)
             }
 
             let msgpack_null = vec![192]; 
@@ -87,7 +87,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
     get_default_manifest()
   );
 
-  let mut config: BuilderConfig = BuilderConfig::new(None);
+  let mut config = PolywrapClientConfigBuilder::new(None);
   config.add_package(
     "wrap://plugin/custom-resolver".try_into()?,
     Arc::new(plugin_package)

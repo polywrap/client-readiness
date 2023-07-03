@@ -1,5 +1,5 @@
 use std::{error::Error};
-use polywrap_client::{core::{invoker::Invoker}, builder::types::{BuilderConfig, ClientBuilder, ClientConfigHandler}, client::PolywrapClient};
+use polywrap_client::{core::{invoker::Invoker}, client::PolywrapClient, builder::PolywrapClientConfigBuilder};
 use serde::{Deserialize};
 use serde_json::Value;
 
@@ -20,7 +20,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
 
   println!("Adding Interface Implementations to ClientConfig");
 
-  let mut config: BuilderConfig = BuilderConfig::new(None);
+  let mut config = PolywrapClientConfigBuilder::new(None);
   config.add_interface_implementations(interface_uri.clone(), implementations);
   
   let config = config.build();

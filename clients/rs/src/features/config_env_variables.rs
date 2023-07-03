@@ -1,39 +1,47 @@
-use std::{error::Error};
-use polywrap_client::{core::{client::Client}, builder::types::{BuilderConfig, ClientBuilder, ClientConfigHandler}, client::PolywrapClient};
-use serde::{Deserialize};
+use polywrap_client::{
+    builder::{PolywrapClientConfig, PolywrapClientConfigBuilder},
+    client::PolywrapClient,
+    core::invoker::Invoker,
+};
+use serde::Deserialize;
 use serde_json::Value;
+use std::error::Error;
 
 use crate::input::{expect_object, expect_uri};
 
 #[derive(Deserialize)]
 struct InputObj {
-  uri: Value,
-  env: Value
+    uri: Value,
+    env: Value,
 }
 
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
-  let input_obj = expect_object::<InputObj>(input)?;
-  let uri = expect_uri(&input_obj.uri)?;
+    let input_obj = expect_object::<InputObj>(input)?;
+    let uri = expect_uri(&input_obj.uri)?;
 
-  println!("Adding Env to ClientConfig");
+    println!("Adding Env to ClientConfig");
 
-  let mut config: BuilderConfig = BuilderConfig::new(None);
-  config.add_env(uri.clone(), input_obj.env);
-  
-  let config = config.build();
-  let client: PolywrapClient = PolywrapClient::new(config);
+    let mut config = PolywrapClientConfig::new();
+    config.add_env(
+        uri.clone(),
+        polywrap_client::msgpack::to_vec(&input_obj.env)?,
+    );
 
-  println!("Fetching Env");
+    let client: PolywrapClient = PolywrapClient::new(config.into());
 
-  let result = client.get_env_by_uri(&uri);
+    println!("Fetching Env");
 
-  if let Some(result) = result {
-    for key in result.as_object().unwrap().keys() {
-      let value = result.get(key).unwrap();
-      println!("env.{key} = {value}");
+    let result = client
+        .get_env_by_uri(&uri);
+
+    if let Some(result) = result {
+        let result = polywrap_client::msgpack::from_slice::<Value>(&result)?;
+        for key in result.as_object().unwrap().keys() {
+            let value = result.get(key).unwrap();
+            println!("env.{key} = {value}");
+        }
+        println!("Success!")
     }
-    println!("Success!")
-  }
 
-  Ok(())
+    Ok(())
 }
