@@ -1,15 +1,21 @@
-protocol Feature {
+public protocol Feature {
     func runTestCase(input: Any) throws -> Void
 }
 
-enum FeatureError: Error {
+public enum FeatureError: Error {
     case unknownFeature
 }
 
-func FeatureFactory(for name: String) throws -> Feature {
+public func FeatureFactory(for name: String) throws -> Feature {
     switch name {
+    case "config_embed_wrap_package":
+        return ConfigEmbedWrapPackageTest()
+    case "config_env_variables":
+        return ConfigEnvVariablesTest()
+    case "config_interface_implementations":
+        return ConfigInterfaceImplementations()
     case "uri":
-        return Uri()
+        return UriTest()
     default:
         throw FeatureError.unknownFeature
     }

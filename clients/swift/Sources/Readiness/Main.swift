@@ -5,8 +5,7 @@ public struct Readiness {
     public static func main() async throws {
         let filter: String? = CommandLine.arguments.count > 1 ? CommandLine.arguments[1] : nil
 
-        guard let specs = try? loadFeatureSpecs("../../specs/") else {
-            // Handle the case where `specs` is `nil` here
+        guard let specs = try? loadFeatureSpecs("./Specs") else {
             print("Failed to load feature specs")
             return
         }

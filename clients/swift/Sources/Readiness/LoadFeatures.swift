@@ -1,23 +1,25 @@
 import Foundation
 import Yams
 
-struct TestCase {
+public struct TestCase {
     let input: Any
 }
 
-struct Spec {
+public struct Spec {
     let required: Bool
     let cases: [String: TestCase]
 }
 
-typealias FeatureSpecs = [String: Spec]
+public typealias FeatureSpecs = [String: Spec]
 
-func loadFeatureSpecs(_ path: String) throws -> FeatureSpecs {
+public func loadFeatureSpecs(_ directoryName: String) throws -> FeatureSpecs {
     var featureSpecs: FeatureSpecs = [:]
 
-    let fileManager = FileManager.default
-    let directoryURL = URL(fileURLWithPath: path)
+    guard let directoryURL = Bundle.module.url(forResource: directoryName, withExtension: nil) else {
+        throw NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Unable to find directory in the module bundle."])
+    }
 
+    let fileManager = FileManager.default
     guard let specFiles = try? fileManager.contentsOfDirectory(at: directoryURL, includingPropertiesForKeys: nil) else {
         throw NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Unable to read directory contents."])
     }
@@ -25,7 +27,7 @@ func loadFeatureSpecs(_ path: String) throws -> FeatureSpecs {
     for specFileURL in specFiles {
         let specYaml = try String(contentsOf: specFileURL, encoding: .utf8)
 
-        guard var spec = try Yams.load(yaml: specYaml) as? [String: Any] else {
+        guard let spec = try Yams.load(yaml: specYaml) as? [String: Any] else {
             throw NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to load feature-spec \(specFileURL.lastPathComponent), must be an object."])
         }
 
