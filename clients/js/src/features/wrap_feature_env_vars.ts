@@ -6,42 +6,41 @@ import path from "path";
 export async function runTestCase(input: unknown): Promise<void> {
   const inputObj = Input.expectObject<{
     mainEnv: unknown;
-    extEnv: unknown;
+    subinvokerEnv: unknown;
   }>(input);
 
   const mainEnv = Input.expectObject<Record<string, unknown>>(
     inputObj.mainEnv
   );
-  const extEnv = Input.expectObject<Record<string, unknown>>(
-    inputObj.extEnv
+  const subinvokerEnv = Input.expectObject<Record<string, unknown>>(
+    inputObj.subinvokerEnv
   );
 
-  const root = path.join(__dirname, "../../../../wraps");
-  const externalWrapperPath = path.join(root, "/env-type/00-external/implementations/as");
-  const { uri: externalWrapperUri } = Uri.from(
-    `file/${externalWrapperPath}`
-  );
-
-  const wrapperPath = path.join(root, "/env-type/01-main/implementations/as");
-  const { uri: wrapperUri } = Uri.from(`file/${wrapperPath}`);
+  const wrapsDir = path.join(__dirname, "../../../../wraps");
+  const mainPath = path.join(wrapsDir, "/env-type/00-main/implementations/as");
+  const mainUri = Uri.from("file/" + mainPath);
+  const subinvokerPath = path.join(wrapsDir, "/env-type/02-subinvoker-with-env/implementations/as");
+  const subinvokerUri = Uri.from("file/" + subinvokerPath);
 
   const envs = {
-    [wrapperUri]: mainEnv,
-    [externalWrapperUri]: extEnv,
+    [mainUri.uri]: mainEnv,
+    [subinvokerUri.uri]: subinvokerEnv,
   };
 
   const config = new ClientConfigBuilder()
     .addDefaults()
     .addEnvs(envs)
-    .addRedirect("ens/external-env.polywrap.eth", externalWrapperUri)
+    .addRedirect("mock/main", mainUri.uri)
     .build();
 
   const client = new PolywrapClient(config);
 
   console.log("Invoking methodRequireEnv");
 
-  const methodRequireEnvResult = await client.invoke({
-    uri: wrapperUri,
+  const methodRequireEnvResult = await client.invoke<{
+    str: string
+  }>({
+    uri: mainUri.uri,
     method: "methodRequireEnv",
     args: {
       arg: "string",
@@ -49,17 +48,19 @@ export async function runTestCase(input: unknown): Promise<void> {
   });
 
   if (!methodRequireEnvResult.ok) throw methodRequireEnvResult.error;
+  console.log(
+    "response.str:", methodRequireEnvResult.value.str
+  );
 
   console.log("Success!");
 
-  console.log("Invoking subinvokeEnvMethod");
+  console.log("Invoking subinvokeMethodRequireEnv");
 
   const subinvokeEnvMethodResult = await client.invoke<{
-    local: unknown,
-    external: unknown
+    str: string
   }>({
-    uri: wrapperUri,
-    method: "subinvokeEnvMethod",
+    uri: subinvokerUri.uri,
+    method: "subinvokeMethodRequireEnv",
     args: {
       arg: "string",
     },
@@ -68,10 +69,7 @@ export async function runTestCase(input: unknown): Promise<void> {
   if (!subinvokeEnvMethodResult.ok) throw subinvokeEnvMethodResult.error;
 
   console.log(
-    "response.local exists:", !!subinvokeEnvMethodResult.value.local
-  );
-  console.log(
-    "response.external exists:", !!subinvokeEnvMethodResult.value.external
+    "response.str:", subinvokeEnvMethodResult.value.str
   );
   console.log("Success!")
 }
