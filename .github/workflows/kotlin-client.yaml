@@ -1,0 +1,30 @@
+name: Kotlin-Client
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  Client-Readiness:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Read .nvmrc
+        run: echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_OUTPUT
+        id: nvm
+        working-directory: ./verify
+
+      - name: Setup Node.js
+        uses: actions/setup-node@master
+        with:
+          node-version: '${{ steps.nvm.outputs.NVMRC }}'
+
+      - name: Install
+        run: ./install.sh
+
+      - name: Run
+        run: ./run.sh kotlin

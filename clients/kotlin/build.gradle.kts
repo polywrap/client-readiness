@@ -17,6 +17,7 @@ repositories {
 dependencies {
     testImplementation(kotlin("test"))
     implementation("io.polywrap:polywrap-client:0.10.0-SNAPSHOT")
+    implementation("com.ensarsarajcic.kotlinx:serialization-msgpack:0.5.5") // not sure why but this is needed
     implementation("net.mamoe.yamlkt:yamlkt:0.13.0")
     implementation("org.slf4j:slf4j-nop:1.7.36") // suppress SLF4J logger warnings
 }
