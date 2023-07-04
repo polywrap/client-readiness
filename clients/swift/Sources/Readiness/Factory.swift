@@ -13,7 +13,9 @@ public func FeatureFactory(for name: String) throws -> Feature {
     case "config_env_variables":
         return ConfigEnvVariablesTest()
     case "config_interface_implementations":
-        return ConfigInterfaceImplementations()
+        return ConfigInterfaceImplementationsTest()
+    case "config_plugin_instance":
+        return ConfigPluginInstanceTest()
     case "uri":
         return UriTest()
     default:

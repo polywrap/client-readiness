@@ -1,7 +1,7 @@
 import PolywrapClient
 import Foundation
 
-public struct CustomEnv: Codable {
+public struct Env: Codable {
     var str: String
     var num: Int
     
@@ -35,7 +35,7 @@ struct ConfigEnvVariablesTest: Feature {
 
         print("Fetching Env")
 
-        guard let result: CustomEnv = client.getEnvByUri(uri) else {
+        guard let result: Env = try client.getEnvByUri(uri) else {
             let error = NSError(domain: "", code: 1, userInfo: [NSLocalizedDescriptionKey : "No environment variables found for \(uri)"])
             throw error
         }
