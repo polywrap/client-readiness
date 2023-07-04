@@ -1,20 +1,18 @@
 use std::{error::Error};
-use polywrap_client::{core::{resolvers::{uri_resolver::{UriResolverHandler}, uri_resolution_context::UriPackageOrWrapper}}, builder::types::{BuilderConfig, ClientConfigHandler}, client::PolywrapClient};
+use polywrap_client::{client::PolywrapClient, builder::PolywrapClientConfig, core::{uri_resolver_handler::UriResolverHandler, resolution::uri_resolution_context::UriPackageOrWrapper}};
 use serde_json::Value;
 
 use crate::input::{expect_uri};
 
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   let uri = expect_uri(input)?;
-  let uri_authority = &uri.authority;
+  let uri_authority = uri.authority();
   let uri_string = uri.to_string();
 
   println!("URI Authority: {uri_authority}");
 
-  let config: BuilderConfig = BuilderConfig::new(None);
-  
-  let config = config.build();
-  let client: PolywrapClient = PolywrapClient::new(config);
+  let config = PolywrapClientConfig::new();
+  let client: PolywrapClient = PolywrapClient::new(config.into());
 
   println!("Resolving: {uri_string}");
 

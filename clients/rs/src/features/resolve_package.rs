@@ -1,5 +1,5 @@
 use std::{error::Error, fs, path::Path, sync::Arc};
-use polywrap_client::{core::{file_reader::SimpleFileReader, resolvers::uri_resolver::UriResolverHandler}, builder::types::{BuilderConfig, ClientBuilder, ClientConfigHandler}, client::PolywrapClient, wasm::{wasm_package::WasmPackage}};
+use polywrap_client::{core::{file_reader::SimpleFileReader, uri_resolver_handler::UriResolverHandler, resolution::uri_resolution_context::UriPackageOrWrapper}, client::PolywrapClient, wasm::{wasm_package::WasmPackage}, builder::{PolywrapClientConfig, PolywrapClientConfigBuilder}};
 use serde::{Deserialize};
 use serde_json::Value;
 
@@ -22,13 +22,12 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   let manifest = fs::read(Path::new(&wrap_dir).join("wrap.info"))?;
   let wasm_module = fs::read(Path::new(&wrap_dir).join("wrap.wasm"))?;
 
-  let wrap_package = WasmPackage::new(Arc::new(SimpleFileReader::new()), Some(manifest), Some(wasm_module));
+  let wrap_package = WasmPackage::from_bytecode(wasm_module, Arc::new(SimpleFileReader::new()), Some(manifest));
 
-  let mut config: BuilderConfig = BuilderConfig::new(None);
+  let mut config = PolywrapClientConfig::new();
   config.add_package(uri.clone(), Arc::new(wrap_package));
   
-  let config = config.build();
-  let client: PolywrapClient = PolywrapClient::new(config);
+  let client: PolywrapClient = PolywrapClient::new(config.into());
 
   let uri_string = uri.to_string();
   println!("Resolving URI: {uri_string}");
@@ -37,9 +36,9 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
 
   if let Ok(result) = result {
     let result_type = match result {
-        polywrap_client::core::resolvers::uri_resolution_context::UriPackageOrWrapper::Uri(_) => "uri",
-        polywrap_client::core::resolvers::uri_resolution_context::UriPackageOrWrapper::Wrapper(_, _) => "wrapper",
-        polywrap_client::core::resolvers::uri_resolution_context::UriPackageOrWrapper::Package(_, _) => "package",
+        UriPackageOrWrapper::Uri(_) => "uri",
+        UriPackageOrWrapper::Wrapper(_, _) => "wrapper",
+        UriPackageOrWrapper::Package(_, _) => "package",
     };
     println!("Received: {result_type}");
     println!("Success!")

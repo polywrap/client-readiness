@@ -1,5 +1,5 @@
 use std::{error::Error};
-use polywrap_client::{core::{resolvers::{uri_resolver::{UriResolverHandler}, uri_resolution_context::UriPackageOrWrapper}}, builder::types::{BuilderConfig, ClientBuilder, ClientConfigHandler}, client::PolywrapClient};
+use polywrap_client::{client::PolywrapClient, builder::{PolywrapClientConfig, PolywrapClientConfigBuilder}, core::{uri_resolver_handler::UriResolverHandler, resolution::uri_resolution_context::UriPackageOrWrapper}};
 use serde::{Deserialize};
 use serde_json::Value;
 
@@ -18,15 +18,14 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
 
   println!("Adding URI Redirect to ClientConfig");
 
-  let mut config: BuilderConfig = BuilderConfig::new(None);
-  config.add_redirect(from.clone().try_into()?, to.try_into()?);
+  let mut config = PolywrapClientConfig::new();
+  config.add_redirect(from.clone().try_into().unwrap(), to.try_into().unwrap());
   
-  let config = config.build();
-  let client: PolywrapClient = PolywrapClient::new(config);
+  let client: PolywrapClient = PolywrapClient::new(config.into());
 
   println!("Resolving Redirect");
 
-  let result = client.try_resolve_uri(&from.try_into()?, None)?;
+  let result = client.try_resolve_uri(&from.try_into().unwrap(), None)?;
 
   if let UriPackageOrWrapper::Uri(result_uri) = result {
     println!("Received URI '{result_uri}'");

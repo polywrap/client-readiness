@@ -1,5 +1,5 @@
 use std::{error::Error, sync::{Arc}, fs, path::Path};
-use polywrap_client::{core::{invoker::Invoker, file_reader::SimpleFileReader}, builder::types::{BuilderConfig, ClientBuilder, ClientConfigHandler}, client::PolywrapClient, wasm::wasm_package::WasmPackage};
+use polywrap_client::{core::{invoker::Invoker, file_reader::SimpleFileReader}, client::PolywrapClient, wasm::wasm_package::WasmPackage, builder::{PolywrapClientConfig, PolywrapClientConfigBuilder}};
 use serde::{Deserialize};
 use serde_json::Value;
 
@@ -24,24 +24,23 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   let manifest = fs::read(Path::new(&wrap_dir).join("wrap.info"))?;
   let wasm_module = fs::read(Path::new(&wrap_dir).join("wrap.wasm"))?;
 
-  let wrap_package = WasmPackage::new(
+  let wrap_package = WasmPackage::from_bytecode(
+    wasm_module,
     Arc::new(SimpleFileReader::new()),
-    Some(manifest),
-    Some(wasm_module)
+    Some(manifest)
   );
 
-  let mut config: BuilderConfig = BuilderConfig::new(None);
-  config.add_package("embed/foo".try_into()?, Arc::new(wrap_package));
+  let mut config = PolywrapClientConfig::new();
+  config.add_package("embed/foo".try_into().unwrap(), Arc::new(wrap_package));
   
-  let config = config.build();
-  let client: PolywrapClient = PolywrapClient::new(config);
+  let client: PolywrapClient = PolywrapClient::new(config.into());
 
   println!("Invoking {method}");
 
   let result = client.invoke_raw(
-    &"embed/foo".try_into()?,
+    &"embed/foo".try_into().unwrap(),
     &method,
-    Some(&polywrap_client::msgpack::serialize(&args)?),
+    Some(&polywrap_client::msgpack::to_vec(&args)?),
     None,
     None
   );

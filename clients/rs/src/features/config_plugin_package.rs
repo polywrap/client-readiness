@@ -1,5 +1,5 @@
 use std::{error::Error, sync::{Arc, Mutex}};
-use polywrap_client::{core::{invoker::Invoker}, client::PolywrapClient, plugin::{module::PluginModule, package::PluginPackage}, wrap_manifest::versions::{WrapManifest01, WrapManifest01Abi}, builder::PolywrapClientConfigBuilder};
+use polywrap_client::{core::{invoker::Invoker}, client::PolywrapClient, plugin::{module::PluginModule, package::PluginPackage}, wrap_manifest::versions::{WrapManifest01, WrapManifest01Abi}, builder::{PolywrapClientConfigBuilder, PolywrapClientConfig}};
 use serde::{Deserialize, Serialize};
 use serde_json::{Value, Map};
 
@@ -77,11 +77,10 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
 
   println!("Adding PluginPackage to ClientConfig");
 
-  let mut config = PolywrapClientConfigBuilder::new(None);
+  let mut config = PolywrapClientConfig::new();
   config.add_package(uri.clone(), Arc::new(plugin_package));
   
-  let config: polywrap_client::core::client::ClientConfig = config.build();
-  let client: PolywrapClient = PolywrapClient::new(config);
+  let client: PolywrapClient = PolywrapClient::new(config.into());
 
   println!("Invoking PluginPackage");
 

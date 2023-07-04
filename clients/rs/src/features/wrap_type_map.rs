@@ -1,8 +1,7 @@
-use std::{error::Error, collections::{BTreeMap}};
-use polywrap_client::{core::{uri::Uri}, builder::types::{BuilderConfig, ClientConfigHandler}, client::PolywrapClient};
+use std::{error::Error, collections::{HashMap}};
+use polywrap_client::{core::{uri::Uri}, client::PolywrapClient, builder::PolywrapClientConfig};
 use serde::{Deserialize, Serialize};
 use serde_json::{Value};
-use polywrap_client::msgpack::extensions::generic_map::GenericMap;
 
 use crate::input::{expect_object};
 
@@ -13,45 +12,43 @@ struct InputObj {
 
 #[derive(Serialize)]
 struct ReturnMapArgs {
-  map: GenericMap<String, i32>
+  map: HashMap<String, i32>
 }
 
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   let input_obj = expect_object::<InputObj>(input)?;
-  let map = expect_object::<GenericMap<String, i32>>(&input_obj.map)?;
+  let map = expect_object::<HashMap<String, i32>>(&input_obj.map)?;
 
   let binding = std::env::current_dir()?.join("../../../../wraps");
   let root = binding.to_str().unwrap();
-  let uri: Uri = format!("fs/{root}/map-type/implementations/as").try_into()?;
+  let uri: Uri = format!("fs/{root}/map-type/implementations/as").try_into().unwrap();
 
-  let config: BuilderConfig = BuilderConfig::new(None);
+  let config = PolywrapClientConfig::new();
 
-  let config = config.build();
-  let client: PolywrapClient = PolywrapClient::new(config);
+  let client: PolywrapClient = PolywrapClient::new(config.into());
 
-  let mut map_class: BTreeMap<String, i32> = BTreeMap::new();
+  let mut map_class: HashMap<String, i32> = HashMap::new();
 
-  for entry in map.0 {
+  for entry in map {
     map_class.insert(entry.0, entry.1);
   }
 
   println!("Invoking returnMap");
 
-  let generic_map_class = GenericMap(map_class);
-  let args = ReturnMapArgs { map: generic_map_class };
+  let args = ReturnMapArgs { map: map_class };
 
-  let result = client.invoke::<GenericMap<String, Value>>(
+  let result = client.invoke::<HashMap<String, Value>>(
     &uri,
     "returnMap",
-    Some(&polywrap_client::msgpack::serialize(&args)?),
+    Some(&polywrap_client::msgpack::to_vec(&args)?),
     None,
     None
   );
 
   match result {
     Ok(result) => {
-      for entry_key in result.0.keys() {
-        let entry_value = result.0.get(entry_key).unwrap();
+      for entry_key in result.keys() {
+        let entry_value = result.get(entry_key).unwrap();
         println!("key '{entry_key}' = {entry_value}");
       }
       

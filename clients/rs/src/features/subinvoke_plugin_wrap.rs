@@ -1,9 +1,8 @@
 use polywrap_client::{
-    builder::types::{BuilderConfig, ClientBuilder, ClientConfigHandler},
     client::PolywrapClient,
     core::{invoker::Invoker, uri::Uri, file_reader::SimpleFileReader, package::WrapPackage},
     plugin::{module::PluginModule, package::PluginPackage},
-    wasm::wasm_package::WasmPackage,
+    wasm::wasm_package::WasmPackage, builder::{PolywrapClientConfig, PolywrapClientConfigBuilder},
 };
 use serde::{Deserialize};
 use serde_json::{Value};
@@ -46,7 +45,7 @@ impl Plugin {
         let res = invoker.invoke_raw(
             &self.subinvoke_uri,
             subinvoke_method,
-            Some(&polywrap_client::msgpack::serialize(&self.subinvoke_args)?),
+            Some(&polywrap_client::msgpack::to_vec(&self.subinvoke_args)?),
             None,
             None,
         );
@@ -65,13 +64,13 @@ impl PluginModule for Plugin {
         &mut self,
         method_name: &str,
         _: &[u8],
-        _: Option<&polywrap_client::core::env::Env>,
+        _: Option<&[u8]>,
         invoker: std::sync::Arc<dyn polywrap_client::core::invoker::Invoker>,
     ) -> Result<Vec<u8>, polywrap_client::plugin::error::PluginError> {
         match method_name {
             "performSubinvoke" => {
                 let result = self.perform_subinvoke(invoker)?;
-                Ok(polywrap_client::msgpack::serialize(&result)?)
+                Ok(polywrap_client::msgpack::to_vec(&result)?)
             }
             _ => panic!("Unrecognized method: {method_name}"),
         }
@@ -92,8 +91,8 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
     let manifest = fs::read(Path::new(&wrap_dir).join("wrap.info"))?;
     let wasm_module = fs::read(Path::new(&wrap_dir).join("wrap.wasm"))?;
 
-    let wrap_package = WasmPackage::new(Arc::new(SimpleFileReader::new()), Some(manifest), Some(wasm_module));
-    let wrap_uri: Uri =  "embed/foo".try_into()?;
+    let wrap_package = WasmPackage::from_bytecode(wasm_module, Arc::new(SimpleFileReader::new()), Some(manifest));
+    let wrap_uri: Uri =  "embed/foo".try_into().unwrap();
 
     let plugin_package = PluginPackage::new(
         Arc::new(Mutex::new(Box::new(Plugin::new(
@@ -104,20 +103,19 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
         get_default_manifest(),
     );
 
-    let mut config: BuilderConfig = BuilderConfig::new(None);
+    let mut config = PolywrapClientConfig::new();
     let packages = vec![
       (wrap_uri, Arc::new(wrap_package) as Arc<dyn WrapPackage>),
-      ("plugin/bar".try_into()?, Arc::new(plugin_package))
+      ("plugin/bar".try_into().unwrap(), Arc::new(plugin_package))
     ];
     config.add_packages(packages);
 
-    let config: polywrap_client::core::client::ClientConfig = config.build();
-    let client: PolywrapClient = PolywrapClient::new(config);
+    let client: PolywrapClient = PolywrapClient::new(config.into());
 
     println!("Invoking Plugin");
 
     let result = client.invoke_raw(
-      &"plugin/bar".try_into()?,
+      &"plugin/bar".try_into().unwrap(),
         "performSubinvoke",
         None,
         None,

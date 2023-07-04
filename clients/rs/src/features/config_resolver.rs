@@ -1,63 +1,78 @@
-use std::{error::Error, sync::{Arc, Mutex}};
-use polywrap_client::{client::PolywrapClient, core::resolution::{uri_resolution_context::{UriPackageOrWrapper, UriResolutionContext}, uri_resolver::UriResolver}, builder::PolywrapClientConfigBuilder};
-use serde::{Deserialize};
+use polywrap_client::{
+    builder::{PolywrapClientConfig, PolywrapClientConfigBuilder},
+    client::PolywrapClient,
+    core::{
+        resolution::{
+            uri_resolution_context::{UriPackageOrWrapper, UriResolutionContext},
+            uri_resolver::UriResolver,
+        },
+        uri_resolver_handler::UriResolverHandler,
+    },
+};
+use serde::Deserialize;
 use serde_json::Value;
+use std::{
+    error::Error,
+    sync::{Arc, Mutex},
+};
 
 use crate::input::{expect_object, expect_string};
 
 #[derive(Deserialize)]
 struct InputObj {
-  authority: Value,
-  result: Value
+    authority: Value,
+    result: Value,
 }
 
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
-  let input_obj = expect_object::<InputObj>(input)?;
-  let authority = expect_string(&input_obj.authority)?;
-  let result = expect_string(&input_obj.result)?;
+    let input_obj = expect_object::<InputObj>(input)?;
+    let authority = expect_string(&input_obj.authority)?;
+    let result = expect_string(&input_obj.result)?;
 
-  println!("Adding Resolver to ClientConfig");
+    println!("Adding Resolver to ClientConfig");
 
-  #[derive(Debug)]
-  struct Resolver {
-    authority: String,
-    result: String
-  };
+    #[derive(Debug)]
+    struct Resolver {
+        authority: String,
+        result: String,
+    }
 
-  impl UriResolver for Resolver {
-    fn try_resolve_uri(
+    impl UriResolver for Resolver {
+        fn try_resolve_uri(
             &self,
             uri: &polywrap_client::core::uri::Uri,
             _: std::sync::Arc<dyn polywrap_client::core::invoker::Invoker>,
             _: Arc<Mutex<UriResolutionContext>>,
         ) -> Result<UriPackageOrWrapper, polywrap_client::core::error::Error> {
-      if uri.authority() == self.authority {
-        Ok(UriPackageOrWrapper::Uri(self.result.clone().try_into()?))
-      } else {
-        Ok(UriPackageOrWrapper::Uri(uri.clone()))
-      }
+            if uri.authority() == self.authority {
+                Ok(UriPackageOrWrapper::Uri(self.result.clone().try_into()?))
+            } else {
+                Ok(UriPackageOrWrapper::Uri(uri.clone()))
+            }
+        }
     }
-  }
 
-  let mut config = PolywrapClientConfigBuilder::new(None);
-  config.add_resolver(UriResolverLike::Resolver(Arc::new(Resolver {
-    authority: authority.clone(),
-    result,
-  })));
-  
-  let config = config.build();
-  let client: PolywrapClient = PolywrapClient::new(config);
+    let mut config = PolywrapClientConfig::new();
+    config.add_resolver(Arc::new(Resolver {
+        authority: authority.clone(),
+        result,
+    }));
 
-  println!("Resolving a wrap://{authority} URI");
+    let client: PolywrapClient = PolywrapClient::new(config.into());
 
-  let result = client.try_resolve_uri(&format!("wrap://${authority}/foo").try_into()?, None)?;
-  
-  //TODO: in JS there's a console.log in this line
+    println!("Resolving a wrap://{authority} URI");
 
-  if let UriPackageOrWrapper::Uri(result_uri) = result {
-    println!("Received URI '{result_uri}'");
-    println!("Success!");
-  }
+    let result = client.try_resolve_uri(
+        &format!("wrap://${authority}/foo").try_into().unwrap(),
+        None,
+    )?;
 
-  Ok(())
+    //TODO: in JS there's a console.log in this line
+
+    if let UriPackageOrWrapper::Uri(result_uri) = result {
+        println!("Received URI '{result_uri}'");
+        println!("Success!");
+    }
+
+    Ok(())
 }

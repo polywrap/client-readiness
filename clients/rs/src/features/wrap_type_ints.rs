@@ -1,5 +1,5 @@
 use std::{error::Error};
-use polywrap_client::{core::{uri::Uri}, builder::types::{BuilderConfig, ClientConfigHandler}, client::PolywrapClient};
+use polywrap_client::{core::{uri::Uri}, client::PolywrapClient, builder::PolywrapClientConfig};
 use serde::{Deserialize};
 use serde_json::{Value};
 
@@ -18,12 +18,11 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
 
   let binding = std::env::current_dir()?.join("../../../../wraps");
   let root = binding.to_str().unwrap();
-  let uri: Uri = format!("fs/{root}/numbers-type/implementations/as").try_into()?;
+  let uri: Uri = format!("fs/{root}/numbers-type/implementations/as").try_into().unwrap();
 
-  let config: BuilderConfig = BuilderConfig::new(None);
+  let config = PolywrapClientConfig::new();
 
-  let config = config.build();
-  let client: PolywrapClient = PolywrapClient::new(config);
+  let client: PolywrapClient = PolywrapClient::new(config.into());
 
   println!("Invoking {method}");
 
@@ -31,7 +30,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   let result = client.invoke::<i32>(
     &uri,
     &method,
-    Some(&polywrap_client::msgpack::serialize(&args)?),
+    Some(&polywrap_client::msgpack::to_vec(&args)?),
     None,
     None
   );

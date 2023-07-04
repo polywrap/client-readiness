@@ -8,11 +8,11 @@ use crate::input::expect_string;
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
     let str = expect_string(input)?;
 
-    let uri = Uri::try_from(str)?;
+    let uri = Uri::try_from(str).unwrap();
 
     println!("WRAP URI successfully created.");
     println!("uri - {uri}");
-    println!("uri.authority - {}", uri.authority);
-    println!("uri.path - {}", uri.path);
+    println!("uri.authority - {}", uri.authority());
+    println!("uri.path - {}", uri.path());
     Ok(())
 }

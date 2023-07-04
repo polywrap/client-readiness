@@ -1,5 +1,5 @@
 use std::{error::Error, sync::{Arc, Mutex}};
-use polywrap_client::{core::{uri::Uri, resolution::uri_resolution_context::UriPackageOrWrapper}, client::PolywrapClient, plugin::{module::PluginModule, package::PluginPackage}, wrap_manifest::versions::{WrapManifest01, WrapManifest01Abi}, builder::PolywrapClientConfigBuilder};
+use polywrap_client::{core::{uri::Uri, resolution::uri_resolution_context::UriPackageOrWrapper, uri_resolver_handler::UriResolverHandler}, client::PolywrapClient, plugin::{module::PluginModule, package::PluginPackage}, wrap_manifest::versions::{WrapManifest01, WrapManifest01Abi}, builder::{PolywrapClientConfigBuilder, PolywrapClientConfig}};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
@@ -87,18 +87,17 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
     get_default_manifest()
   );
 
-  let mut config = PolywrapClientConfigBuilder::new(None);
+  let mut config = PolywrapClientConfig::new();
   config.add_package(
-    "wrap://plugin/custom-resolver".try_into()?,
+    "wrap://plugin/custom-resolver".try_into().unwrap(),
     Arc::new(plugin_package)
   );
   
-  let config = config.build();
-  let client: PolywrapClient = PolywrapClient::new(config);
+  let client: PolywrapClient = PolywrapClient::new(config.into());
 
   println!("Resolving a wrap://{authority} URI");
 
-  let uri: Uri = format!("wrap://{authority}/foo").try_into()?;
+  let uri: Uri = format!("wrap://{authority}/foo").try_into().unwrap();
   let result = client.try_resolve_uri(&uri, None)?;
 
   if let UriPackageOrWrapper::Uri(result_uri) = result {
