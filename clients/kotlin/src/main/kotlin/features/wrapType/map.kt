@@ -12,6 +12,9 @@ data class MapInput(
     val map: Map<String, Int>
 )
 
+@Serializable
+data class ArgsReturnMap(val map: MsgPackMap<String, Int>)
+
 fun mapType(input: MapInput) {
     val root = root().resolve("wraps")
     val uri = "fs/$root/map-type/implementations/as"
@@ -20,10 +23,10 @@ fun mapType(input: MapInput) {
 
     println("Invoking method")
 
-    val response = client.invoke<MsgPackMap<String, Int>>(
+    val response = client.invoke<ArgsReturnMap, MsgPackMap<String, Int>>(
         uri = Uri(uri),
         method = "returnMap",
-        args = mapOf("map" to input.map.toMsgPackMap())
+        args = ArgsReturnMap(input.map.toMsgPackMap())
     ).getOrThrow()
 
     response.map.forEach {
