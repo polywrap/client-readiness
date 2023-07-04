@@ -1,1 +1,1 @@
-./gradlew run -PappArgs=$1
+./gradlew run -PappArgs=$1 2> stderr | tee stdout
