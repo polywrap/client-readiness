@@ -15,7 +15,7 @@ data class PluginInput(
 
 fun invokePlugin(input: PluginInput) {
     val client = polywrapClient {
-        addPackage(input.uri to addPlugin(null))
+        setPackage(input.uri to addPlugin(null))
     }
 
     println("Invoking ${input.method}")

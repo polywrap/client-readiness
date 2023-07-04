@@ -21,7 +21,7 @@ fun pluginPackage(input: PluginPackageInput) {
     println("Adding PluginPackage to ClientConfig")
 
     val client = polywrapClient {
-        addPackage(input.uri to pluginPackage)
+        setPackage(input.uri to pluginPackage)
     }
 
     println("Invoking PluginPackage")

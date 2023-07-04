@@ -37,8 +37,8 @@ fun wrapPlugin(input: WrapPluginInput) {
     val plugin = addPlugin(null)
 
     val client = polywrapClient {
-        addPackage(input.rootWrap.uri to wrapPackage)
-        addPackage(input.subWrapUri to plugin)
+        setPackage(input.rootWrap.uri to wrapPackage)
+        setPackage(input.subWrapUri to plugin)
     }
 
     println("Invoking ${input.method}")

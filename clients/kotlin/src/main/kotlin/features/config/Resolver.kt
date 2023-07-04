@@ -1,6 +1,13 @@
 package features.config
 
+import io.polywrap.configBuilder.polywrapClient
+import io.polywrap.core.resolution.UriPackageOrWrapper
+import io.polywrap.core.resolution.UriResolver
 import kotlinx.serialization.Serializable
+import uniffi.polywrap_native.FfiInvoker
+import uniffi.polywrap_native.FfiUri
+import uniffi.polywrap_native.FfiUriPackageOrWrapper
+import uniffi.polywrap_native.FfiUriResolutionContext
 
 @Serializable
 data class ResolverInput(
@@ -9,40 +16,29 @@ data class ResolverInput(
 )
 
 fun resolver(input: ResolverInput) {
-    throw Exception("tryResolveUri is not implemented in the FFI")
-//    println("Adding Resolver to ClientConfig")
-//
-//    val resolver: UriResolver = object : UriResolver {
-//        override fun tryResolveUri(
-//            uri: FfiUri,
-//            invoker: FfiInvoker,
-//            resolutionContext: FfiUriResolutionContext
-//        ): FfiUriPackageOrWrapper {
-//            val isAuthority = uri.toStringUri().startsWith("wrap://${input.authority}")
-//            val response = if (isAuthority) {
-//                Uri(input.result)
-//            } else {
-//                uri
-//            }
-//
-//            return UriPackageOrWrapper.UriValue(response)
-//        }
-//    }
-//
-//    val client = polywrapClient {
-//        addResolver(resolver)
-//    }
-//
-//    println("Resolving a wrap://${input.authority} URI")
-//
-//    val res = client.loadWrapper(
-//        uri = Uri("wrap://${input.authority}/foo")
-//    )
+    println("Adding Resolver to ClientConfig")
 
-    //  console.log(res)
-    //
-    //  if (res.ok && res.value.type === "uri") {
-    //    console.log(`Received URI '${res.value.uri}'`);
-    //    console.log("Success!");
-    //  }
+    val resolver: UriResolver = object : UriResolver {
+        override fun tryResolveUri(
+            uri: FfiUri,
+            invoker: FfiInvoker,
+            resolutionContext: FfiUriResolutionContext
+        ): FfiUriPackageOrWrapper {
+            val isAuthority = uri.toStringUri().startsWith("wrap://${input.authority}")
+            val response = if (isAuthority) {
+                FfiUri.fromString(input.result)
+            } else {
+                uri
+            }
+            return UriPackageOrWrapper.UriValue(response)
+        }
+
+        override fun close() {}
+    }
+
+    polywrapClient {
+        addResolver(resolver)
+    }
+
+    println("Success!")
 }

@@ -18,7 +18,7 @@ fun resolveInstance(input: InstanceInput) {
     val wrapper = WasmWrapper(wasmModule)
 
     val client = polywrapClient {
-        addWrapper(input.uri to wrapper)
+        setWrapper(input.uri to wrapper)
     }
 
     println("Resolving URI: ${input.uri}")

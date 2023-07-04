@@ -38,8 +38,8 @@ fun wrapWrap(input: WrapWrapInput) {
     val subWrapPackage = getWrapPackage(input.subWrap.directory)
 
     val client = polywrapClient {
-        addPackage(input.rootWrap.uri to rootWrapPackage)
-        addPackage(input.subWrap.uri to subWrapPackage)
+        setPackage(input.rootWrap.uri to rootWrapPackage)
+        setPackage(input.subWrap.uri to subWrapPackage)
     }
 
     println("Invoking ${input.method}")

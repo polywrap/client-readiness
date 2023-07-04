@@ -30,8 +30,8 @@ fun pluginWrap(input: PluginWrapInput) {
     val plugin = subinvokePlugin(null)
 
     val client = polywrapClient {
-        addPackage("embed/foo" to wrapPackage)
-        addPackage("plugin/bar" to plugin)
+        setPackage("embed/foo" to wrapPackage)
+        setPackage("plugin/bar" to plugin)
     }
 
     println("Invoking Plugin")

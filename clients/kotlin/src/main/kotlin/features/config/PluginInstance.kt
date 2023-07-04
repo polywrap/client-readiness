@@ -26,7 +26,7 @@ fun pluginInstance(input: PluginInstanceInput) {
     )
 
     val client = polywrapClient {
-        addPackage(input.uri to pluginPackage)
+        setPackage(input.uri to pluginPackage)
     }
 
     for (i in 0 until 2) {

@@ -35,7 +35,7 @@ fun embedWrapPackage(input: EmbedWrapPackageInput) {
     println("Adding WrapPackage to ClientConfig")
 
     val client = polywrapClient {
-        addPackage("embed/foo" to wrapPackage)
+        setPackage("embed/foo" to wrapPackage)
     }
 
     println("Invoking WrapPackage")

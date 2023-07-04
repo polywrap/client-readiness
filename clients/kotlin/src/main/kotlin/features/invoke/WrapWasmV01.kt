@@ -27,7 +27,7 @@ fun invokeWrapWasmV01(input: WrapWasmV01Input) {
     val wrapPackage = WasmPackage(manifest, wasmModule)
 
     val client = polywrapClient {
-        addPackage("embed/foo" to wrapPackage)
+        setPackage("embed/foo" to wrapPackage)
     }
 
     println("Invoking ${input.method}")

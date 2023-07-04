@@ -1,5 +1,6 @@
 package features.config
 
+import io.polywrap.configBuilder.polywrapClient
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -9,5 +10,11 @@ data class UriRedirectInput(
 )
 
 fun uriRedirect(input: UriRedirectInput) {
-    throw Exception("tryResolveUri is not implemented in the FFI")
+    println("Adding URI Redirect to ClientConfig")
+
+    polywrapClient {
+        setRedirect(input.from to input.to)
+    }
+
+    println("Success!")
 }

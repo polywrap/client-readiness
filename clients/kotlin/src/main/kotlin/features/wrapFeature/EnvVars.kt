@@ -1,7 +1,6 @@
 package features.wrapFeature
 
 import io.polywrap.configBuilder.polywrapClient
-import io.polywrap.core.InvokeResult
 import io.polywrap.core.resolution.Uri
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
@@ -28,36 +27,28 @@ fun envVarsFeature(input: EnvVarsInput) {
     val client = polywrapClient {
         addDefaults()
         addEnvs(envs)
-        addRedirect("mock/main" to mainUri)
+        setRedirect("mock/main" to mainUri)
     }
 
     println("Invoking methodRequireEnv")
 
-    val methodRequireEnvResult: InvokeResult<String> = client.invoke(
+    val methodRequireEnvResult: Map<String, Any> = client.invoke<Map<String, Any>>(
         uri = Uri(mainUri),
         method = "methodRequireEnv",
         args = mapOf("arg" to "string")
-    )
+    ).getOrThrow()
 
-    if (methodRequireEnvResult.isFailure) {
-        throw methodRequireEnvResult.exceptionOrNull()!!
-    }
-
-    println("response.str: ${methodRequireEnvResult.getOrThrow()}")
+    println("response.str: ${methodRequireEnvResult["str"]}")
     println("Success!")
 
     println("Invoking subinvokeMethodRequireEnv")
 
-    val subinvokeEnvMethodResult: InvokeResult<String> = client.invoke(
+    val subinvokeEnvMethodResult: Map<String, Any> = client.invoke<Map<String, Any>>(
         uri = Uri(subinvokerUri),
         method = "subinvokeMethodRequireEnv",
         args = mapOf("arg" to "string")
-    )
+    ).getOrThrow()
 
-    if (subinvokeEnvMethodResult.isFailure) {
-        throw subinvokeEnvMethodResult.exceptionOrNull()!!
-    }
-
-    println("response.str: ${subinvokeEnvMethodResult.getOrThrow()}")
+    println("response.str: ${subinvokeEnvMethodResult["str"]}")
     println("Success!")
 }
