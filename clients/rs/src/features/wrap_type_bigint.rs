@@ -1,14 +1,25 @@
 use std::{error::Error};
 use polywrap_client::{core::{uri::Uri}, client::PolywrapClient};
-use serde::{Deserialize};
+use serde::{Deserialize, Serialize};
 use serde_json::{Value};
 use polywrap_client_default_config::SystemClientConfig;
 
 use crate::input::expect_object;
 
-#[derive(Deserialize)]
+#[derive(Serialize, Deserialize)]
+struct ArgsObj {
+  prop1: String
+}
+
+#[derive(Serialize, Deserialize)]
+struct Args {
+  arg1: String,
+  obj: ArgsObj
+}
+
+#[derive(Serialize, Deserialize)]
 struct InputObj {
-  args: Value,
+  args: Args,
 }
 
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
