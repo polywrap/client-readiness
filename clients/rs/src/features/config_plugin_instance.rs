@@ -56,7 +56,8 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   
   println!("Adding Plugin Instance to ClientConfig");
 
-  let plugin_wrapper = PluginWrapper::new(Arc::new(Mutex::new(Box::new(plugin))));
+  let plugin_module = Arc::new(Mutex::new(plugin));
+  let plugin_wrapper = PluginWrapper::new(plugin_module.clone());
 
   let mut config = PolywrapClientConfig::new();
   config.add_wrapper(uri.clone(), Arc::new(plugin_wrapper));
@@ -66,7 +67,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   for _ in 0..2 {
     println!("Invoking Plugin Instance");
 
-    let _result = client.invoke_raw(
+    let result = client.invoke_raw(
       &uri,
       &method,
       None,
@@ -74,12 +75,10 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
       None
     );
 
-    // TODO: no ergonomic way of retrieving plugin state
-    todo!();
-
-    // if result.is_ok() {
-    //   println!("counter = {plugin_counter}")
-    // }
+    if result.is_ok() {
+      let plugin_counter = plugin_module.lock().unwrap().counter;
+      println!("counter = {plugin_counter}")
+    }
   }
 
   println!("Success!");

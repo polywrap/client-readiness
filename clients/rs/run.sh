@@ -1,1 +1,1 @@
-cargo +nightly run -- $1 2> stderr | tee stdout
+cargo run -- $1 2> stderr | tee stdout

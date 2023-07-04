@@ -83,7 +83,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   println!("Adding CustomResolverExt & ExtendableUriResolver to ClientConfig");
 
   let plugin_package = PluginPackage::new(
-    Arc::new(Mutex::new(Box::new(CustomResolverExt { authority: authority.clone(), result }))),
+    Arc::new(Mutex::new(CustomResolverExt { authority: authority.clone(), result })),
     get_default_manifest()
   );
 

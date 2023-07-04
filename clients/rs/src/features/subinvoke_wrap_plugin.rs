@@ -59,7 +59,7 @@ impl PluginModule for Plugin {
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   let input_obj = expect_object::<InputObj>(input)?;
   let binding = std::env::current_dir()?
-      .join("../../../../");
+      .join("../../");
   let root_dir = binding
       .to_str()
       .unwrap();
@@ -81,7 +81,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   let root_wrap_uri = expect_uri(&root_wrap_obj.uri)?;
   
   let sub_wrap_package = PluginPackage::new(
-      Arc::new(Mutex::new(Box::new(Plugin {}))),
+      Arc::new(Mutex::new(Plugin {})),
       get_default_manifest(),
   );
 

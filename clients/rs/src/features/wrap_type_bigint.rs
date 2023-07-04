@@ -1,7 +1,8 @@
 use std::{error::Error};
-use polywrap_client::{core::{uri::Uri}, client::PolywrapClient, builder::PolywrapClientConfig};
+use polywrap_client::{core::{uri::Uri}, client::PolywrapClient};
 use serde::{Deserialize};
 use serde_json::{Value};
+use polywrap_client_default_config::SystemClientConfig;
 
 use crate::input::expect_object;
 
@@ -14,13 +15,11 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   let input_obj = expect_object::<InputObj>(input)?;
   let args = input_obj.args;
 
-  let binding = std::env::current_dir()?.join("../../../../wraps");
+  let binding = std::env::current_dir()?.join("../../wraps");
   let root = binding.to_str().unwrap();
   let uri: Uri = format!("fs/{root}/bigint-type/implementations/as").try_into().unwrap();
 
-  let config = PolywrapClientConfig::new();
-
-  let client: PolywrapClient = PolywrapClient::new(config.into());
+  let client: PolywrapClient = PolywrapClient::new(SystemClientConfig::default().into());
 
   println!("Invoking method");
 

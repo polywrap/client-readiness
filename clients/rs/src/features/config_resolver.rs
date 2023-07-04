@@ -63,7 +63,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
     println!("Resolving a wrap://{authority} URI");
 
     let result = client.try_resolve_uri(
-        &format!("wrap://${authority}/foo").try_into().unwrap(),
+        &format!("wrap://{authority}/foo").try_into().unwrap(),
         None,
     )?;
 

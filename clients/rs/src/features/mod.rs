@@ -23,6 +23,7 @@ mod resolve_package;
 mod resolve_redirect;
 mod subinvoke_plugin_wrap;
 mod subinvoke_wrap_plugin;
+mod subinvoke_wrap_wrap;
 mod wrap_feature_env_vars;
 mod wrap_feature_interface_invoke;
 mod wrap_type_bigint;
@@ -60,6 +61,7 @@ pub fn get() -> Features {
   features.insert("resolve_redirect".to_string(), resolve_redirect::run_test_case);
   features.insert("subinvoke_plugin_wrap".to_string(), subinvoke_plugin_wrap::run_test_case);
   features.insert("subinvoke_wrap_plugin".to_string(), subinvoke_wrap_plugin::run_test_case);
+  features.insert("subinvoke_wrap_wrap".to_string(), subinvoke_wrap_wrap::run_test_case);
   features.insert("uri".to_string(), uri::run_test_case);
   features.insert("wrap_feature_env_vars".to_string(), wrap_feature_env_vars::run_test_case);
   features.insert("wrap_feature_interface_invoke".to_string(), wrap_feature_interface_invoke::run_test_case);

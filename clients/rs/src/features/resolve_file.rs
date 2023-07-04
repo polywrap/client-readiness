@@ -8,7 +8,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   let input_uri = expect_uri(input)?;
   let root_dir = expect_root_dir(
     &Value::String(input_uri.path().to_string()),
-    std::env::current_dir()?.join("../../../../").to_str().unwrap()
+    std::env::current_dir()?.join("../../").to_str().unwrap()
   )?;
   let uri_authority = input_uri.authority();
   let uri = format!("{uri_authority}/{root_dir}");

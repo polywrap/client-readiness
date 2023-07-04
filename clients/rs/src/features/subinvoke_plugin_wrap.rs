@@ -80,7 +80,7 @@ impl PluginModule for Plugin {
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
     let input_obj = expect_object::<InputObj>(input)?;
     let binding = std::env::current_dir()?
-        .join("../../../../");
+        .join("../../");
     let root_dir = binding
         .to_str()
         .unwrap();
@@ -95,11 +95,11 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
     let wrap_uri: Uri =  "embed/foo".try_into().unwrap();
 
     let plugin_package = PluginPackage::new(
-        Arc::new(Mutex::new(Box::new(Plugin::new(
+        Arc::new(Mutex::new(Plugin::new(
           subinvoke_args,
           subinvoke_method,
           wrap_uri.clone(),
-        )))),
+        ))),
         get_default_manifest(),
     );
 

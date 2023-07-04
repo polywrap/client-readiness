@@ -16,7 +16,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   let method = expect_string(&input_obj.method)?;
   let args = input_obj.args;
 
-  let binding = std::env::current_dir()?.join("../../../../wraps");
+  let binding = std::env::current_dir()?.join("../../wraps");
   let root = binding.to_str().unwrap();
   let uri: Uri = format!("fs/{root}/enum-type/implementations/as").try_into().unwrap();
 

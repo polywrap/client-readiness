@@ -16,7 +16,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   let input_obj = expect_object::<InputObj>(input)?;
   let wrap_dir = expect_root_dir(
     &input_obj.directory,
-    std::env::current_dir()?.join("../../../../").to_str().unwrap()
+    std::env::current_dir()?.join("../../").to_str().unwrap()
   )?;
   let method = expect_string(&input_obj.method)?;
   let args = expect_string(&input_obj.args)?;

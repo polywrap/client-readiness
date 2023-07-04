@@ -55,7 +55,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   }
 
   let plugin_package = PluginPackage::new(
-    Arc::new(Mutex::new(Box::new(Plugin {}))),
+    Arc::new(Mutex::new(Plugin {})),
     WrapManifest01 {
         abi: WrapManifest01Abi {
             enum_types: None,

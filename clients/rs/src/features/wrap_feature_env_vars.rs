@@ -33,7 +33,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
     let main_env = polywrap_client::msgpack::to_vec(&input_obj.main_env)?;
     let ext_env = polywrap_client::msgpack::to_vec(&input_obj.ext_env)?;
 
-    let root = std::env::current_dir()?.join("../../../../wraps");
+    let root = std::env::current_dir()?.join("../../wraps");
     let binding = root.join("/env-type/00-external/implementations/as");
     let external_wrapper_path = binding.to_str().unwrap();
     let external_wrapper_uri: Uri = format!("file/{external_wrapper_path}").try_into().unwrap();
