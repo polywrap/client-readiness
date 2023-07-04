@@ -38,7 +38,7 @@ struct ConfigResolverExtTest: Feature {
                 self.result = result
             }
 
-            public func tryResolveUri(_ args: TryResolveUriArgs?, _ env: PluginEnv?, _ invoker: Invoker) throws -> TryResolveUriResponse {
+            public func tryResolveUri(_ args: TryResolveUriArgs?, _ env: EmptyEnv?, _ invoker: Invoker) throws -> TryResolveUriResponse {
                 if args!.authority == self.authority {
                     return TryResolveUriResponse(self.result)
                 }

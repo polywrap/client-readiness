@@ -1,18 +1,32 @@
 import PolywrapClient
 import Foundation
 
-struct Args: Codable {}
-struct PluginEnv: Codable {}
+public struct EmptyArgs: Codable {}
+public struct EmptyEnv: Codable {}
 
-class MockPlugin: PluginModule {
+public struct AddArgs: Codable {
+    public var a: Int
+    public var b: Int
+
+    public init(_ a: Int, _ b: Int) {
+        self.a = a
+        self.b = b
+    }
+}
+
+public class MockPlugin: PluginModule {
     var counter = 0
     
     public override init() {
         super.init()
     }
 
-    public func increment(_ args: Args?, _ env: PluginEnv?, _ invoker: Invoker) throws {
+    public func increment(_ args: EmptyArgs?, _ env: EmptyEnv?, _ invoker: Invoker) throws {
         self.counter += 1
+    }
+
+    public func add(_ args: AddArgs?, _ env: EmptyEnv?, _ invoker: Invoker) throws -> Int {
+        return args!.a + args!.b
     }
 }
 
