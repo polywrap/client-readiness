@@ -8,7 +8,7 @@ import features.wrapType.*
 import util.*
 
 fun main(args: Array<String>) {
-    val filter: String? = if (args.isNotEmpty()) args[0] else null
+    val filter: String? = if (args.isNotEmpty() && args[0].isNotEmpty()) args[0] else null
     val loader = SpecReader(root().resolve("specs"))
 
     val specs: List<String> = listOf(
@@ -17,9 +17,9 @@ fun main(args: Array<String>) {
         "config_interface_implementations",
         "config_plugin_instance",
         "config_plugin_package",
-        "config_resolver",
+//        "config_resolver",
 //        "config_resolver_ext",
-        "config_uri_redirect",
+//        "config_uri_redirect",
         "invoke_plugin",
         "invoke_wrap_wasm_v0_1",
 //        "resolve_ens_contenthash",
