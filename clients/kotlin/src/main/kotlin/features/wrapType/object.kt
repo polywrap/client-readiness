@@ -49,10 +49,11 @@ fun objectType(input: ObjectInput) {
   {
     "prop": "${res[1].prop}",
     "nested": {
-      "prop": "${res[1].nested.prop}}"
+      "prop": "${res[1].nested.prop}"
     }
   }
-]""".trimMargin())
+]
+""".trimMargin())
         println("Success!")
     }
 }
