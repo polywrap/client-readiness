@@ -4,31 +4,37 @@ use polywrap_client::{
     plugin::{module::PluginModule, package::PluginPackage},
     wasm::wasm_package::WasmPackage, builder::{PolywrapClientConfig, PolywrapClientConfigBuilder},
 };
-use serde::{Deserialize};
+use serde::{Deserialize, Serialize};
 use serde_json::{Value};
 use std::{
     error::Error,
     sync::{Arc, Mutex}, fs, path::Path,
 };
 
-use crate::{input::{expect_root_dir, expect_string}, utils::get_default_manifest};
+use crate::{input::{expect_root_dir}, utils::get_default_manifest};
+
+#[derive(Serialize, Deserialize, Debug)]
+struct Args {
+    first: u8,
+    second: u8
+}
 
 #[derive(Deserialize)]
 struct InputObj {
     directory: Value,
-    method: Value,
-    args: Value,
+    method: String,
+    args: Args,
 }
 
 #[derive(Debug)]
 struct Plugin {
-    subinvoke_args: Value,
+    subinvoke_args: Args,
     subinvoke_method: String,
     subinvoke_uri: Uri,
 }
 
 impl Plugin {
-    pub fn new(subinvoke_args: Value, subinvoke_method: String, subinvoke_uri: Uri) -> Self {
+    pub fn new(subinvoke_args: Args, subinvoke_method: String, subinvoke_uri: Uri) -> Self {
         Self {
             subinvoke_args,
             subinvoke_method,
@@ -85,7 +91,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
         .to_str()
         .unwrap();
     let wrap_dir = expect_root_dir(&input_obj.directory, root_dir)?;
-    let subinvoke_method = expect_string(&input_obj.method)?;
+    let subinvoke_method = input_obj.method;
     let subinvoke_args = input_obj.args;
     
     let manifest = fs::read(Path::new(&wrap_dir).join("wrap.info"))?;

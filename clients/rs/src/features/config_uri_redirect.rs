@@ -3,18 +3,16 @@ use polywrap_client::{client::PolywrapClient, builder::{PolywrapClientConfig, Po
 use serde::{Deserialize};
 use serde_json::Value;
 
-use crate::input::{expect_string};
-
 #[derive(Deserialize)]
 struct InputObj {
-  from: Value,
-  to: Value
+  from: String,
+  to: String
 }
 
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   let input_obj: InputObj = serde_json::from_value(input.clone())?;
-  let from = expect_string(&input_obj.from)?;
-  let to = expect_string(&input_obj.to)?;
+  let from = input_obj.from;
+  let to = input_obj.to;
 
   println!("Adding URI Redirect to ClientConfig");
 

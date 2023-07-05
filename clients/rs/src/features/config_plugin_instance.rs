@@ -1,20 +1,18 @@
 use std::{error::Error, sync::{Mutex, Arc}};
-use polywrap_client::{core::{invoker::Invoker}, client::PolywrapClient, plugin::{module::PluginModule, wrapper::PluginWrapper}, builder::{PolywrapClientConfigBuilder, PolywrapClientConfig}};
+use polywrap_client::{core::{invoker::Invoker, uri::Uri}, client::PolywrapClient, plugin::{module::PluginModule, wrapper::PluginWrapper}, builder::{PolywrapClientConfigBuilder, PolywrapClientConfig}};
 use serde::{Deserialize};
 use serde_json::Value;
 
-use crate::input::{expect_uri, expect_string};
-
 #[derive(Deserialize)]
 struct InputObj {
-  uri: Value,
-  method: Value
+  uri: String,
+  method: String
 }
 
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   let input_obj: InputObj = serde_json::from_value(input.clone())?;
-  let uri = expect_uri(&input_obj.uri)?;
-  let method = expect_string(&input_obj.method)?;
+  let uri: Uri = input_obj.uri.try_into()?;
+  let method = input_obj.method;
 
   println!("Creating Plugin Instance");
 

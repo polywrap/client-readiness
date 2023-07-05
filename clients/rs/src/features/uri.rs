@@ -3,10 +3,8 @@ use serde_json::Value;
 
 use polywrap_client::core::uri::Uri;
 
-use crate::input::expect_string;
-
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
-    let str = expect_string(input)?;
+    let str = serde_json::from_value::<String>(input.clone())?;
 
     let uri = Uri::try_from(str);
 

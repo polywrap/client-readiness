@@ -6,7 +6,7 @@ use serde_json::{Value};
 
 #[derive(Deserialize)]
 struct InputObj {
-  map: Value
+  map: HashMap<String, i32>
 }
 
 #[derive(Serialize)]
@@ -16,7 +16,7 @@ struct ReturnMapArgs {
 
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   let input_obj: InputObj = serde_json::from_value(input.clone())?;
-  let map: HashMap<String, i32> = serde_json::from_value(input_obj.map.clone())?;
+  let map = input_obj.map;
 
   let binding = std::env::current_dir()?.join("../../wraps");
   let root = binding.to_str().unwrap();

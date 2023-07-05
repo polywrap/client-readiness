@@ -1,19 +1,19 @@
 use std::{error::Error, fs, path::Path, sync::Arc};
-use polywrap_client::{core::{file_reader::SimpleFileReader, uri_resolver_handler::UriResolverHandler, resolution::uri_resolution_context::UriPackageOrWrapper}, client::PolywrapClient, wasm::{wasm_package::WasmPackage}, builder::{PolywrapClientConfig, PolywrapClientConfigBuilder}};
+use polywrap_client::{core::{file_reader::SimpleFileReader, uri_resolver_handler::UriResolverHandler, resolution::uri_resolution_context::UriPackageOrWrapper, uri::Uri}, client::PolywrapClient, wasm::{wasm_package::WasmPackage}, builder::{PolywrapClientConfig, PolywrapClientConfigBuilder}};
 use serde::{Deserialize};
 use serde_json::Value;
 
-use crate::input::{expect_uri, expect_root_dir};
+use crate::input::{expect_root_dir};
 
 #[derive(Deserialize)]
 struct InputObj {
-  uri: Value,
+  uri: String,
   directory: Value
 }
 
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   let input_obj: InputObj = serde_json::from_value(input.clone())?;
-  let uri = expect_uri(&input_obj.uri)?;
+  let uri: Uri = input_obj.uri.try_into()?;
   let wrap_dir = expect_root_dir(
     &input_obj.directory,
     std::env::current_dir()?.join("../../").to_str().unwrap()

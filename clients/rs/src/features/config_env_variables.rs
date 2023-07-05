@@ -1,23 +1,27 @@
 use polywrap_client::{
     builder::{PolywrapClientConfig, PolywrapClientConfigBuilder},
     client::PolywrapClient,
-    core::invoker::Invoker,
+    core::{invoker::Invoker, uri::Uri},
 };
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::error::Error;
 
-use crate::input::{expect_uri};
+#[derive(Serialize, Deserialize)]
+struct Env {
+  str: String,
+  num: u8
+}
 
 #[derive(Deserialize)]
 struct InputObj {
-    uri: Value,
-    env: Value,
+    uri: String,
+    env: Env,
 }
 
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
     let input_obj: InputObj = serde_json::from_value(input.clone())?;
-    let uri = expect_uri(&input_obj.uri)?;
+    let uri: Uri = input_obj.uri.try_into()?;
 
     println!("Adding Env to ClientConfig");
 

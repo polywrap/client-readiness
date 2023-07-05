@@ -7,12 +7,45 @@ use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::{collections::HashMap, error::Error};
 
+#[derive(Deserialize, Serialize)]
+struct EnvObj {
+  prop: String
+}
+
+#[derive(Deserialize, Serialize)]
+enum En {
+  FIRST,
+  SECOND
+}
+
+#[derive(Deserialize, Serialize)]
+struct MainEnv {
+  str: String,
+  #[serde(rename = "optFilledStr")]
+  opt_filled_str: Option<String>,
+  number: u8,
+  bool: bool,
+  en: En,
+  object: EnvObj,
+  array: Vec<u8>,
+}
+
+#[derive(Deserialize, Serialize)]
+struct ExtEnv {
+  str: String,
+  number: u8,
+  bool: bool,
+  en: En,
+  object: EnvObj,
+  array: Vec<u8>,
+}
+
 #[derive(Deserialize)]
 struct InputObj {
     #[serde(rename = "mainEnv")]
-    main_env: Value,
+    main_env: MainEnv,
     #[serde(rename = "extEnv")]
-    ext_env: Value,
+    ext_env: ExtEnv,
 }
 
 #[derive(Deserialize)]

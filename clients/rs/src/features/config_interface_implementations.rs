@@ -1,20 +1,20 @@
 use std::{error::Error};
-use polywrap_client::{core::{invoker::Invoker}, client::PolywrapClient, builder::{PolywrapClientConfigBuilder, PolywrapClientConfig}};
+use polywrap_client::{core::{invoker::Invoker, uri::Uri}, client::PolywrapClient, builder::{PolywrapClientConfigBuilder, PolywrapClientConfig}};
 use serde::{Deserialize};
 use serde_json::Value;
 
-use crate::input::{expect_uri, expect_array};
+use crate::input::{expect_array};
 
 #[derive(Deserialize)]
 struct InputObj {
   #[serde(rename = "interfaceUri")]
-  interface_uri: Value,
+  interface_uri: String,
   implementations: Value
 }
 
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   let input_obj: InputObj = serde_json::from_value(input.clone())?;
-  let interface_uri = expect_uri(&input_obj.interface_uri)?;
+  let interface_uri: Uri = input_obj.interface_uri.try_into()?;
   let implementations = expect_array::<String>(&input_obj.implementations)?;
   let implementations = implementations.into_iter().map(|u| u.try_into().unwrap()).collect();
 

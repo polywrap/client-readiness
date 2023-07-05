@@ -3,13 +3,13 @@ use polywrap_client::{core::{invoker::Invoker, file_reader::SimpleFileReader}, c
 use serde::{Deserialize};
 use serde_json::Value;
 
-use crate::input::{expect_string, expect_root_dir};
+use crate::input::{expect_root_dir};
 
 #[derive(Deserialize)]
 struct InputObj {
   directory: Value,
-  method: Value,
-  args: Value
+  method: String,
+  args: String
 }
 
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
@@ -18,8 +18,8 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
     &input_obj.directory,
     std::env::current_dir()?.join("../../").to_str().unwrap()
   )?;
-  let method = expect_string(&input_obj.method)?;
-  let args = expect_string(&input_obj.args)?;
+  let method = input_obj.method;
+  let args = input_obj.args;
 
   let manifest = fs::read(Path::new(&wrap_dir).join("wrap.info"))?;
   let wasm_module = fs::read(Path::new(&wrap_dir).join("wrap.wasm"))?;

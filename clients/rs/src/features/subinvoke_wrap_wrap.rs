@@ -1,7 +1,7 @@
 use polywrap_client::{
     builder::{PolywrapClientConfig, PolywrapClientConfigBuilder},
     client::PolywrapClient,
-    core::{file_reader::SimpleFileReader, invoker::Invoker, package::WrapPackage},
+    core::{file_reader::SimpleFileReader, invoker::Invoker, package::WrapPackage, uri::Uri},
     plugin::{module::PluginModule},
     wasm::wasm_package::WasmPackage,
 };
@@ -15,23 +15,23 @@ use std::{
 };
 
 use crate::{
-    input::{expect_root_dir, expect_string, expect_uri}
+    input::{expect_root_dir}
 };
 
 #[derive(Deserialize)]
 struct InputObj {
     #[serde(rename = "rootWrap")]
-    root_wrap: Value,
+    root_wrap: WrapDir,
     #[serde(rename = "subWrap")]
-    sub_wrap: Value,
-    method: Value,
-    args: Value,
+    sub_wrap: WrapDir,
+    method: String,
+    args: ArgsAdd,
 }
 
 #[derive(Deserialize)]
 struct WrapDir {
     directory: Value,
-    uri: Value,
+    uri: String,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -68,14 +68,14 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
     let binding = std::env::current_dir()?.join("../../");
     let root_dir = binding.to_str().unwrap();
 
-    let method = expect_string(&input_obj.method)?;
+    let method = input_obj.method;
     let args = input_obj.args;
 
-    let root_wrap_obj: WrapDir = serde_json::from_value(input_obj.root_wrap.clone())?;
+    let root_wrap_obj = input_obj.root_wrap;
 
     let root_wrap_directory = expect_root_dir(&root_wrap_obj.directory, root_dir)?;
 
-    let sub_wrap_obj: WrapDir = serde_json::from_value(input_obj.sub_wrap)?;
+    let sub_wrap_obj = input_obj.sub_wrap;
 
     let sub_wrap_directory = expect_root_dir(&sub_wrap_obj.directory, root_dir)?;
 
@@ -87,7 +87,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
         Arc::new(SimpleFileReader::new()),
         Some(root_manifest),
     );
-    let root_wrap_uri = expect_uri(&root_wrap_obj.uri)?;
+    let root_wrap_uri: Uri = root_wrap_obj.uri.try_into()?;
 
     let sub_manifest = fs::read(Path::new(&sub_wrap_directory).join("wrap.info"))?;
     let sub_wasm_module = fs::read(Path::new(&sub_wrap_directory).join("wrap.wasm"))?;
@@ -97,7 +97,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
         Arc::new(SimpleFileReader::new()),
         Some(sub_manifest),
     );
-    let sub_wrap_uri = expect_uri(&root_wrap_obj.uri)?;
+    let sub_wrap_uri: Uri = sub_wrap_obj.uri.try_into()?;
 
     let mut config = PolywrapClientConfig::new();
     let packages = vec![

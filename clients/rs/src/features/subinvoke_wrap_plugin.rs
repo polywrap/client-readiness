@@ -1,6 +1,6 @@
 use polywrap_client::{
   plugin::{module::PluginModule, package::PluginPackage},
-  wasm::wasm_package::WasmPackage, core::{file_reader::SimpleFileReader, package::WrapPackage, invoker::Invoker}, client::PolywrapClient, builder::{PolywrapClientConfig, PolywrapClientConfigBuilder},
+  wasm::wasm_package::WasmPackage, core::{file_reader::SimpleFileReader, package::WrapPackage, invoker::Invoker, uri::Uri}, client::PolywrapClient, builder::{PolywrapClientConfig, PolywrapClientConfigBuilder},
 };
 use serde::{Deserialize, Serialize};
 use serde_json::{Value};
@@ -9,22 +9,22 @@ use std::{
   fs, path::Path, sync::{Arc, Mutex},
 };
 
-use crate::{input::{expect_root_dir, expect_string, expect_uri}, utils::get_default_manifest};
+use crate::{input::{expect_root_dir}, utils::get_default_manifest};
 
 #[derive(Deserialize)]
 struct InputObj {
   #[serde(rename = "rootWrap")]
-  root_wrap: Value,
+  root_wrap: RootWrap,
   #[serde(rename = "subWrapUri")]
-  sub_wrap_uri: Value,
-  method: Value,
-  args: Value,
+  sub_wrap_uri: String,
+  method: String,
+  args: ArgsAdd,
 }
 
 #[derive(Deserialize)]
 struct RootWrap {
   directory: Value,
-  uri: Value
+  uri: String
 }
 
 #[derive(Serialize, Deserialize)]
@@ -63,11 +63,11 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   let root_dir = binding
       .to_str()
       .unwrap();
-  let sub_wrap_uri = expect_uri(&input_obj.sub_wrap_uri)?;
-  let method = expect_string(&input_obj.method)?;
+  let sub_wrap_uri: Uri = input_obj.sub_wrap_uri.try_into()?;
+  let method = input_obj.method;
   let args = input_obj.args;
   
-  let root_wrap_obj: RootWrap = serde_json::from_value(input_obj.root_wrap.clone())?;
+  let root_wrap_obj = input_obj.root_wrap;
 
   let root_wrap_directory = expect_root_dir(
     &root_wrap_obj.directory,
@@ -78,7 +78,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   let wasm_module = fs::read(Path::new(&root_wrap_directory).join("wrap.wasm"))?;
 
   let wrap_package = WasmPackage::from_bytecode(wasm_module, Arc::new(SimpleFileReader::new()), Some(manifest));
-  let root_wrap_uri = expect_uri(&root_wrap_obj.uri)?;
+  let root_wrap_uri: Uri = root_wrap_obj.uri.try_into()?;
   
   let sub_wrap_package = PluginPackage::new(
       Arc::new(Mutex::new(Plugin {})),
