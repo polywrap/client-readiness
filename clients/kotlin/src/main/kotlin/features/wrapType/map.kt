@@ -1,8 +1,8 @@
 package features.wrapType
 
 import io.polywrap.configBuilder.ConfigBuilder
-import io.polywrap.core.msgpack.MsgPackMap
-import io.polywrap.core.msgpack.toMsgPackMap
+import io.polywrap.core.msgpack.GenericMap
+import io.polywrap.core.msgpack.toGenericMap
 import io.polywrap.core.resolution.Uri
 import kotlinx.serialization.Serializable
 import util.root
@@ -13,7 +13,7 @@ data class MapInput(
 )
 
 @Serializable
-data class ArgsReturnMap(val map: MsgPackMap<String, Int>)
+data class ArgsReturnMap(val map: GenericMap<String, Int>)
 
 fun mapType(input: MapInput) {
     val root = root().resolve("wraps")
@@ -23,10 +23,10 @@ fun mapType(input: MapInput) {
 
     println("Invoking method")
 
-    val response = client.invoke<ArgsReturnMap, MsgPackMap<String, Int>>(
+    val response = client.invoke<ArgsReturnMap, GenericMap<String, Int>>(
         uri = Uri(uri),
         method = "returnMap",
-        args = ArgsReturnMap(input.map.toMsgPackMap())
+        args = ArgsReturnMap(input.map.toGenericMap())
     ).getOrThrow()
 
     response.map.forEach {
