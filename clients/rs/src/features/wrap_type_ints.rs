@@ -1,20 +1,27 @@
 use std::{error::Error};
-use polywrap_client::{core::{uri::Uri}, client::PolywrapClient};
+use polywrap_client::{core::{uri::Uri, invoker::Invoker}, client::PolywrapClient};
 use polywrap_client_default_config::SystemClientConfig;
-use serde::{Deserialize};
-use serde_json::{Value};
+use polywrap_msgpack_serde;
+use serde::{Deserialize, Serialize};
+use serde_json::Value;
 
-use crate::input::{expect_object, expect_string};
+use crate::input::expect_object;
 
-#[derive(Deserialize)]
-struct InputObj {
-  method: Value,
-  args: Value,
+#[derive(Serialize, Deserialize)]
+struct Args {
+  first: i32,
+  second: i32
 }
 
-pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
-  let input_obj = expect_object::<InputObj>(input)?;
-  let method = expect_string(&input_obj.method)?;
+#[derive(Serialize, Deserialize)]
+struct InputObj {
+  method: String,
+  args: Args,
+}
+
+pub fn run_test_case(input_obj: &Value) -> Result<(), Box<dyn Error>> {
+  let input_obj = expect_object::<InputObj>(&input_obj)?;
+  let method = input_obj.method;
   let args = input_obj.args;
 
   let binding = std::env::current_dir()?.join("../../wraps");
@@ -26,16 +33,17 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   println!("Invoking {method}");
 
   // TODO: int size?
-  let result = client.invoke::<i32>(
+  let result = client.invoke_raw(
     &uri,
     &method,
-    Some(&polywrap_client::msgpack::to_vec(&args)?),
+    Some(&polywrap_msgpack_serde::to_vec(&args)?),
     None,
     None
   );
 
   match result {
     Ok(result) => {
+      let result = polywrap_msgpack_serde::from_slice::<i32>(&result)?;
       println!("Result: {result:?}");
       println!("Success!");
     },

@@ -1,14 +1,26 @@
 use std::{error::Error};
-use polywrap_client::{core::{uri::Uri}, client::PolywrapClient, builder::PolywrapClientConfig};
-use serde::{Deserialize};
+use polywrap_client::{core::{uri::Uri}, client::PolywrapClient};
+use polywrap_client_default_config::SystemClientConfig;
+use serde::{Deserialize, Serialize};
 use serde_json::{Value};
 
 use crate::input::{expect_object, expect_string};
 
-#[derive(Deserialize)]
+#[derive(Serialize, Deserialize)]
+struct InnerArgObj {
+  #[serde(with = "serde_bytes")]
+  prop: Vec<u8>
+}
+
+#[derive(Serialize, Deserialize)]
+struct InnerArg {
+  arg: InnerArgObj
+}
+
+#[derive(Serialize, Deserialize)]
 struct InputObj {
   method: Value,
-  args: Value,
+  args: InnerArg,
 }
 
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
@@ -20,13 +32,11 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   let root = binding.to_str().unwrap();
   let uri: Uri = format!("fs/{root}/bytes-type/implementations/as").try_into().unwrap();
 
-  let config = PolywrapClientConfig::new();
-
-  let client: PolywrapClient = PolywrapClient::new(config.into());
+  let client: PolywrapClient = PolywrapClient::new(SystemClientConfig::default().into());
 
   println!("Invoking {method}");
 
-  let result = client.invoke::<Vec<u8>>(
+  let result = client.invoke::<serde_bytes::ByteBuf>(
     &uri,
     &method,
     Some(&polywrap_client::msgpack::to_vec(&args)?),
