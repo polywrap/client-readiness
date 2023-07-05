@@ -1,5 +1,6 @@
 use std::{error::Error};
-use polywrap_client::{core::{uri::Uri}, client::PolywrapClient, builder::PolywrapClientConfig};
+use polywrap_client::{core::{uri::Uri}, client::PolywrapClient};
+use polywrap_client_default_config::SystemClientConfig;
 use serde::{Deserialize};
 use serde_json::{Value};
 
@@ -20,9 +21,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   let root = binding.to_str().unwrap();
   let uri: Uri = format!("fs/{root}/enum-type/implementations/as").try_into().unwrap();
 
-  let config = PolywrapClientConfig::new();
-
-  let client: PolywrapClient = PolywrapClient::new(config.into());
+  let client: PolywrapClient = PolywrapClient::new(SystemClientConfig::default().into());
 
   println!("Invoking {method}");
 
