@@ -23,7 +23,7 @@ struct InputObj {
 
 #[derive(Deserialize)]
 struct RootWrap {
-  directory: Value,
+  directory: String,
   uri: String
 }
 

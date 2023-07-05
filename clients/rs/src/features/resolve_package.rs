@@ -8,7 +8,7 @@ use crate::input::{expect_root_dir};
 #[derive(Deserialize)]
 struct InputObj {
   uri: String,
-  directory: Value
+  directory: String
 }
 
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {

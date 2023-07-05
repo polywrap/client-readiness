@@ -7,7 +7,7 @@ use crate::input::{expect_root_dir};
 
 #[derive(Deserialize)]
 struct InputObj {
-  directory: Value,
+  directory: String,
   method: String,
   args: String
 }

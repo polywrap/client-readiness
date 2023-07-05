@@ -21,7 +21,7 @@ struct Args {
 
 #[derive(Deserialize)]
 struct InputObj {
-    directory: Value,
+    directory: String,
     method: String,
     args: Args,
 }

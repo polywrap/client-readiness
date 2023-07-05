@@ -30,7 +30,7 @@ struct InputObj {
 
 #[derive(Deserialize)]
 struct WrapDir {
-    directory: Value,
+    directory: String,
     uri: String,
 }
 

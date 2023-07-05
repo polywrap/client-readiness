@@ -4,8 +4,6 @@ use polywrap_client_default_config::SystemClientConfig;
 use serde::{Deserialize, Serialize};
 use serde_json::{Value};
 
-use crate::input::{expect_string};
-
 #[derive(Serialize, Deserialize)]
 struct InnerArgObj {
   #[serde(with = "serde_bytes")]
@@ -19,13 +17,13 @@ struct InnerArg {
 
 #[derive(Serialize, Deserialize)]
 struct InputObj {
-  method: Value,
+  method: String,
   args: InnerArg,
 }
 
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   let input_obj: InputObj = serde_json::from_value(input.clone())?;
-  let method = expect_string(&input_obj.method)?;
+  let method = input_obj.method;
   let args = input_obj.args;
 
   let binding = std::env::current_dir()?.join("../../wraps");
