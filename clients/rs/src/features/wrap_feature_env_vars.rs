@@ -7,8 +7,6 @@ use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::{collections::HashMap, error::Error};
 
-use crate::input::expect_object;
-
 #[derive(Deserialize)]
 struct InputObj {
     #[serde(rename = "mainEnv")]
@@ -29,7 +27,7 @@ struct InvokeArgs {
 }
 
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
-    let input_obj = expect_object::<InputObj>(input)?;
+    let input_obj: InputObj = serde_json::from_value(input.clone())?;
     let main_env = polywrap_client::msgpack::to_vec(&input_obj.main_env)?;
     let ext_env = polywrap_client::msgpack::to_vec(&input_obj.ext_env)?;
 

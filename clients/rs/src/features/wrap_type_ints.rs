@@ -5,8 +5,6 @@ use polywrap_msgpack_serde;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
-use crate::input::expect_object;
-
 #[derive(Serialize, Deserialize)]
 struct Args {
   first: i32,
@@ -19,8 +17,8 @@ struct InputObj {
   args: Args,
 }
 
-pub fn run_test_case(input_obj: &Value) -> Result<(), Box<dyn Error>> {
-  let input_obj = expect_object::<InputObj>(&input_obj)?;
+pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
+  let input_obj: InputObj = serde_json::from_value(input.clone())?;
   let method = input_obj.method;
   let args = input_obj.args;
 

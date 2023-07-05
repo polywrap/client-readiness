@@ -3,7 +3,7 @@ use polywrap_client::{core::{invoker::Invoker}, client::PolywrapClient, wrap_man
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
-use crate::input::{expect_object, expect_string};
+use crate::input::{expect_string};
 
 #[derive(Deserialize)]
 struct InputObj {
@@ -47,7 +47,7 @@ impl PluginModule for Plugin {
 }
 
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
-  let input_obj = expect_object::<InputObj>(input)?;
+  let input_obj: InputObj = serde_json::from_value(input.clone())?;
   let uri = expect_string(&input_obj.uri)?;
   let method = expect_string(&input_obj.method)?;
   let args = expect_string(&input_obj.args)?;

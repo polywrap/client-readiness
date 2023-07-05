@@ -3,7 +3,7 @@ use polywrap_client::{core::{invoker::Invoker, file_reader::SimpleFileReader}, c
 use serde::{Deserialize};
 use serde_json::Value;
 
-use crate::input::{expect_object, expect_string, expect_root_dir};
+use crate::input::{expect_string, expect_root_dir};
 
 #[derive(Deserialize)]
 struct InputObj {
@@ -13,7 +13,7 @@ struct InputObj {
 }
 
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
-  let input_obj = expect_object::<InputObj>(input)?;
+  let input_obj: InputObj = serde_json::from_value(input.clone())?;
   let wrap_dir = expect_root_dir(
     &input_obj.directory,
     std::env::current_dir()?.join("../../").to_str().unwrap()

@@ -2,10 +2,10 @@ use std::{error::Error, path::Path, fs::{self}, sync::Arc};
 use polywrap_client::{wasm::wasm_package::WasmPackage, core::{file_reader::SimpleFileReader, invoker::Invoker}, client::PolywrapClient, builder::{PolywrapClientConfigBuilder, PolywrapClientConfig}};
 use serde_json::Value;
 
-use crate::input::{expect_root_dir, expect_object, expect_string};
+use crate::input::{expect_root_dir, expect_string};
 
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
-  let input_obj = expect_object::<serde_json::Map<String, Value>>(input)?;
+  let input_obj: serde_json::Map<String, Value> = serde_json::from_value(input.clone())?;
 
   let wrap_dir = expect_root_dir(
       input_obj.get("directory").ok_or("Expected directory field")?,
@@ -13,8 +13,8 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   )?;
 
   let method = expect_string(input_obj.get("method").ok_or("Expected method field")?)?;
-  let args = expect_object::<serde_json::Map<String, Value>>(
-      input_obj.get("args").ok_or("Expected args field")?,
+  let args: serde_json::Map<String, Value> = serde_json::from_value(
+      input_obj.get("args").ok_or("Expected args field")?.clone(),
   )?;
 
   println!("Reading wrap.info & wrap.wasm from {wrap_dir}");

@@ -3,7 +3,7 @@ use polywrap_client::{client::PolywrapClient, wasm::{wasm_wrapper::WasmWrapper},
 use serde::{Deserialize};
 use serde_json::Value;
 
-use crate::input::{expect_uri, expect_object, expect_root_dir};
+use crate::input::{expect_uri, expect_root_dir};
 
 #[derive(Deserialize)]
 struct InputObj {
@@ -12,7 +12,7 @@ struct InputObj {
 }
 
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
-  let input_obj = expect_object::<InputObj>(input)?;
+  let input_obj: InputObj = serde_json::from_value(input.clone())?;
   let uri = expect_uri(&input_obj.uri)?;
   let wrap_dir = expect_root_dir(
     &input_obj.directory,

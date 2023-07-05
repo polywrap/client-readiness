@@ -5,7 +5,6 @@ use std::fmt;
 
 #[derive(Debug, Clone)]
 pub enum InputError {
-    ExpectedObject,
     ExpectedRootDir,
     ExpectedString,
     ExpectedUri,
@@ -15,7 +14,6 @@ pub enum InputError {
 impl fmt::Display for InputError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match *self {
-            InputError::ExpectedObject => f.write_str("expected an object"),
             InputError::ExpectedRootDir => f.write_str("expected a string that starts with $ROOT/"),
             InputError::ExpectedString => f.write_str("expected a string"),
             InputError::ExpectedUri => f.write_str("expected a valid WRAP URI"),
@@ -25,13 +23,6 @@ impl fmt::Display for InputError {
 }
 
 impl Error for InputError {}
-
-pub fn expect_object<T: serde::de::DeserializeOwned>(input: &Value) -> Result<T, InputError> {
-    if !input.is_object() {
-        return Err(InputError::ExpectedObject);
-    }
-    serde_json::from_value(input.clone()).map_err(|_| InputError::ExpectedObject)
-}
 
 pub fn expect_root_dir(input: &Value, root_dir: &str) -> Result<String, InputError> {
     let s = input.as_str().ok_or(InputError::ExpectedRootDir)?;

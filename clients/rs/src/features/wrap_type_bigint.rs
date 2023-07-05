@@ -4,8 +4,6 @@ use serde::{Deserialize, Serialize};
 use serde_json::{Value};
 use polywrap_client_default_config::SystemClientConfig;
 
-use crate::input::expect_object;
-
 #[derive(Serialize, Deserialize)]
 struct ArgsObj {
   prop1: String
@@ -23,7 +21,7 @@ struct InputObj {
 }
 
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
-  let input_obj = expect_object::<InputObj>(input)?;
+  let input_obj: InputObj = serde_json::from_value(input.clone())?;
   let args = input_obj.args;
 
   let binding = std::env::current_dir()?.join("../../wraps");

@@ -3,7 +3,7 @@ use polywrap_client::{core::{uri::Uri, resolution::uri_resolution_context::UriPa
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
-use crate::{input::{expect_object, expect_string}, utils::get_default_manifest};
+use crate::{input::{expect_string}, utils::get_default_manifest};
 
 #[derive(Debug)]
 struct CustomResolverExt {
@@ -29,7 +29,7 @@ struct InputObj {
 }
 
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
-  let input_obj = expect_object::<InputObj>(input)?;
+  let input_obj: InputObj = serde_json::from_value(input.clone())?;
   let authority = expect_string(&input_obj.authority)?;
   let result = expect_string(&input_obj.result)?;
 

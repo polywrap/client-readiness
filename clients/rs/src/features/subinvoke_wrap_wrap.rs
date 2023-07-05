@@ -15,7 +15,7 @@ use std::{
 };
 
 use crate::{
-    input::{expect_object, expect_root_dir, expect_string, expect_uri}
+    input::{expect_root_dir, expect_string, expect_uri}
 };
 
 #[derive(Deserialize)]
@@ -64,18 +64,18 @@ impl PluginModule for Plugin {
 }
 
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
-    let input_obj = expect_object::<InputObj>(input)?;
+    let input_obj: InputObj = serde_json::from_value(input.clone())?;
     let binding = std::env::current_dir()?.join("../../");
     let root_dir = binding.to_str().unwrap();
 
     let method = expect_string(&input_obj.method)?;
     let args = input_obj.args;
 
-    let root_wrap_obj = expect_object::<WrapDir>(&input_obj.root_wrap)?;
+    let root_wrap_obj: WrapDir = serde_json::from_value(input_obj.root_wrap.clone())?;
 
     let root_wrap_directory = expect_root_dir(&root_wrap_obj.directory, root_dir)?;
 
-    let sub_wrap_obj = expect_object::<WrapDir>(&input_obj.sub_wrap)?;
+    let sub_wrap_obj: WrapDir = serde_json::from_value(input_obj.sub_wrap)?;
 
     let sub_wrap_directory = expect_root_dir(&sub_wrap_obj.directory, root_dir)?;
 

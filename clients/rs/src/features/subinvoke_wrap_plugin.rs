@@ -9,7 +9,7 @@ use std::{
   fs, path::Path, sync::{Arc, Mutex},
 };
 
-use crate::{input::{expect_object, expect_root_dir, expect_string, expect_uri}, utils::get_default_manifest};
+use crate::{input::{expect_root_dir, expect_string, expect_uri}, utils::get_default_manifest};
 
 #[derive(Deserialize)]
 struct InputObj {
@@ -57,7 +57,7 @@ impl PluginModule for Plugin {
 }
 
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
-  let input_obj = expect_object::<InputObj>(input)?;
+  let input_obj: InputObj = serde_json::from_value(input.clone())?;
   let binding = std::env::current_dir()?
       .join("../../");
   let root_dir = binding
@@ -67,7 +67,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   let method = expect_string(&input_obj.method)?;
   let args = input_obj.args;
   
-  let root_wrap_obj = expect_object::<RootWrap>(&input_obj.root_wrap)?;
+  let root_wrap_obj: RootWrap = serde_json::from_value(input_obj.root_wrap.clone())?;
 
   let root_wrap_directory = expect_root_dir(
     &root_wrap_obj.directory,

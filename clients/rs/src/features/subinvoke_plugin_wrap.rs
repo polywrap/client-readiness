@@ -11,7 +11,7 @@ use std::{
     sync::{Arc, Mutex}, fs, path::Path,
 };
 
-use crate::{input::{expect_object, expect_root_dir, expect_string}, utils::get_default_manifest};
+use crate::{input::{expect_root_dir, expect_string}, utils::get_default_manifest};
 
 #[derive(Deserialize)]
 struct InputObj {
@@ -78,7 +78,7 @@ impl PluginModule for Plugin {
 }
 
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
-    let input_obj = expect_object::<InputObj>(input)?;
+    let input_obj: InputObj = serde_json::from_value(input.clone())?;
     let binding = std::env::current_dir()?
         .join("../../");
     let root_dir = binding

@@ -4,8 +4,6 @@ use polywrap_client_default_config::SystemClientConfig;
 use serde::{Deserialize, Serialize};
 use serde_json::{Value};
 
-use crate::input::{expect_object};
-
 #[derive(Deserialize)]
 struct InputObj {
   map: Value
@@ -17,8 +15,8 @@ struct ReturnMapArgs {
 }
 
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
-  let input_obj = expect_object::<InputObj>(input)?;
-  let map = expect_object::<HashMap<String, i32>>(&input_obj.map)?;
+  let input_obj: InputObj = serde_json::from_value(input.clone())?;
+  let map: HashMap<String, i32> = serde_json::from_value(input_obj.map.clone())?;
 
   let binding = std::env::current_dir()?.join("../../wraps");
   let root = binding.to_str().unwrap();
