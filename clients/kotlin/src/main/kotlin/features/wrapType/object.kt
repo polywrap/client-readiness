@@ -38,7 +38,21 @@ fun objectType(input: ObjectInput) {
     if (response.isFailure) {
         throw response.exceptionOrNull()!!
     } else {
-        println("Result: ${response.getOrThrow()}")
+        val res = response.getOrThrow()
+        println("""Result: [
+  {
+    "prop": "${res[0].prop}",
+    "nested": {
+      "prop": "${res[0].nested.prop}"
+    }
+  },
+  {
+    "prop": "${res[1].prop}",
+    "nested": {
+      "prop": "${res[1].nested.prop}}"
+    }
+  }
+]""".trimMargin())
         println("Success!")
     }
 }

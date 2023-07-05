@@ -34,7 +34,7 @@ fun bytesType(input: BytesInput) {
     if (response.isFailure) {
         throw response.exceptionOrNull()!!
     } else {
-        val bytes = response.getOrThrow().contentToString()
+        val bytes = response.getOrThrow().contentToString().replace(" ", "")
         println("Result: $bytes")
         println("Success!")
     }

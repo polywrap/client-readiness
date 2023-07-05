@@ -21,7 +21,7 @@ fun mapType(input: MapInput) {
 
     val client = ConfigBuilder().addDefaults().build()
 
-    println("Invoking method")
+    println("Invoking returnMap")
 
     val response = client.invoke<ArgsReturnMap, GenericMap<String, Int>>(
         uri = Uri(uri),

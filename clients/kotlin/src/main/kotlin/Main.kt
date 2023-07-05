@@ -102,8 +102,8 @@ inline fun <reified K> runTestCase(specName: String, spec: Spec<*>, fn: (input: 
         try {
             fn(case.input as K)
         } catch(e: Exception) {
-            println("!Test Error [$specName.$testName]")
-            println(e)
+            System.err.println("!Test Error [$specName.$testName]")
+            System.err.println(e)
         }
     }
 
