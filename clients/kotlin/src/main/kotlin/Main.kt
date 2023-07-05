@@ -47,7 +47,7 @@ fun main(args: Array<String>) {
     )
 
     specs.forEach { name ->
-        if (filter == null || filter == name) {
+        if (filter == null || filter.contains(name)) {
             val spec = loadSpec(name, loader)
             if (spec.required) runTest(name, spec)
         }

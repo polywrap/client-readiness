@@ -37,9 +37,7 @@ application {
 }
 
 tasks.named<JavaExec>("run") {
-    val appArgsStr: String? = project.findProperty("appArgs") as String?
-    val appArgs = appArgsStr?.split(",") ?: emptyList()
-    args(appArgs)
+    project.findProperty("appArgs")?.let { args(it) }
     standardOutput = FileOutputStream("$projectDir/stdout")
     errorOutput = FileOutputStream("$projectDir/stderr")
 }
