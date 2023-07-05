@@ -14,12 +14,14 @@ public struct Readiness {
             if let filter = filter, filter != name {
                 continue
             }
-            print("====================================")
-            print("Begin Feature Spec Test Cases [\(name)]")
-            print("====================================")
 
             do {
                 let feature = try FeatureFactory(for: name)
+                
+                print("====================================")
+                print("Begin Feature Spec Test Cases [\(name)]")
+                print("====================================")
+
                 for (testCase, value) in spec.cases {
                     print("$Test Start [\(name).\(testCase)]")
                     do {
@@ -29,14 +31,15 @@ public struct Readiness {
                         print(error)
                     }
                 }
+                print("====================================")
+                print("End Feature Spec Test Cases [\(name)]")
+                print("====================================")
+            } catch FeatureError.unsupported {
+                print("Unsupported feature: \(name)")
             } catch {
                 print("Unknown feature: \(name)")
                 print(error)
             }
-
-            print("====================================")
-            print("End Feature Spec Test Cases [\(name)]")
-            print("====================================")
         }
     }
 }

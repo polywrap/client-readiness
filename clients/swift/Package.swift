@@ -5,19 +5,26 @@ import PackageDescription
 
 let package = Package(
     name: "Readiness",
-    platforms: [.iOS(.v15), .macOS(.v13)],
+    platforms: [.iOS(.v15), .macOS(.v10_15)],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         .package(url: "https://github.com/jpsim/Yams.git", from: "5.0.6"),
-        .package(url: "https://github.com/polywrap/swift-client", branch: "main")
+//        .package(url: "https://github.com/polywrap/swift-client", branch: "main")
+        .package(path: "../../../swift/PolywrapClient")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .executableTarget(
             name: "Readiness",
-            dependencies: ["Yams", "PolywrapClient"]
+            dependencies: [
+//                .product(name: "PolywrapClient", package: "swift-client"),
+                "PolywrapClient",
+                "Yams"
+            ],
+            resources: [ .copy("Specs"), .copy("wraps") ],
+            publicHeadersPath: "Include",
+            cSettings: [ .headerSearchPath("include") ]
         ),
-
     ]
 )

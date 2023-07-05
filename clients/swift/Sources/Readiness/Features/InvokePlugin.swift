@@ -15,8 +15,8 @@ struct InvokePluginTest: Feature {
             throw InputError.expectedObject
         }
 
-        let args = AddArgs(a, b)
-        let plugin = MockPlugin()
+        let args = AddArgs(a: a, b: b)
+        let plugin = MockPlugin(nil)
         plugin.addMethod(name: "add", closure: plugin.add)
 
         let package = PluginPackage(plugin)
