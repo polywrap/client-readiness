@@ -1,3 +1,5 @@
+import java.io.FileOutputStream
+
 plugins {
     kotlin("jvm") version "1.8.22"
     kotlin("plugin.serialization") version "1.8.22"
@@ -38,4 +40,6 @@ tasks.named<JavaExec>("run") {
     val appArgsStr: String? = project.findProperty("appArgs") as String?
     val appArgs = appArgsStr?.split(",") ?: emptyList()
     args(appArgs)
+    standardOutput = FileOutputStream("stdout")
+    errorOutput = FileOutputStream("stderr")
 }
