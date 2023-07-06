@@ -1,7 +1,6 @@
 use std::{error::Error};
-use polywrap_client::{core::{uri::Uri, invoker::Invoker}, client::PolywrapClient};
+use polywrap_client::{core::{uri::Uri}, client::PolywrapClient};
 use polywrap_client_default_config::SystemClientConfig;
-use polywrap_msgpack_serde;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
@@ -31,17 +30,16 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   println!("Invoking {method}");
 
   // TODO: int size?
-  let result = client.invoke_raw(
+  let result = client.invoke::<i32>(
     &uri,
     &method,
-    Some(&polywrap_msgpack_serde::to_vec(&args)?),
+    Some(&polywrap_client::msgpack::to_vec(&args)?),
     None,
     None
   );
 
   match result {
     Ok(result) => {
-      let result = polywrap_msgpack_serde::from_slice::<i32>(&result)?;
       println!("Result: {result:?}");
       println!("Success!");
     },

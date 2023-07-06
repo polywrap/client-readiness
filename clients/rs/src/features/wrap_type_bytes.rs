@@ -1,12 +1,13 @@
 use std::{error::Error};
 use polywrap_client::{core::{uri::Uri}, client::PolywrapClient};
 use polywrap_client_default_config::SystemClientConfig;
+use polywrap_client::msgpack::bytes;
 use serde::{Deserialize, Serialize};
 use serde_json::{Value};
 
 #[derive(Serialize, Deserialize)]
 struct InnerArgObj {
-  #[serde(with = "serde_bytes")]
+  #[serde(with = "bytes")]
   prop: Vec<u8>
 }
 
@@ -34,7 +35,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
 
   println!("Invoking {method}");
 
-  let result = client.invoke::<serde_bytes::ByteBuf>(
+  let result = client.invoke::<bytes::ByteBuf>(
     &uri,
     &method,
     Some(&polywrap_client::msgpack::to_vec(&args)?),
