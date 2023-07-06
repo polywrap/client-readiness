@@ -7,7 +7,7 @@ use serde_json::Value;
 struct InputObj {
   uri: String,
   method: String,
-  args: String
+  args: AddArgs
 }
 
 #[derive(Serialize, Deserialize)]

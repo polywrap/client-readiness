@@ -18,7 +18,7 @@ struct Args {
 #[derive(Serialize, Deserialize)]
 struct InputObj {
   method: String,
-  args: InnerArgObj,
+  args: Args,
 }
 
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {

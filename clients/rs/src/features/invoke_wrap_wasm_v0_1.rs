@@ -1,15 +1,21 @@
 use std::{error::Error, sync::{Arc}, fs, path::Path};
 use polywrap_client::{core::{invoker::Invoker, file_reader::SimpleFileReader}, client::PolywrapClient, wasm::wasm_package::WasmPackage, builder::{PolywrapClientConfig, PolywrapClientConfigBuilder}};
-use serde::{Deserialize};
+use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
 use crate::input::{expect_root_dir};
+
+#[derive(Deserialize, Serialize)]
+struct Args {
+  first: u8,
+  second: u8
+}
 
 #[derive(Deserialize)]
 struct InputObj {
   directory: String,
   method: String,
-  args: String
+  args: Args
 }
 
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
