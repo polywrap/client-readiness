@@ -1,7 +1,7 @@
 required: true
 cases:
   http:
-    input: wrap://http/raw.githubusercontent.com/polywrap/client-readiness/main/wraps/public
+    input: "wrap://http/raw.githubusercontent.com/polywrap/client-readiness/main/wraps/public"
     output:
       stdout:
         - "$Test Start [resolve_http.http]"
@@ -10,7 +10,7 @@ cases:
         - "Received: package"
         - Success!
   https:
-    input: wrap://https/raw.githubusercontent.com/polywrap/client-readiness/main/wraps/public
+    input: "wrap://https/raw.githubusercontent.com/polywrap/client-readiness/main/wraps/public"
     output:
       stdout:
         - "$Test Start [resolve_http.https]"

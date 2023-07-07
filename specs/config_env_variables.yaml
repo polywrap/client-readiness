@@ -2,7 +2,7 @@ required: true
 cases:
   sanity:
     input:
-      uri: wrap://uri/a
+      uri: "wrap://uri/a"
       env:
         str: "foo bar"
         num: 5

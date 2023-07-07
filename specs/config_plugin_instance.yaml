@@ -2,7 +2,7 @@ required: true
 cases:
   sanity:
     input:
-      uri: wrap://plugin/counter
+      uri: "wrap://plugin/counter"
       method: increment
     output:
       stdout:

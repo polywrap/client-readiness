@@ -3,11 +3,11 @@ cases:
   sanity:
     input:
       authority: custom
-      result: wrap://uri/result
+      result: "wrap://uri/result"
     output:
       stdout:
         - "$Test Start [config_resolver.sanity]"
         - Adding Resolver to ClientConfig
-        - Resolving a wrap://custom URI
-        - Received URI 'wrap://uri/result'
+        - "Resolving a wrap://custom URI"
+        - "Received URI 'wrap://uri/result'"
         - Success!
