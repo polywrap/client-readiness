@@ -39,8 +39,8 @@ struct ConfigEmbedWrapPackageTest: Feature {
 
         let uri = try! Uri("embed/foo")
 
-        let builder = BuilderConfig()
-        builder.addPackage(uri, package)
+        let builder = BuilderConfig().addPackage(uri, package)
+
         let client = builder.build()
         let result: Int? = try? client.invoke(uri: uri, method: method, args: args, env: nil)
 

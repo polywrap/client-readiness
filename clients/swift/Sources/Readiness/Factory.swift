@@ -35,6 +35,8 @@ public func FeatureFactory(for name: String) throws -> Feature {
         return SubinvokeWrapPluginTest()
     case "subinvoke_wrap_wrap":
         return SubinvokeWrapWrapTest()
+    case "wrap_feature_env_vars":
+        return WrapFeatureEnvVarsTest()
     case "uri":
         return UriTest()
     default:
