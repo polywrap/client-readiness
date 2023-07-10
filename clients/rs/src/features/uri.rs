@@ -16,6 +16,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
           println!("uri.path - {}", uri.path());
         },
         Err(e) => {
+          println!("!Test Error [uri.invalid_uri]");
           println!("{e}");
         },
     }
