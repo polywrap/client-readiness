@@ -38,10 +38,13 @@ struct WrapTypeMapTest: Feature {
                 fatalError("wrong map filling")
             }
         }
-
+        print("Invoking returnMap")
         let result: Dictionary<String, Int> = try client.invoke(uri: uri, method: "returnMap", args: MapArgs(map), env: nil)
-        for (key, value) in result {
-            print("key '\(key)' = \(value)")
+        let sortedKeys = result.keys.sorted()
+        for key in sortedKeys {
+            if let value = result[key] {
+                print("key '\(key)' = \(value)")
+            }
         }
         print("Success!")
     }

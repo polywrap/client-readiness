@@ -14,7 +14,9 @@ public class SubinvokePlugin: PluginModule {
     }
 
     public func performSubinvoke(args: EmptyArgs, _: EmptyEnv?, invoker: Invoker) throws -> Bool {
+        print("Subinvoking \(method)")
         let result = try invoker.invoke(uri: self.uri, method: self.method, args: self.args, env: nil, resolution_context: nil)
+        print("Received: \(result[0])")
         return true
     }
 }
@@ -53,14 +55,12 @@ struct SubinvokePluginWrapTest: Feature {
 
         let client = builder.build()
         
-        print("Invoking plugin")
+        print("Invoking Plugin")
         let result: Bool? = try? client.invoke(uri: pluginUri, method: "performSubinvoke")
 
         guard let r = result else {
             return
         }
-        
-        print("Received \(r)")
-        print("Success")
+        print("Success!")
     }
 }

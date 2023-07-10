@@ -17,7 +17,6 @@ public struct Readiness {
 
             do {
                 let feature = try FeatureFactory(for: name)
-                
                 print("====================================")
                 print("Begin Feature Spec Test Cases [\(name)]")
                 print("====================================")
@@ -27,8 +26,8 @@ public struct Readiness {
                     do {
                         try feature.runTestCase(input: value.input)
                     } catch {
-                        print("!Test Error [\(name).\(testCase)]")
-                        print(error)
+                        printError("!Test Error [\(name).\(testCase)]")
+                        printError(error)
                     }
                 }
                 print("====================================")
@@ -41,5 +40,12 @@ public struct Readiness {
                 print(error)
             }
         }
+    }
+}
+
+public func printError(_ items: Any...) {
+    let output = items.map { "\($0)" }.joined(separator: " ")
+    if let data = (output + "\n").data(using: .utf8) {
+        FileHandle.standardError.write(data)
     }
 }

@@ -65,6 +65,7 @@ struct WrapTypeObjectTest: Feature {
         let arg = ObjectProp(prop, nested)
         let args = ObjectArgs(arg)
 
+        print("Invoking method1")
         let result: [ObjectResult] = try client.invoke(uri: uri, method: method, args: args, env: nil)
 
         let encoder = JSONEncoder()
@@ -72,7 +73,8 @@ struct WrapTypeObjectTest: Feature {
         do {
             let jsonData = try encoder.encode(result)
             if let jsonString = String(data: jsonData, encoding: .utf8) {
-                print("Result: \(jsonString)")
+                let jsonStringWithoutSpaces = jsonString.replacingOccurrences(of: " : ", with: ": ")
+                print("Result: \(jsonStringWithoutSpaces)")
             }
         } catch {
             print("Failed to encode result: \(error)")

@@ -18,7 +18,7 @@ public func FeatureFactory(for name: String) throws -> Feature {
     case "config_plugin_instance":
         return ConfigPluginInstanceTest()
     case "config_plugin_package":
-        throw FeatureError.unsupported
+        return ConfigPluginPackageTest()
     case "config_resolver":
         throw FeatureError.unsupported
     case "config_resolver_ext":
@@ -35,6 +35,8 @@ public func FeatureFactory(for name: String) throws -> Feature {
         return SubinvokeWrapPluginTest()
     case "subinvoke_wrap_wrap":
         return SubinvokeWrapWrapTest()
+    case "uri":
+        return UriTest()
     case "wrap_feature_env_vars":
         return WrapFeatureEnvVarsTest()
     case "wrap_feature_interface_invoke":
@@ -55,8 +57,6 @@ public func FeatureFactory(for name: String) throws -> Feature {
         return WrapTypeMapTest()
     case "wrap_type_object":
         return WrapTypeObjectTest()
-    case "uri":
-        return UriTest()
     default:
         throw FeatureError.unknown
     }

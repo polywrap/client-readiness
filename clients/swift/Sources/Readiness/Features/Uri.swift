@@ -5,12 +5,11 @@ struct UriTest: Feature {
         guard let inputString = input as? String else {
             return
         }
-        guard let uri = try? Uri(inputString) else {
-            return
-        }
-        
+
+        let uri = try Uri(inputString)
+
         print("WRAP URI successfully created.")
-        print("uri - \(uri)")
+        print("uri - \(uri.ffi.toStringUri())")
         print("uri.authority - \(uri.ffi.authority())")
         print("uri.path - \(uri.ffi.path())")
     }
