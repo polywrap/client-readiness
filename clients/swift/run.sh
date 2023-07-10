@@ -1,1 +1,1 @@
-swift run Readiness $1 2> stderr | tee stdout
+./Build/Products/Release/Readiness $1 2> stderr | tee stdout

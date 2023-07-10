@@ -9,4 +9,8 @@ DerivedData/
 .netrc
 /Sources/Readiness/Specs
 /Sources/Readiness/wraps
-
+Build
+Logs
+ModuleCache.noindex
+SourcePackages
+info.plist

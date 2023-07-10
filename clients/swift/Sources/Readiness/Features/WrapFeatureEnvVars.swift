@@ -61,13 +61,6 @@ public struct FeatureEnv: Codable {
     }
 }
 
-public struct MethodRequireEnvArgs: Codable {
-    var arg: String
-    
-    public init(_ arg: String) {
-        self.arg = arg
-    }
-}
 
 struct WrapFeatureEnvVarsTest: Feature {
     func runTestCase(input: Any) throws -> Void {
@@ -116,7 +109,7 @@ struct WrapFeatureEnvVarsTest: Feature {
             arrayMainEnv
         )
         
-        let suinvokeEnv = FeatureEnv(
+        let subinvokeEnv = FeatureEnv(
             strSubinvokeEnv,
             nil,
             numberSubinvokeEnv,
@@ -125,21 +118,30 @@ struct WrapFeatureEnvVarsTest: Feature {
             objectSubinvoke,
             arraySubinvokeEnv
         )
-        let currentDirectoryPath = FileManager.default.currentDirectoryPath + "/Readiness_Readiness.bundle/Contents/Resources"
-        
-        let mainUri = try Uri("file/\(currentDirectoryPath)/wraps/env-type/00-main/implementations/as")
-        let subinvokeUri = try Uri("file/\(currentDirectoryPath)/wraps/env-type/02-subinvoker-with-env/implementations/as")
+        guard let resourcePath = Bundle.main.resourcePath else {
+            fatalError("Resource folder not found")
+        }
+        let root = resourcePath + "/Readiness_Readiness.bundle/Contents/Resources"
+
+        let mainUri = try Uri("file/\(root)/wraps/env-type/00-main/implementations/as")
+        let subinvokeUri = try Uri("file/\(root)/wraps/env-type/02-subinvoker-with-env/implementations/as")
 
         let builder = try BuilderConfig()
             .addSystemDefault()
             .addEnv(mainUri, mainEnv)
+            .addEnv(subinvokeUri, subinvokeEnv)
+            .addRedirect(try Uri("mock/main"), mainUri)
 
         let client = builder.build()
         print("Invoking methodRequireEnv")
 
         let result: FeatureEnv = try client.invoke(uri: mainUri, method: "methodRequireEnv")
-        print(result)
+        print("response.str: \(result.str)")
         print("Success!")
         print("Invoking subinvokeMethodRequireEnv")
+
+        let subinvokeResult: FeatureEnv = try client.invoke(uri: subinvokeUri, method: "subinvokeMethodRequireEnv")
+        print("response.str: \(subinvokeResult.str)")
+        print("Success!")
     }
 }
