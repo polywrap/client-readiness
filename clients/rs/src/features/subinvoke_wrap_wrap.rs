@@ -116,7 +116,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
 
     println!("Invoking {method}");
 
-    let result = client.invoke_raw(
+    let result = client.invoke::<u8>(
         &root_wrap_uri,
         &method,
         Some(&polywrap_client::msgpack::to_vec(&args)?),
@@ -125,7 +125,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
     );
 
     if let Ok(result) = result {
-        println!("Received: {result:?}");
+        println!("Received: {result}");
         println!("Success!");
     }
 

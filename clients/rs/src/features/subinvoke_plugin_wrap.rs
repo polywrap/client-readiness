@@ -57,6 +57,7 @@ impl Plugin {
         );
 
         if let Ok(result) = res {
+            let result: u8 = polywrap_client::msgpack::from_slice(&result)?;
             println!("Received {result:?}");
             Ok(true)
         } else {

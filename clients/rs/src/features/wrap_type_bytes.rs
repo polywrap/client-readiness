@@ -1,9 +1,9 @@
-use std::{error::Error};
-use polywrap_client::{core::{uri::Uri}, client::PolywrapClient};
+use std::error::Error;
+use polywrap_client::{core::uri::Uri, client::PolywrapClient};
 use polywrap_client_default_config::SystemClientConfig;
 use polywrap_client::msgpack::bytes;
 use serde::{Deserialize, Serialize};
-use serde_json::{Value};
+use serde_json::Value;
 
 #[derive(Serialize, Deserialize)]
 struct InnerArgObj {
