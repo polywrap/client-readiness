@@ -3,13 +3,13 @@ use polywrap_client::{
   wasm::wasm_package::WasmPackage, core::{file_reader::SimpleFileReader, package::WrapPackage, uri::Uri}, client::PolywrapClient, builder::{PolywrapClientConfig, PolywrapClientConfigBuilder},
 };
 use serde::{Deserialize, Serialize};
-use serde_json::{Value};
+use serde_json::Value;
 use std::{
   error::Error,
   fs, path::Path, sync::{Arc, Mutex},
 };
 
-use crate::{input::{expect_root_dir}, utils::get_default_manifest};
+use crate::{input::expect_root_dir, utils::get_default_manifest};
 
 #[derive(Deserialize)]
 struct InputObj {

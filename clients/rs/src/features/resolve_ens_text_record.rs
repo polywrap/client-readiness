@@ -1,4 +1,4 @@
-use std::{error::Error};
+use std::error::Error;
 use polywrap_client::{client::PolywrapClient, builder::PolywrapClientConfig, core::{uri_resolver_handler::UriResolverHandler, resolution::uri_resolution_context::UriPackageOrWrapper, uri::Uri}};
 use serde_json::Value;
 

@@ -5,13 +5,13 @@ use polywrap_client::{
     wasm::wasm_package::WasmPackage, builder::{PolywrapClientConfig, PolywrapClientConfigBuilder},
 };
 use serde::{Deserialize, Serialize};
-use serde_json::{Value};
+use serde_json::Value;
 use std::{
     error::Error,
     sync::{Arc, Mutex}, fs, path::Path,
 };
 
-use crate::{input::{expect_root_dir}, utils::get_default_manifest};
+use crate::{input::expect_root_dir, utils::get_default_manifest};
 
 #[derive(Serialize, Deserialize, Debug)]
 struct Args {

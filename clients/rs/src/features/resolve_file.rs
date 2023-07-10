@@ -1,9 +1,9 @@
-use std::{error::Error};
+use std::error::Error;
 use polywrap_client::{client::PolywrapClient, core::{uri_resolver_handler::UriResolverHandler, resolution::uri_resolution_context::UriPackageOrWrapper, uri::Uri}};
 use polywrap_client_default_config::SystemClientConfig;
 use serde_json::Value;
 
-use crate::input::{expect_root_dir};
+use crate::input::expect_root_dir;
 
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   let input_uri: Uri = serde_json::from_value::<String>(input.clone())?.try_into()?;

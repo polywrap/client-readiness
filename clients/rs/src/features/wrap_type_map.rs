@@ -1,8 +1,8 @@
-use std::{error::Error, collections::{HashMap}};
-use polywrap_client::{core::{uri::Uri}, client::PolywrapClient};
+use std::{error::Error, collections::HashMap};
+use polywrap_client::{core::uri::Uri, client::PolywrapClient};
 use polywrap_client_default_config::SystemClientConfig;
 use serde::{Deserialize, Serialize};
-use serde_json::{Value};
+use serde_json::Value;
 
 #[derive(Deserialize)]
 struct InputObj {

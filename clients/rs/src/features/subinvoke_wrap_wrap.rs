@@ -2,7 +2,7 @@ use polywrap_client::{
     builder::{PolywrapClientConfig, PolywrapClientConfigBuilder},
     client::PolywrapClient,
     core::{file_reader::SimpleFileReader, package::WrapPackage, uri::Uri},
-    plugin::{module::PluginModule},
+    plugin::module::PluginModule,
     wasm::wasm_package::WasmPackage,
 };
 use serde::{Deserialize, Serialize};
@@ -11,12 +11,10 @@ use std::{
     error::Error,
     fs,
     path::Path,
-    sync::{Arc},
+    sync::Arc,
 };
 
-use crate::{
-    input::{expect_root_dir}
-};
+use crate::input::expect_root_dir;
 
 #[derive(Deserialize)]
 struct InputObj {

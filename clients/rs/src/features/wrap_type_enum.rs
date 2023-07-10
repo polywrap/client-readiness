@@ -1,9 +1,9 @@
 use core::fmt;
-use std::{error::Error};
-use polywrap_client::{core::{uri::Uri}, client::PolywrapClient};
+use std::error::Error;
+use polywrap_client::{core::uri::Uri, client::PolywrapClient};
 use polywrap_client_default_config::SystemClientConfig;
 use serde::{Deserialize, Serialize, de, Deserializer};
-use serde_json::{Value};
+use serde_json::Value;
 
 #[derive(Serialize)]
 enum En {

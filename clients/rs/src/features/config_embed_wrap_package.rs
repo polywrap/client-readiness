@@ -3,7 +3,7 @@ use polywrap_client::{wasm::wasm_package::WasmPackage, core::{file_reader::Simpl
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
-use crate::input::{expect_root_dir};
+use crate::input::expect_root_dir;
 
 #[derive(Deserialize, Serialize)]
 struct Args {
