@@ -1,7 +1,7 @@
 required: false
 cases:
   sanity:
-    input: wrap://ens/uniswap.wraps.eth:v3
+    input: "wrap://ens/uniswap.wraps.eth:v3"
     output:
       stdout:
         - "$Test Start [resolve_ens_text_record.sanity]"

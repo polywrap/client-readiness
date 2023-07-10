@@ -1,12 +1,12 @@
 required: true
 cases:
   valid_uri:
-    input: wrap://authority/path/to/wrap
+    input: "wrap://authority/path/to/wrap"
     output:
       stdout:
         - "$Test Start [uri.valid_uri]"
         - WRAP URI successfully created.
-        - uri - wrap://authority/path/to/wrap
+        - "uri - wrap://authority/path/to/wrap"
         - uri.authority - authority
         - uri.path - path/to/wrap
   shorthand_uri:
@@ -15,11 +15,11 @@ cases:
       stdout:
         - "$Test Start [uri.shorthand_uri]"
         - WRAP URI successfully created.
-        - uri - wrap://authority/path/to/wrap
+        - "uri - wrap://authority/path/to/wrap"
         - uri.authority - authority
         - uri.path - path/to/wrap
   invalid_uri:
-    input: wrap://invalid.uri
+    input: "wrap://invalid.uri"
     output:
       stdout:
         - "$Test Start [uri.invalid_uri]"
