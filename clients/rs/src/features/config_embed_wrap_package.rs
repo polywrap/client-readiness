@@ -29,7 +29,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   let method = input_obj.method;
   let args = input_obj.args;
 
-  println!("Reading wrap.info & wrap.wasm from {wrap_dir}");
+  println!("Reading wrap.info & wrap.wasm from {}", input_obj.directory.to_string());
 
   let manifest = fs::read(Path::new(&wrap_dir).join("wrap.info"))?;
   let wasm_module = fs::read(Path::new(&wrap_dir).join("wrap.wasm"))?;

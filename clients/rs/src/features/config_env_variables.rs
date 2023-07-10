@@ -41,8 +41,15 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
     if let Some(result) = result {
         let result = polywrap_client::msgpack::from_slice::<Value>(&result)?;
         for key in result.as_object().unwrap().keys() {
-            let value = result.get(key).unwrap();
-            println!("env.{key} = {value}");
+            match result.get(key).unwrap() {
+                Value::String(value) => {
+                  let value = value.as_str();
+                  println!("env.{key} = {}", value);
+                },
+                value => {
+                  println!("env.{key} = {}", value);
+                }
+            };
         }
         println!("Success!")
     }

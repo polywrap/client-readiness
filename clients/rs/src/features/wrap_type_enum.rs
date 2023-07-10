@@ -24,9 +24,9 @@ impl<'de> Deserialize<'de> for En {
 
           fn visit_u64<E: de::Error>(self, value: u64) -> Result<Self::Value, E> {
               Ok(match value {
-                  1 => En::OPTION1,
-                  2 => En::OPTION2,
-                  3 => En::OPTION3,
+                  0 => En::OPTION1,
+                  1 => En::OPTION2,
+                  2 => En::OPTION3,
                   _ => return Err(E::invalid_value(de::Unexpected::Unsigned(value), &self)),
               })
           }

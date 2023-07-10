@@ -85,9 +85,15 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
     None
   );
 
-  if let Ok(result) = result {
-    println!("Received: {result:?}");
-    println!("Success!");
+  match result {
+    Ok(result) => {
+      let result: u8 = polywrap_client::msgpack::from_slice(&result)?;
+      println!("Received: {result:?}");
+      println!("Success!");
+    },
+    Err(e) => {
+      println!("{}", e)
+    },
   }
 
   Ok(())

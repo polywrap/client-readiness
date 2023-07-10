@@ -1,13 +1,19 @@
 use std::{error::Error, sync::{Arc, Mutex}};
 use polywrap_client::{core::{invoker::Invoker, uri::Uri}, client::PolywrapClient, plugin::{module::PluginModule, package::PluginPackage}, wrap_manifest::versions::{WrapManifest01, WrapManifest01Abi}, builder::{PolywrapClientConfigBuilder, PolywrapClientConfig}};
 use serde::{Deserialize, Serialize};
-use serde_json::{Value, Map};
+use serde_json::Value;
+
+#[derive(Serialize, Deserialize)]
+struct AddArgs { 
+  a: u8,
+  b: u8
+}
 
 #[derive(Deserialize)]
 struct InputObj {
   uri: String,
   method: String,
-  args: Map<String, Value>
+  args: AddArgs
 }
 
 pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
@@ -17,12 +23,6 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   let args = input_obj.args;
 
   println!("Creating PluginPackage");
-  
-  #[derive(Serialize, Deserialize)]
-  struct AddArgs { 
-    a: u8,
-    b: u8
-  }
 
   #[derive(Debug)]
   struct Plugin {}
@@ -43,8 +43,12 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
       ) -> Result<Vec<u8>, polywrap_client::plugin::error::PluginError> {
           match method_name {
             "add" => {
+              println!("HERE 1");
+              println!("{:?}", params);
               let args: AddArgs = polywrap_client::msgpack::from_slice(params)?;
+              println!("HERE 2");
               let result = self.add(&args);
+              println!("HERE 3");
               Ok(polywrap_client::msgpack::to_vec(&result)?)
             },
             _ => panic!("Unrecognized method: {method_name}")
@@ -90,9 +94,14 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
     None
   );
 
-  if result.is_ok() {
-    println!("Success!");
-  }
+  match result {
+    Ok(_) => {
+      println!("Success!");
+    },
+    Err(e) => {
+      println!("{}", e)
+    },
+}
 
   Ok(())
 }

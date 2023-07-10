@@ -1693,9 +1693,9 @@ dependencies = [
 
 [[package]]
 name = "polywrap_client"
-version = "0.1.6-beta.9"
+version = "0.1.6-beta.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a2003984e2f36b53e123a80113be6fe554ba5a548804514558d378a125416c6a"
+checksum = "10e44e4c9f9a3a843c75f8f9f8d344adc57a5e1e175114170fea2535f12df210"
 dependencies = [
  "polywrap_client_builder",
  "polywrap_core",
@@ -1712,9 +1712,9 @@ dependencies = [
 
 [[package]]
 name = "polywrap_client_builder"
-version = "0.1.6-beta.9"
+version = "0.1.6-beta.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dd04e97cb9c77a4506da5ee09e2685b15939ca229bd78fbd34a7eed0c951570f"
+checksum = "bedbb7d0a29a628968e089cef3766af73de9a00a0985fa7959278d6870a1f52b"
 dependencies = [
  "polywrap_core",
  "polywrap_msgpack_serde",
@@ -1726,9 +1726,9 @@ dependencies = [
 
 [[package]]
 name = "polywrap_client_default_config"
-version = "0.1.6-beta.9"
+version = "0.1.6-beta.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5d65f4803dff008b3d615583170beaca4f293ba33d71f047ea160e509b97644c"
+checksum = "4717b26efe20e2187046ce821aa9023ae8d050956c33b1a68cd3df9bdcbd6f1e"
 dependencies = [
  "base64 0.13.1",
  "polywrap_client_builder",
@@ -1746,9 +1746,9 @@ dependencies = [
 
 [[package]]
 name = "polywrap_core"
-version = "0.1.6-beta.9"
+version = "0.1.6-beta.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ce5a398665fb691a127b81e8314c323452e719bbae96a3347319bada217e631c"
+checksum = "4b1f45c98b01d74f23aa388fd10c07ec02603075c86f048b528ad0171ae35b36"
 dependencies = [
  "jsonschema",
  "polywrap_core_macros",
@@ -1763,9 +1763,9 @@ dependencies = [
 
 [[package]]
 name = "polywrap_core_macros"
-version = "0.1.6-beta.9"
+version = "0.1.6-beta.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4cf584201d8d201542275d8363b2372cd5ea36809ecb77f88adf61d20d5aff9b"
+checksum = "197417c6a063b07d2b346b38a2abcab58f63c4b3438917c53df58520668f86a5"
 dependencies = [
  "polywrap_uri",
  "quote",
@@ -1774,9 +1774,9 @@ dependencies = [
 
 [[package]]
 name = "polywrap_fs_plugin"
-version = "0.1.6-beta.9"
+version = "0.1.6-beta.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "10eb1040135648e08eccffdcb7f8c8ea7b036e5bf52e9fdf4ab8a1f4e0dd8999"
+checksum = "4f4c606213e337308fc9896c0d4d6b164de0735a4154de5fc85b5e27d61a7303"
 dependencies = [
  "polywrap_core",
  "polywrap_msgpack_serde",
@@ -1791,9 +1791,9 @@ dependencies = [
 
 [[package]]
 name = "polywrap_http_plugin"
-version = "0.1.6-beta.9"
+version = "0.1.6-beta.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5fdf8afe5e1333328e613613e80200586463278fd7cf974912e1ee330d985d32"
+checksum = "218b2798eec255406a25e2618c1ae71f119b51c9391d0fab6bbb65861084f41c"
 dependencies = [
  "base64 0.13.1",
  "multipart",
@@ -1810,9 +1810,9 @@ dependencies = [
 
 [[package]]
 name = "polywrap_msgpack_serde"
-version = "0.0.2-beta.1"
+version = "0.0.2-beta.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "897da6a44f0295c12f2b6694689a56f0a286643b907350905b0f925e8c85f303"
+checksum = "b7eeab5ae1a3a56dfd6984ab79d2baf75427452c88ed50befb0b56e43a23e0f8"
 dependencies = [
  "bigdecimal",
  "byteorder",
@@ -1826,9 +1826,9 @@ dependencies = [
 
 [[package]]
 name = "polywrap_plugin"
-version = "0.1.6-beta.9"
+version = "0.1.6-beta.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a483f5dfa2705c77992e68192efddd3399d2aeefd380de46b29ebd0f12e3838a"
+checksum = "000c4b9b3b4ad4a138d12a2f68862e39eb09e25808e6effa06c7d422c006129d"
 dependencies = [
  "Inflector",
  "bigdecimal",
@@ -1844,9 +1844,9 @@ dependencies = [
 
 [[package]]
 name = "polywrap_plugin_implementor"
-version = "0.1.6-beta.9"
+version = "0.1.6-beta.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c2d56c3907faeef8442496e98079db3e38379935494b902ef5fb741b88567a5d"
+checksum = "88a6d9aebb43d679853f15cdbb6cfe5621e29a139d3197aa810c85f1bd1394a7"
 dependencies = [
  "polywrap_core",
  "proc-macro2",
@@ -1857,9 +1857,9 @@ dependencies = [
 
 [[package]]
 name = "polywrap_resolver_extensions"
-version = "0.1.6-beta.9"
+version = "0.1.6-beta.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "48624bdf56b316b5b1bd20dd36f9da436861b4ca38204ceaeaa8097390c3698e"
+checksum = "8ae7b74f4196c8bea1c628c0237efab22bd25db9754e7ad57c3e7b410a92297e"
 dependencies = [
  "polywrap_core",
  "polywrap_msgpack_serde",
@@ -1873,9 +1873,9 @@ dependencies = [
 
 [[package]]
 name = "polywrap_resolvers"
-version = "0.1.6-beta.9"
+version = "0.1.6-beta.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e6ad4bdf55d33ff528b12a0495b49dc824efe31096467c13fc8a02b7af2a50cd"
+checksum = "77e1bb70e12cbf75e6f42d910c10647d718fdce9ab315ac11ab75951ed282d0e"
 dependencies = [
  "polywrap_core",
  "polywrap_msgpack_serde",
@@ -1921,9 +1921,9 @@ dependencies = [
 
 [[package]]
 name = "polywrap_uri"
-version = "0.1.6-beta.9"
+version = "0.1.6-beta.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ae3475ab0cb770f233d29e82ea4bc9f44777f59dce3ecfe0e6272dd5c8962ce8"
+checksum = "7e37c25e817ca1c342d0386740cdf573c5a4f4c610b00c34680572751e3133ee"
 dependencies = [
  "regex",
  "serde",
@@ -1931,9 +1931,9 @@ dependencies = [
 
 [[package]]
 name = "polywrap_wasm"
-version = "0.1.6-beta.9"
+version = "0.1.6-beta.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a9c83da3ca8b314b175b9e6b63e679e159a3c0f7d3db83353395513fe9edaa66"
+checksum = "62a760c676e26489b1c94183ca9ae05d3fc4a9947951765c3f86d6627e001cd9"
 dependencies = [
  "base64 0.13.1",
  "bytes",
@@ -2354,6 +2354,7 @@ version = "0.1.0"
 dependencies = [
  "polywrap_client",
  "polywrap_client_default_config",
+ "polywrap_resolver_extensions",
  "serde",
  "serde_json",
  "serde_yaml",
@@ -3534,9 +3535,9 @@ dependencies = [
 
 [[package]]
 name = "wrap_manifest_schemas"
-version = "0.1.6-beta.9"
+version = "0.1.6-beta.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "90c2c430de6a18561fb185dfdea1a6b74cfa59a3f2dd8e51eb822b16687873bf"
+checksum = "ceca122888af2fa0957beb75da60358563a301cd4ef507b3f5102bfb9ddae4c6"
 dependencies = [
  "handlebars",
  "jsonschema",

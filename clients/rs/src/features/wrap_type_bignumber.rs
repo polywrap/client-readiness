@@ -42,6 +42,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
 
   match result {
     Ok(result) => {
+      let result = result.as_str().unwrap();
       println!("Result: {result}");
       println!("Success!");
     },
