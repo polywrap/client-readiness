@@ -44,8 +44,18 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   );
 
   match result {
-    Ok(result) => {
-      println!("Result: {result:?}");
+    Ok(result_bytes) => {
+      let mut result = String::from("[");
+
+      for byte in result_bytes.to_vec() {
+        result.push_str(&byte.to_string());
+        result.push(',');
+      }
+
+      result.pop();
+      result.push(']');
+
+      println!("Result: {result}");
       println!("Success!");
     },
     Err(err) => panic!("{err}"),
