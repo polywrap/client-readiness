@@ -2,7 +2,7 @@ use std::{error::Error};
 use polywrap_client::{core::{uri::Uri}, client::PolywrapClient};
 use polywrap_client_default_config::SystemClientConfig;
 use serde::{Deserialize, Serialize};
-use serde_json::{Value};
+use serde_json::{Value, to_string_pretty};
 
 #[derive(Serialize, Deserialize)]
 struct NestedInnerArg {
@@ -49,8 +49,8 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
 
   match result {
     Ok(result) => {
-      let stringified_value = result.to_string();
-      println!("Result: {stringified_value:#}");
+      let stringified_value = to_string_pretty(&result)?;
+      println!("Result: {stringified_value}");
       println!("Success!");
     },
     Err(err) => panic!("{err}"),
