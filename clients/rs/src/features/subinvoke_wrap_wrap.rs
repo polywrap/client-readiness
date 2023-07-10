@@ -1,7 +1,7 @@
 use polywrap_client::{
     builder::{PolywrapClientConfig, PolywrapClientConfigBuilder},
     client::PolywrapClient,
-    core::{file_reader::SimpleFileReader, invoker::Invoker, package::WrapPackage, uri::Uri},
+    core::{file_reader::SimpleFileReader, package::WrapPackage, uri::Uri},
     plugin::{module::PluginModule},
     wasm::wasm_package::WasmPackage,
 };
@@ -106,7 +106,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
             Arc::new(root_wrap_package) as Arc<dyn WrapPackage>,
         ),
         (
-          sub_wrap_uri.clone(),
+          sub_wrap_uri,
           Arc::new(sub_wrap_package) as Arc<dyn WrapPackage>,
       ),
     ];

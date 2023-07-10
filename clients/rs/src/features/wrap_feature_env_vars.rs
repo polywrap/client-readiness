@@ -100,7 +100,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
 
     match result {
       Ok(result) => {
-          let result_str = result.str.to_string();
+          let result_str = result.str;
 
           println!("response.str: {result_str}");
           println!("Success!");
@@ -122,7 +122,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
 
     match subinvoke_env_method_result {
         Ok(result) => {
-            let result_str = result.str.to_string();
+            let result_str = result.str;
 
             println!("response.str exists: {result_str}");
             println!("Success!");

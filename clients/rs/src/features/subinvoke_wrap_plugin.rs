@@ -1,6 +1,6 @@
 use polywrap_client::{
   plugin::{module::PluginModule, package::PluginPackage},
-  wasm::wasm_package::WasmPackage, core::{file_reader::SimpleFileReader, package::WrapPackage, invoker::Invoker, uri::Uri}, client::PolywrapClient, builder::{PolywrapClientConfig, PolywrapClientConfigBuilder},
+  wasm::wasm_package::WasmPackage, core::{file_reader::SimpleFileReader, package::WrapPackage, uri::Uri}, client::PolywrapClient, builder::{PolywrapClientConfig, PolywrapClientConfigBuilder},
 };
 use serde::{Deserialize, Serialize};
 use serde_json::{Value};

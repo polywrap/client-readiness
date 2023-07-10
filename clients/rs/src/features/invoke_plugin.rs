@@ -79,7 +79,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
 
   let result = client.invoke_raw(
     &uri.try_into().unwrap(),
-    &method,
+    method,
     Some(&polywrap_client::msgpack::to_vec(&args)?),
     None,
     None
