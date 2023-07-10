@@ -12,7 +12,8 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
   let config = SystemClientConfig::default();
   let client: PolywrapClient = PolywrapClient::new(config.into());
 
-  println!("Resolving: {}", input.to_string());
+  let input_str = input.as_str().unwrap();
+  println!("Resolving: {}", input_str);
 
   let result = client.try_resolve_uri(&uri.try_into()?, None)?;
   let result_type = match result {
