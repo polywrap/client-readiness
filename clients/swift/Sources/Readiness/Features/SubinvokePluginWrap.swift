@@ -15,7 +15,6 @@ public class SubinvokePlugin: PluginModule {
 
     public func performSubinvoke(args: EmptyArgs, _: EmptyEnv?, invoker: Invoker) throws -> Bool {
         let result = try invoker.invoke(uri: self.uri, method: self.method, args: self.args, env: nil, resolution_context: nil)
-        print(result)
         return true
     }
 }
