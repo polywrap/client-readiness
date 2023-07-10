@@ -107,8 +107,6 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
     let uri: Uri = format!("wrap://{authority}/foo").try_into().unwrap();
     let result = client.try_resolve_uri(&uri, None)?;
 
-    dbg!(result.clone());
-
     if let UriPackageOrWrapper::Uri(result_uri) = result {
         let result_uri = result_uri.uri();
         println!("Received URI '{result_uri}'");

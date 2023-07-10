@@ -43,12 +43,8 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
       ) -> Result<Vec<u8>, polywrap_client::plugin::error::PluginError> {
           match method_name {
             "add" => {
-              println!("HERE 1");
-              println!("{:?}", params);
               let args: AddArgs = polywrap_client::msgpack::from_slice(params)?;
-              println!("HERE 2");
               let result = self.add(&args);
-              println!("HERE 3");
               Ok(polywrap_client::msgpack::to_vec(&result)?)
             },
             _ => panic!("Unrecognized method: {method_name}")

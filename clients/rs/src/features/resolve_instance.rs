@@ -19,8 +19,6 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
     std::env::current_dir()?.join("../../").to_str().unwrap()
   )?;
 
-  dbg!(Path::new(&wrap_dir).join("wrap.info"));
-
   let _manifest = fs::read(Path::new(&wrap_dir).join("wrap.info"))?;
   let wasm_module = fs::read(Path::new(&wrap_dir).join("wrap.wasm"))?;
 
