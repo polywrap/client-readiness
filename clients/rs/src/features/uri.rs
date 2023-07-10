@@ -14,12 +14,11 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
           println!("uri - {uri}");
           println!("uri.authority - {}", uri.authority());
           println!("uri.path - {}", uri.path());
+
+          Ok(())
         },
         Err(e) => {
-          println!("!Test Error [uri.invalid_uri]");
-          println!("{e}");
-        },
+          Err(Box::new(e))
+        }
     }
-
-    Ok(())
 }

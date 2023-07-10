@@ -51,7 +51,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
 
     match result {
         Ok(result) => {
-            println!("Result: {result}");
+            println!("Result: {:?}", result);
             println!("Success!");
         }
         Err(err) => panic!("{err}"),
