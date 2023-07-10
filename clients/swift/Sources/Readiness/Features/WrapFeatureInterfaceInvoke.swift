@@ -19,7 +19,7 @@ public struct ImplementationType: Codable {
     }
 }
 
-struct WrapFeatureInterfaceInvoke: Feature {
+struct WrapFeatureInterfaceInvokeTest: Feature {
     func runTestCase(input: Any) throws -> Void {
         guard let resourcePath = Bundle.main.resourcePath else {
             fatalError("Resource folder not found")

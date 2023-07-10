@@ -38,7 +38,23 @@ public func FeatureFactory(for name: String) throws -> Feature {
     case "wrap_feature_env_vars":
         return WrapFeatureEnvVarsTest()
     case "wrap_feature_interface_invoke":
-        return WrapFeatureInterfaceInvoke()
+        return WrapFeatureInterfaceInvokeTest()
+    case "wrap_type_bigint":
+        return WrapTypeBigintTest()
+    case "wrap_type_bignumber":
+        return WrapTypeBignumberTest()
+    case "wrap_type_bytes":
+        return WrapTypeBytesTest()
+    case "wrap_type_enum":
+        return WrapTypeEnumTest()
+    case "wrap_type_ints":
+        return WrapTypeIntsTest()
+    case "wrap_type_json":
+        return WrapTypeJsonTest()
+    case "wrap_type_map":
+        return WrapTypeMapTest()
+    case "wrap_type_object":
+        return WrapTypeObjectTest()
     case "uri":
         return UriTest()
     default:
