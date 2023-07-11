@@ -19,6 +19,15 @@
       }
     },
     {
+      "identity" : "swift-client",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/polywrap/swift-client",
+      "state" : {
+        "branch" : "main",
+        "revision" : "56ad5ba6fa5c972289496b3a95191eefd663f4ed"
+      }
+    },
+    {
       "identity" : "swift-collections",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-collections.git",
