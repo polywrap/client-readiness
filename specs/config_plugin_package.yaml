@@ -2,7 +2,7 @@ required: true
 cases:
   sanity:
     input:
-      uri: wrap://plugin/calculator
+      uri: "wrap://plugin/calculator"
       method: add
       args:
         a: 8
