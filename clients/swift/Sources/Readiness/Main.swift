@@ -3,7 +3,10 @@ import Foundation
 @main
 public struct Readiness {
     public static func main() async throws {
-        let filter: String? = CommandLine.arguments.count > 1 ? CommandLine.arguments[1] : nil
+        var filter: [String]? = nil
+        if CommandLine.arguments.count > 1 {
+            filter = CommandLine.arguments[1].components(separatedBy: ",")
+        }
 
         guard let specs = try? loadFeatureSpecs("./Specs") else {
             print("Failed to load feature specs")
@@ -11,7 +14,7 @@ public struct Readiness {
         }
 
         for (name, spec) in specs {
-            if let filter = filter, filter != name {
+            if let filter = filter, !filter.contains(name) {
                 continue
             }
 
