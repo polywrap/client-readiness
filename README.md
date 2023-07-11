@@ -3,8 +3,8 @@ A place to define a "readiness checklist" for all Polywrap clients to adhere to.
 
 ## Checklist
 
-| Feature :heavy_check_mark: | Scenario :thought_balloon: | Required :question: | Spec :clipboard: | JS :scroll: | KT :scroll:                                                                                        |
-|-|-|-|-|-|----------------------------------------------------------------------------------------------------|
+| Feature :heavy_check_mark: | Scenario :thought_balloon: | Required :question: | Spec :clipboard: | JS :scroll: | KT 🤖 |
+|-|-|-|-|-|-|
 | **`wrap://` URIs** | | | | |                                                                                                    |
 | | Create & sanitize a `wrap://` URI | Yes | [:mag:](./specs/uri.yaml) | [:heavy_check_mark:](./clients/js/src/features/uri.ts) | [:heavy_check_mark:](./clients/kotlin/src/main/kotlin/features/uri/uri.kt)                         |
 | **Client Configuration** | | | | |                                                                                                    |
