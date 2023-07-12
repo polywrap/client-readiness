@@ -1,0 +1,26 @@
+name: Rust-Client
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  Client-Readiness:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: nightly
+          override: true
+
+      - name: Install
+        run: ./install.sh
+
+      - name: Run
+        run: ./run.sh rs
