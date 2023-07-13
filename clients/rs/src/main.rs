@@ -9,21 +9,24 @@ mod utils;
 
 fn main() -> Result<(), Box<dyn Error>> {
     // Optional 2nd argument, spec filter
-    let filter = env::args().nth(1);
+    let filter = env::args().nth(1).map(|arg| {
+        arg.split(",")
+            .into_iter()
+            .map(|s| s.to_string())
+            .collect::<Vec<String>>()
+    });
 
     let specs_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../../specs");
-    let specs = feature_specs::load(
-        specs_dir.as_path()
-    )?;
+    let specs = feature_specs::load(specs_dir.as_path())?;
 
     let features = features::get();
 
     for (spec_name, spec) in specs.iter() {
         if let Some(filter) = &filter {
-            if filter != spec_name {
+            if !filter.contains(spec_name) {
                 continue;
             }
-        }
+        };
 
         let feature = features.get(spec_name).unwrap();
 
