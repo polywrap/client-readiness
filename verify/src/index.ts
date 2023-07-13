@@ -13,7 +13,7 @@ async function main() {
   const clientDir = path.join(cwd, arg);
 
   // Optional 2nd argument, spec filter
-  const filter = process.argv.length > 3 ? process.argv[3] : undefined;
+  const filter = process.argv.length > 3 ? process.argv[3].split(",") : undefined;
 
   // Read stdout & stderr log files
   const stdout = fs.readFileSync(
@@ -33,7 +33,7 @@ async function main() {
   const errors = [];
 
   for (const featureSpec of Object.keys(featureSpecs)) {
-    if (filter && filter !== featureSpec) {
+    if (filter && !filter.includes(featureSpec)) {
       continue;
     }
 
