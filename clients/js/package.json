@@ -1,6 +1,5 @@
 {
-  "name": "templates-app-typescript",
-  "description": "Polywrap App TypeScript Template",
+  "name": "javascript-client-readiness",
   "private": true,
   "version": "0.10.1",
   "scripts": {
