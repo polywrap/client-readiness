@@ -20,9 +20,7 @@ let package = Package(
                 .product(name: "PolywrapClient", package: "swift-client"),
                 "Yams"
             ],
-            resources: [ .copy("Specs"), .copy("wraps") ],
-            publicHeadersPath: "Include",
-            cSettings: [ .headerSearchPath("include") ]
+            resources: [ .copy("Specs"), .copy("wraps") ]
         ),
     ]
 )
