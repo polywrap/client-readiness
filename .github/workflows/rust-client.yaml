@@ -23,4 +23,4 @@ jobs:
         run: ./install.sh
 
       - name: Run
-        run: ./run.sh rs "config_embed_wrap_package,config_env_variables,config_interface_implementations,config_plugin_instance,config_plugin_package,invoke_plugin,invoke_wrap_wasm_v0_1,resolve_file,resolve_http,resolve_instance,resolve_ipfs,resolve_package,resolve_redirect,subinvoke_plugin_wrap,subinvoke_wrap_plugin,subinvoke_wrap_wrap,uri,wrap_feature_env_vars,wrap_feature_interface_invoke,wrap_type_bigint,wrap_type_bignumber,wrap_type_bytes,wrap_type_enum,wrap_type_ints"
+        run: ./run.sh rs config_embed_wrap_package,config_env_variables,config_interface_implementations,config_plugin_instance,config_plugin_package,invoke_plugin,invoke_wrap_wasm_v0_1,resolve_file,resolve_http,resolve_instance,resolve_ipfs,resolve_package,resolve_redirect,subinvoke_plugin_wrap,subinvoke_wrap_plugin,subinvoke_wrap_wrap,uri,wrap_feature_env_vars,wrap_feature_interface_invoke,wrap_type_bigint,wrap_type_bignumber,wrap_type_bytes,wrap_type_enum,wrap_type_ints
