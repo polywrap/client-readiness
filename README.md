@@ -1,5 +1,5 @@
 # Client Readiness Checklist
-A place to define a "readiness checklist" for all Polywrap clients to adhere to.
+A "readiness checklist" for all Polywrap clients to adhere to.
 
 ## Checklist
 
