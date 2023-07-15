@@ -1,5 +1,5 @@
 # Client Readiness Checklist
-A "readiness checklist" for all Polywrap clients to adhere to.
+A "readiness checklist" for [all Polywrap clients](https://docs.polywrap.io/clients) to adhere to.
 
 ## Checklist
 
