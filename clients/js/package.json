@@ -6,7 +6,7 @@
     "start": "ts-node ./src/index.ts"
   },
   "dependencies": {
-    "@polywrap/client-js": "~0.10.1",
+    "@polywrap/client-js": "0.12.0-pre.1",
     "bignumber.js": "9.1.1",
     "yaml": "2.2.1"
   },

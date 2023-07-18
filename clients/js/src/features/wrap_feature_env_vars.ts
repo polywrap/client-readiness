@@ -1,6 +1,6 @@
 import { Input } from "../input";
 
-import { ClientConfigBuilder, PolywrapClient, Uri } from "@polywrap/client-js";
+import { PolywrapClientConfigBuilder, PolywrapClient, Uri } from "@polywrap/client-js";
 import path from "path";
 
 export async function runTestCase(input: unknown): Promise<void> {
@@ -27,7 +27,7 @@ export async function runTestCase(input: unknown): Promise<void> {
     [subinvokerUri.uri]: subinvokerEnv,
   };
 
-  const config = new ClientConfigBuilder()
+  const config = new PolywrapClientConfigBuilder()
     .addDefaults()
     .addEnvs(envs)
     .addRedirect("mock/main", mainUri.uri)

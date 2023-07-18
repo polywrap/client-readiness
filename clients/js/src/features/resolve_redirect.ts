@@ -1,6 +1,6 @@
 import { Input } from "../input";
 
-import { ClientConfigBuilder, PolywrapClient } from "@polywrap/client-js";
+import { PolywrapClientConfigBuilder, PolywrapClient } from "@polywrap/client-js";
 
 export async function runTestCase(input: unknown): Promise<void> {
   const inputObj = Input.expectObject<{
@@ -10,7 +10,7 @@ export async function runTestCase(input: unknown): Promise<void> {
   const from = Input.expectUri(inputObj.from).uri;
   const to = Input.expectUri(inputObj.to).uri;
 
-  const config = new ClientConfigBuilder()
+  const config = new PolywrapClientConfigBuilder()
     .addRedirect(from, to)
     .build();
 
