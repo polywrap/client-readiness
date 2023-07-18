@@ -43,7 +43,7 @@ export async function runTestCase(input: unknown): Promise<void> {
   }));
 
   const config = new PolywrapClientConfigBuilder()
-    .addPackages({
+    .setPackages({
       [rootWrapUri.uri]: rootWrapPackage,
       [subWrapUri.uri]: subWrapPackage
     })

@@ -13,7 +13,7 @@ export async function runTestCase(input: unknown): Promise<void> {
   console.log("Adding URI Redirect to ClientConfig");
 
   const config = new PolywrapClientConfigBuilder()
-    .addRedirect(from, to)
+    .setRedirect(from, to)
     .build();
 
   const client = new PolywrapClient(config);

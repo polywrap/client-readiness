@@ -22,7 +22,7 @@ export async function runTestCase(input: unknown): Promise<void> {
   }));
 
   const config = new PolywrapClientConfigBuilder()
-    .addPackage(uri, pluginPackage)
+    .setPackage(uri, pluginPackage)
     .build();
 
   const client = new PolywrapClient(config);

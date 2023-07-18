@@ -42,7 +42,7 @@ export async function runTestCase(input: unknown): Promise<void> {
   console.log("Adding WrapPackage to ClientConfig");
 
   const config = new PolywrapClientConfigBuilder()
-    .addPackage("embed/foo", wrapPackage)
+    .setPackage("embed/foo", wrapPackage)
     .build();
 
   const client = new PolywrapClient(config);

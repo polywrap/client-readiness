@@ -11,7 +11,7 @@ export async function runTestCase(input: unknown): Promise<void> {
   const to = Input.expectUri(inputObj.to).uri;
 
   const config = new PolywrapClientConfigBuilder()
-    .addRedirect(from, to)
+    .setRedirect(from, to)
     .build();
 
   const client = new PolywrapClient(config);

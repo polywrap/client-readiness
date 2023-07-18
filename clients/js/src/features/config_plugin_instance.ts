@@ -31,7 +31,7 @@ export async function runTestCase(input: unknown): Promise<void> {
   );
 
   const config = new PolywrapClientConfigBuilder()
-    .addWrapper(uri, pluginWrapper)
+    .setWrapper(uri, pluginWrapper)
     .build();
 
   const client = new PolywrapClient(config);

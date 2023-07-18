@@ -55,7 +55,7 @@ export async function runTestCase(input: unknown): Promise<void> {
   const subWrapPackage = loadWasmPackage(subInput.directory);
 
   const config = new PolywrapClientConfigBuilder()
-    .addPackages({
+    .setPackages({
       [rootWrapUri.uri]: rootWrapPackage,
       [subWrapUri.uri]: subWrapPackage
     })

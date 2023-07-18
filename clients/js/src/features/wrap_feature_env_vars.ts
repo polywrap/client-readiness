@@ -30,7 +30,7 @@ export async function runTestCase(input: unknown): Promise<void> {
   const config = new PolywrapClientConfigBuilder()
     .addDefaults()
     .addEnvs(envs)
-    .addRedirect("mock/main", mainUri.uri)
+    .setRedirect("mock/main", mainUri.uri)
     .build();
 
   const client = new PolywrapClient(config);

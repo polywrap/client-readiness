@@ -40,7 +40,7 @@ export async function runTestCase(input: unknown): Promise<void> {
   console.log("Adding CustomResolverExt & ExtendableUriResolver to ClientConfig");
 
   const config = new PolywrapClientConfigBuilder()
-    .addPackage(
+    .setPackage(
       customResolverExt.uri,
       customResolverExt.plugin
     )
