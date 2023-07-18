@@ -2,20 +2,11 @@ import { Input } from "../input";
 
 import {
   PolywrapClientConfigBuilder,
-  PolywrapClient,
-  Uri
+  PolywrapClient
 } from "@polywrap/client-js";
-import path from "path";
 
 export async function runTestCase(input: unknown): Promise<void> {
-  const inputUri = Input.expectUri(input);
-  const uri = Uri.from(
-    inputUri.authority + "/" +
-    Input.expectRootDir(
-      inputUri.path,
-      path.join(__dirname, "../../../../")
-    )
-  );
+  const uri = Input.expectUri(input);
 
   console.log(`URI Authority: ${uri.authority}`);
 

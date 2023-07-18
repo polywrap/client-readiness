@@ -1,6 +1,6 @@
 import { Input } from "../input";
 
-import { ClientConfigBuilder, PolywrapClient } from "@polywrap/client-js";
+import { PolywrapClientConfigBuilder, PolywrapClient } from "@polywrap/client-js";
 import path from "path";
 
 export async function runTestCase(input: unknown): Promise<void> {
@@ -16,7 +16,7 @@ export async function runTestCase(input: unknown): Promise<void> {
   const root = path.join(__dirname, "../../../../wraps");
   const uri = `fs/${root}/numbers-type/implementations/as`;
 
-  const config = new ClientConfigBuilder()
+  const config = new PolywrapClientConfigBuilder()
     .addDefaults()
     .build();
   const client = new PolywrapClient(config);
