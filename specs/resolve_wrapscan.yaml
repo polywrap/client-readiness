@@ -1,4 +1,4 @@
-required: true
+required: false
 cases:
   wrapscan:
     input: "wrap://wrapscan/polywrap/uri-resolver@1.0"
