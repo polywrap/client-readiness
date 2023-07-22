@@ -67,3 +67,6 @@ var/
 .installed.cfg
 *.egg
 MANIFEST
+
+# IDE
+.vscode/
