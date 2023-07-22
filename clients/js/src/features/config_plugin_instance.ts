@@ -1,6 +1,6 @@
 import { Input } from "../input";
 
-import { ClientConfigBuilder, PolywrapClient } from "@polywrap/client-js";
+import { PolywrapClientConfigBuilder, PolywrapClient } from "@polywrap/client-js";
 import { PluginWrapper, PluginModule } from "@polywrap/plugin-js";
 
 export async function runTestCase(input: unknown): Promise<void> {
@@ -30,8 +30,8 @@ export async function runTestCase(input: unknown): Promise<void> {
     plugin
   );
 
-  const config = new ClientConfigBuilder()
-    .addWrapper(uri, pluginWrapper)
+  const config = new PolywrapClientConfigBuilder()
+    .setWrapper(uri, pluginWrapper)
     .build();
 
   const client = new PolywrapClient(config);

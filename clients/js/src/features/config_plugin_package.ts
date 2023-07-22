@@ -1,6 +1,6 @@
 import { Input } from "../input";
 
-import { ClientConfigBuilder, PolywrapClient } from "@polywrap/client-js";
+import { PolywrapClientConfigBuilder, PolywrapClient } from "@polywrap/client-js";
 import { PluginPackage } from "@polywrap/plugin-js";
 
 export async function runTestCase(input: unknown): Promise<void> {
@@ -25,8 +25,8 @@ export async function runTestCase(input: unknown): Promise<void> {
 
   console.log("Adding PluginPackage to ClientConfig");
 
-  const config = new ClientConfigBuilder()
-    .addPackage(uri, pluginPackage)
+  const config = new PolywrapClientConfigBuilder()
+    .setPackage(uri, pluginPackage)
     .build();
 
   const client = new PolywrapClient(config);

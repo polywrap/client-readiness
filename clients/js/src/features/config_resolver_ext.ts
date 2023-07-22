@@ -1,7 +1,7 @@
 import { Input } from "../input";
 
 import {
-  ClientConfigBuilder,
+  PolywrapClientConfigBuilder,
   PolywrapClient,
   Uri,
   ExtendableUriResolver
@@ -39,8 +39,8 @@ export async function runTestCase(input: unknown): Promise<void> {
 
   console.log("Adding CustomResolverExt & ExtendableUriResolver to ClientConfig");
 
-  const config = new ClientConfigBuilder()
-    .addPackage(
+  const config = new PolywrapClientConfigBuilder()
+    .setPackage(
       customResolverExt.uri,
       customResolverExt.plugin
     )

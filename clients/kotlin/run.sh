@@ -1,0 +1,1 @@
+./gradlew run -PappArgs=$1

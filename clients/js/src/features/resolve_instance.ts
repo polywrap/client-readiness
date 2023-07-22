@@ -1,6 +1,6 @@
 import { Input } from "../input";
 
-import { ClientConfigBuilder, PolywrapClient } from "@polywrap/client-js";
+import { PolywrapClientConfigBuilder, PolywrapClient } from "@polywrap/client-js";
 import { WasmWrapper } from "@polywrap/wasm-js";
 
 import path from "path";
@@ -28,8 +28,8 @@ export async function runTestCase(input: unknown): Promise<void> {
     wasmModule
   );
 
-  const config = new ClientConfigBuilder()
-    .addWrapper(uri, wrapInstance)
+  const config = new PolywrapClientConfigBuilder()
+    .setWrapper(uri, wrapInstance)
     .build();
 
   const client = new PolywrapClient(config);

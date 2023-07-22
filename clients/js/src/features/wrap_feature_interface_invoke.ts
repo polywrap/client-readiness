@@ -1,4 +1,4 @@
-import { ClientConfigBuilder, PolywrapClient } from "@polywrap/client-js";
+import { PolywrapClientConfigBuilder, PolywrapClient } from "@polywrap/client-js";
 import path from "path";
 
 export async function runTestCase(_: unknown): Promise<void> {
@@ -7,7 +7,7 @@ export async function runTestCase(_: unknown): Promise<void> {
   const implementationPath = path.join(root, "/interface-invoke/01-implementation/implementations/as");
   const implementationUri = `fs/${implementationPath}`;
 
-  const config = new ClientConfigBuilder()
+  const config = new PolywrapClientConfigBuilder()
     .addDefaults()
     .addInterfaceImplementation(interfaceUri, implementationUri);
 

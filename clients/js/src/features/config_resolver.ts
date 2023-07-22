@@ -1,7 +1,7 @@
 import { Input } from "../input";
 
 import {
-  ClientConfigBuilder,
+  PolywrapClientConfigBuilder,
   PolywrapClient,
   IUriResolver,
   Uri
@@ -33,7 +33,7 @@ export async function runTestCase(input: unknown): Promise<void> {
     }
   }
 
-  const config = new ClientConfigBuilder()
+  const config = new PolywrapClientConfigBuilder()
     .addResolver(resolver)
     .build();
 

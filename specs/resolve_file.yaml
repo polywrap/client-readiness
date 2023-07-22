@@ -1,7 +1,7 @@
 required: true
 cases:
   fs:
-    input: wrap://fs/$ROOT/wraps/numbers-type/implementations/as
+    input: "wrap://fs/$ROOT/wraps/numbers-type/implementations/as"
     output:
       stdout:
         - "$Test Start [resolve_file.fs]"
@@ -10,7 +10,7 @@ cases:
         - "Received: package"
         - Success!
   file:
-    input: wrap://file/$ROOT/wraps/numbers-type/implementations/as
+    input: "wrap://file/$ROOT/wraps/numbers-type/implementations/as"
     output:
       stdout:
         - "$Test Start [resolve_file.file]"

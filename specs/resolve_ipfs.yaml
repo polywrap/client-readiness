@@ -1,7 +1,7 @@
 required: true
 cases:
   ipfs_cid_v0:
-    input: wrap://ipfs/QmfRCVA1MSAjUbrXXjya4xA9QHkbWeiKRsT7Um1cvrR7FY
+    input: "wrap://ipfs/QmfRCVA1MSAjUbrXXjya4xA9QHkbWeiKRsT7Um1cvrR7FY"
     output:
       stdout:
         - "$Test Start [resolve_ipfs.ipfs_cid_v0]"
@@ -10,7 +10,7 @@ cases:
         - "Received: package"
         - Success!
   ipfs_cid_v1:
-    input: wrap://ipfs/bafybeih5ydxfp7q53ukh7rkolrfqttwjuykfnju4yefrl4b55vsdapgm2m
+    input: "wrap://ipfs/bafybeih5ydxfp7q53ukh7rkolrfqttwjuykfnju4yefrl4b55vsdapgm2m"
     output:
       stdout:
         - "$Test Start [resolve_ipfs.ipfs_cid_v1]"

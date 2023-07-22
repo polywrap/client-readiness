@@ -1,7 +1,7 @@
 import { Input } from "../input";
 
 import {
-  ClientConfigBuilder,
+  PolywrapClientConfigBuilder,
   PolywrapClient
 } from "@polywrap/client-js";
 
@@ -10,7 +10,7 @@ export async function runTestCase(input: unknown): Promise<void> {
 
   console.log(`URI Authority: ${uri.authority}`);
 
-  const config = new ClientConfigBuilder()
+  const config = new PolywrapClientConfigBuilder()
     .addDefaults()
     .build();
 

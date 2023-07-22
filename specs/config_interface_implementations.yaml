@@ -2,11 +2,11 @@ required: true
 cases:
   sanity:
     input:
-      interfaceUri: wrap://uri/animal
+      interfaceUri: "wrap://uri/animal"
       implementations:
-        - wrap://uri/dog
-        - wrap://uri/cat
-        - wrap://uri/cow
+        - "wrap://uri/dog"
+        - "wrap://uri/cat"
+        - "wrap://uri/cow"
     output:
       stdout:
         - "$Test Start [config_interface_implementations.sanity]"
