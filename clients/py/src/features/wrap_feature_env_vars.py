@@ -39,25 +39,23 @@ def run_test_case(input: Any) -> None:
     input_obj = TestCaseInput.parse_obj(input)
 
     root = Path(__file__).parent.parent.parent.parent.parent / "wraps"
-    external_wrapper_path = root / "env-type/00-external/implementations/as"
-    external_wrapper_uri = Uri.from_str(f"fs/{external_wrapper_path}")
 
-    wrapper_path = root / "env-type/01-main/implementations/as"
-    wrapper_uri = Uri.from_str(f"fs/{wrapper_path}")
+    main_path = root / "env-type/00-main/implementations/as"
+    main_uri = Uri.from_str(f"fs/{main_path}")
 
     subinvoker_path = root / "env-type/02-subinvoker-with-env/implementations/as"
     subinvoker_uri = Uri.from_str(f"fs/{subinvoker_path}")
 
     envs = {
-        wrapper_uri: input_obj.main_env,
-        external_wrapper_uri: input_obj.subinvoker_env,
+        main_uri: input_obj.main_env,
+        subinvoker_uri: input_obj.subinvoker_env,
     }
 
     config = (
         PolywrapClientConfigBuilder()
         .set_envs(envs)
         .set_redirect(
-            Uri.from_str("ens/external-env.polywrap.eth"), external_wrapper_uri
+            Uri.from_str("mock/main"), main_uri
         )
         .add_resolver(FsUriResolver(SimpleFileReader()))
         .build()
@@ -67,13 +65,17 @@ def run_test_case(input: Any) -> None:
 
     print("Invoking methodRequireEnv")
 
-    method_require_env_result = client.invoke(
-        uri=wrapper_uri,
-        method="methodRequireEnv",
-        args={
-            "arg": "string",
-        },
-    )
+    try:
+        method_require_env_result = client.invoke(
+            uri=main_uri,
+            method="methodRequireEnv",
+            args={
+                "arg": "string",
+            },
+        )
+    except Exception as e:
+        print("Error:", e)
+        raise e
 
     if not method_require_env_result:
         raise Exception(f"Error: {method_require_env_result}")
@@ -92,8 +94,6 @@ def run_test_case(input: Any) -> None:
             "arg": "string",
         },
     )
-
-    print(subinvoke_env_method_result)
 
     if not subinvoke_env_method_result:
         raise Exception(f"Error: {subinvoke_env_method_result}")
