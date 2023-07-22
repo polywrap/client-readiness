@@ -6,7 +6,7 @@ version = "0.1.0"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-pyyaml = "^5.4.1"
+pyyaml = "^6.0.1"
 importlib-metadata = "^4.8.1"
 polywrap-msgpack = "0.1.0a35"
 polywrap-manifest = "0.1.0a35"
