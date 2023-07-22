@@ -1,0 +1,42 @@
+name: Python-Client
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  Client-Readiness:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Read .nvmrc
+        run: echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_OUTPUT
+        id: nvm
+        working-directory: ./verify
+
+      - name: Setup Node.js
+        uses: actions/setup-node@master
+        with:
+          node-version: '${{ steps.nvm.outputs.NVMRC }}'
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install poetry
+        run: curl -sSL https://install.python-poetry.org | python3 -
+
+      - name: Root Install
+        run: ./install.sh
+
+      - name: Python Client Install
+        run: poetry install
+        working-directory: ./clients/py
+
+      - name: Run
+        run: ./run.sh py
