@@ -35,7 +35,7 @@ jobs:
         run: ./install.sh
 
       - name: Python Client Install
-        run: poetry install
+        run: ./install.sh
         working-directory: ./clients/py
 
       - name: Run
