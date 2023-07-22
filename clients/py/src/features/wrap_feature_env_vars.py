@@ -32,7 +32,7 @@ ExtEnv = TypedDict(
 
 class TestCaseInput(BaseModel):
     main_env: Env = Field(..., alias="mainEnv")
-    ext_env: ExtEnv = Field(..., alias="extEnv")
+    subinvoker_env: Env = Field(..., alias="subinvokerEnv")
 
 
 def run_test_case(input: Any) -> None:
@@ -45,9 +45,12 @@ def run_test_case(input: Any) -> None:
     wrapper_path = root / "env-type/01-main/implementations/as"
     wrapper_uri = Uri.from_str(f"fs/{wrapper_path}")
 
+    subinvoker_path = root / "env-type/02-subinvoker-with-env/implementations/as"
+    subinvoker_uri = Uri.from_str(f"fs/{subinvoker_path}")
+
     envs = {
         wrapper_uri: input_obj.main_env,
-        external_wrapper_uri: input_obj.ext_env,
+        external_wrapper_uri: input_obj.subinvoker_env,
     }
 
     config = (
@@ -75,23 +78,25 @@ def run_test_case(input: Any) -> None:
     if not method_require_env_result:
         raise Exception(f"Error: {method_require_env_result}")
 
+    print("response.str:", method_require_env_result.get("str"))
     print("Success!")
 
-    print("Invoking subinvokeEnvMethod")
+    print("Invoking subinvokeMethodRequireEnv")
+
+    print(subinvoker_uri)
 
     subinvoke_env_method_result = client.invoke(
-        uri=wrapper_uri,
-        method="subinvokeEnvMethod",
+        uri=subinvoker_uri,
+        method="subinvokeMethodRequireEnv",
         args={
             "arg": "string",
         },
     )
 
+    print(subinvoke_env_method_result)
+
     if not subinvoke_env_method_result:
         raise Exception(f"Error: {subinvoke_env_method_result}")
 
-    print("response.local exists:", "true" if subinvoke_env_method_result.get("local") else "false" )
-    print(
-        "response.external exists:", "true" if subinvoke_env_method_result.get("external") else "false"
-    )
+    print("response.str:", subinvoke_env_method_result.get("str"))
     print("Success!")

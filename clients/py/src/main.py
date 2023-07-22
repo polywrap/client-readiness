@@ -14,8 +14,10 @@ def main():
     )
 
     for spec_name, spec in specs.items():
-        if filter_spec and filter_spec != spec_name:
-            continue
+        if filter_spec:
+            filter_spec_elem = filter_spec.split(".")
+            if filter_spec_elem and filter_spec_elem[0] != spec_name:
+                continue
 
         feature_path = os.path.join(
             os.path.dirname(__file__), f"./features/{spec_name}.py"
@@ -43,6 +45,9 @@ def main():
 
         for test_case_name, test_case in test_cases.items():
             print(f"$Test Start [{spec_name}.{test_case_name}]")
+
+            if filter_spec and len(filter_spec_elem) > 1 and filter_spec_elem[1] != test_case_name:
+                continue
 
             try:
                 feature.run_test_case(test_case.input)
