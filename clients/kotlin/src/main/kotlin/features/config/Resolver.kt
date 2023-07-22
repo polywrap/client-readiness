@@ -8,6 +8,7 @@ import uniffi.polywrap_native.FfiInvoker
 import uniffi.polywrap_native.FfiUri
 import uniffi.polywrap_native.FfiUriPackageOrWrapper
 import uniffi.polywrap_native.FfiUriResolutionContext
+import uniffi.polywrap_native.ffiUriFromString
 
 @Serializable
 data class ResolverInput(
@@ -26,7 +27,7 @@ fun resolver(input: ResolverInput) {
         ): FfiUriPackageOrWrapper {
             val isAuthority = uri.toStringUri().startsWith("wrap://${input.authority}")
             val response = if (isAuthority) {
-                FfiUri.fromString(input.result)
+                ffiUriFromString(input.result)
             } else {
                 uri
             }
