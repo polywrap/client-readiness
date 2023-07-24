@@ -16,7 +16,7 @@ def parse_filter_specs(filter_specs):
 
 def main():
     # Optional 2nd argument, spec filter_spec
-    filter_specs = sys.argv[1] if len(sys.argv) > 1 else None
+    filter_specs = sys.argv[1] if len(sys.argv) > 1 else ""
     filter_specs_map = parse_filter_specs(filter_specs)
     filter_specs_set = set(filter_specs_map.keys())
 
