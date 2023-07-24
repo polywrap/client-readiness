@@ -1,0 +1,42 @@
+name: Python-Client
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  Client-Readiness:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Read .nvmrc
+        run: echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_OUTPUT
+        id: nvm
+        working-directory: ./verify
+
+      - name: Setup Node.js
+        uses: actions/setup-node@master
+        with:
+          node-version: '${{ steps.nvm.outputs.NVMRC }}'
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install poetry
+        run: curl -sSL https://install.python-poetry.org | python3 -
+
+      - name: Root Install
+        run: ./install.sh
+
+      - name: Python Client Install
+        run: ./install.sh
+        working-directory: ./clients/py
+
+      - name: Run
+        run: ./run.sh py "uri,wrap_type_bigint,config_resolver,resolve_package,config_plugin_package,subinvoke_plugin_wrap,wrap_type_map,resolve_redirect,wrap_type_enum,wrap_type_bytes,config_embed_wrap_package,wrap_type_object,subinvoke_wrap_plugin,resolve_ens_text_record,resolve_ipfs,resolve_ens_contenthash,resolve_file,wrap_type_ints,invoke_plugin,resolve_instance,subinvoke_wrap_wrap,wrap_type_json,resolve_http,config_plugin_instance,config_interface_implementations,wrap_feature_interface_invoke,config_env_variables,config_uri_redirect,config_resolver_ext,invoke_wrap_wasm_v0_1,wrap_feature_env_vars,wrap_type_bignumber"

@@ -1,11 +1,11 @@
 required: false
 cases:
   wrapscan:
-    input: "wrap://wrapscan/polywrap/uri-resolver@1.0"
+    input: "wrap://wrapscan.io/polywrap/uri-resolver@1.0"
     output:
       stdout:
         - "$Test Start [resolve_wrapscan.wrapscan]"
         - "URI Authority: wrapscan"
-        - "Resolving: wrap://wrapscan/polywrap/uri-resolver@1.0"
+        - "Resolving: wrap://wrapscan.io/polywrap/uri-resolver@1.0"
         - "Received: package"
         - Success!
