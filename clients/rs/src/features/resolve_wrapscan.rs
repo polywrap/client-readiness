@@ -6,7 +6,7 @@ use polywrap_client::{
         uri_resolver_handler::UriResolverHandler,
     },
 };
-use polywrap_client_default_config::{SystemClientConfig, Web3ClientConfig};
+use polywrap_client_default_config::SystemClientConfig;
 use serde_json::Value;
 use std::error::Error;
 
@@ -19,7 +19,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
 
     let mut config = PolywrapClientConfig::new();
     config.add(SystemClientConfig::default().into());
-    config.add(Web3ClientConfig::default().into());
+
     let client: PolywrapClient = PolywrapClient::new(config.into());
 
     println!("Resolving: {uri_string}");
