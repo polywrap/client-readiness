@@ -1,1 +1,1 @@
-./Build/Products/Release/Readiness $1 2> stderr | tee stdout
+./Build/Build/Products/Release/Readiness $1 2> stderr | tee stdout

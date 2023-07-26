@@ -14,7 +14,7 @@ struct ConfigInterfaceImplementationsTest: Feature {
 
         let implementationUris = try implementations.compactMap { implementationUri -> Uri in
             guard let uri = try? Uri(implementationUri) else {
-                throw FfiError.UriParseError(err: "Error parsing implementation uri \(implementationUri)")
+                throw UriError.parseError("Error parsing implementation uri \(implementationUri)")
             }
             return uri
         }

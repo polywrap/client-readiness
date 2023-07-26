@@ -31,7 +31,7 @@ struct SubinvokeWrapPluginTest: Feature {
 
         let reader = ResourceReader(bundle: Bundle.module)
         let module = try reader.readFile(rootWrapDirectory)
-        let wasmWrapper = WasmWrapper(module: module)
+        let wasmWrapper = try WasmWrapper(module: module)
 
         let plugin = MockPlugin(nil)
         plugin.addMethod(name: "add", closure: plugin.add)
