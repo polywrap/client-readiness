@@ -16,7 +16,7 @@ struct InvokePluginTest: Feature {
         }
 
         let args = AddArgs(a: a, b: b)
-        let plugin = MockPlugin(nil)
+        var plugin = MockPlugin(nil)
         plugin.addMethod(name: "add", closure: plugin.add)
 
         let package = PluginPackage(plugin)
@@ -25,7 +25,7 @@ struct InvokePluginTest: Feature {
 
         print("Invoking \(method)")
 
-        let result: Int? = try client.invoke(uri: uri, method: method, args: args, env: nil)
+        let result: Int? = try client.invoke(uri: uri, method: method, args: args)
         guard let r = result else {
             return
         }

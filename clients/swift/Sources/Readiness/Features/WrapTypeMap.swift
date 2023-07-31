@@ -39,7 +39,7 @@ struct WrapTypeMapTest: Feature {
             }
         }
         print("Invoking returnMap")
-        let result: Dictionary<String, Int> = try client.invoke(uri: uri, method: "returnMap", args: MapArgs(map), env: nil)
+        let result: Dictionary<String, Int> = try client.invoke(uri: uri, method: "returnMap", args: MapArgs(map))
         let sortedKeys = result.keys.sorted()
         for key in sortedKeys {
             if let value = result[key] {

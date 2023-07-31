@@ -30,6 +30,7 @@ struct ConfigResolverExtTest: Feature {
         print("Creating CustomResolverExt Plugin")
     
         class ResolverPlugin: PluginModule {
+            public var methodsMap: [String : PluginMethod] = [:]
             public var authority: String
             public var result: String
 

@@ -66,7 +66,7 @@ struct WrapTypeObjectTest: Feature {
         let args = ObjectArgs(arg)
 
         print("Invoking method1")
-        let result: [ObjectResult] = try client.invoke(uri: uri, method: method, args: args, env: nil)
+        let result: [ObjectResult] = try client.invoke(uri: uri, method: method, args: args)
 
         let encoder = JSONEncoder()
         encoder.outputFormatting = .prettyPrinted // This will make the JSON output indented for readability

@@ -36,7 +36,7 @@ struct WrapTypeIntsTest: Feature {
         let client = builder.build()
 
         print("Invoking \(method)")
-        let result: Int = try client.invoke(uri: uri, method: method, args: IntsArg(first, second), env: nil)
+        let result: Int = try client.invoke(uri: uri, method: method, args: IntsArg(first, second))
         print("Result: \(result)")
         print("Success!")
     }

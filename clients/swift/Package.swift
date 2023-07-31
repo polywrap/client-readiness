@@ -9,7 +9,7 @@ let package = Package(
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         .package(url: "https://github.com/jpsim/Yams.git", from: "5.0.6"),
-        .package(url: "https://github.com/polywrap/swift-client", revision: "28fff41a4044470792616f8fcdb2d5f728d1ec16")
+        .package(url: "https://github.com/polywrap/swift-client", branch: "main")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.

@@ -15,6 +15,7 @@ public struct EmptyArgs: Codable {}
 public struct EmptyEnv: Codable {}
 
 public class MockPlugin: PluginModule {
+    public var methodsMap: [String : PluginMethod] = [:]
     public var counter = 0
     public init(_ value: Int?) {
         if value != nil {

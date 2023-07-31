@@ -40,7 +40,7 @@ struct WrapTypeBytesTest: Feature {
         let client = builder.build()
 
         print("Invoking bytesMethod")
-        let result: Data = try client.invoke(uri: uri, method: "bytesMethod", args: BytesArgs(BytesProp(prop)), env: nil)
+        let result: Data = try client.invoke(uri: uri, method: "bytesMethod", args: BytesArgs(BytesProp(prop)))
         let bytesAsString = [UInt8](result).map { String($0) }.joined(separator: ",")
 
         print("Result: [\(bytesAsString)]")

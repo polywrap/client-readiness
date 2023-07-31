@@ -45,7 +45,7 @@ struct ConfigEmbedWrapPackageTest: Feature {
 
         let client = builder.build()
         print("Invoking WrapPackage")
-        let result: Int? = try? client.invoke(uri: uri, method: method, args: args, env: nil)
+        let result: Int? = try? client.invoke(uri: uri, method: method, args: args)
 
         if result != nil {
             print("Success!")

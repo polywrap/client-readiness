@@ -3,6 +3,7 @@ import Foundation
 
 
 public class SubinvokePlugin: PluginModule {
+    public var methodsMap: [String : PluginMethod] = [:]
     public var uri: Uri
     public var method: String
     public var args: [UInt8]
@@ -42,7 +43,7 @@ struct SubinvokePluginWrapTest: Feature {
         let pluginUri = try Uri("plugin/bar")
         let wrapperUri = try Uri("embed/foo")
 
-        let subinvokePlugin = SubinvokePlugin(wrapperUri, method, encoded_args)
+        var subinvokePlugin = SubinvokePlugin(wrapperUri, method, encoded_args)
         subinvokePlugin.addMethod(name: "performSubinvoke", closure: subinvokePlugin.performSubinvoke)
 
         let pluginPackage = PluginPackage(subinvokePlugin)

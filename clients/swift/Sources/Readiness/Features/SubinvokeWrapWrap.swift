@@ -31,7 +31,7 @@ struct SubinvokeWrapWrapTest: Feature {
         let client = builder.build()
 
         print("Invoking \(method)")
-        let result: Int? = try? client.invoke(uri: rootWrapUri, method: method, args: AddArgs(a: a, b: b), env: nil)
+        let result: Int? = try? client.invoke(uri: rootWrapUri, method: method, args: AddArgs(a: a, b: b))
         if let result = result {
             print("Received: \(result)")
             print("Success!")

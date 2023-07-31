@@ -43,7 +43,7 @@ struct WrapTypeBigintTest: Feature {
         let client = builder.build()
 
         print("Invoking method")
-        let result: String = try client.invoke(uri: uri, method: "method", args: Args(arg1, Obj(prop1)), env: nil)
+        let result: String = try client.invoke(uri: uri, method: "method", args: Args(arg1, Obj(prop1)))
         print("Result: \(result)")
         print("Success!")
     }
