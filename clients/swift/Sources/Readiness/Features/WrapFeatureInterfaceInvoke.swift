@@ -37,7 +37,7 @@ struct WrapFeatureInterfaceInvokeTest: Feature {
         print("Invoking moduleMethod")
 
         let arg = Arg(1, "Test String 1")
-        let _: Arg = try client.invoke(uri: implementationUri, method: "moduleMethod", args: ImplementationType(arg), env: nil)
+        let _: Arg = try client.invoke(uri: implementationUri, method: "moduleMethod", args: ImplementationType(arg))
         print("Success!")
     }
 }

@@ -12,7 +12,7 @@ struct ConfigPluginInstanceTest: Feature {
 
         print("Creating Plugin Instance")
 
-        let mockPlugin = MockPlugin(nil)
+        var mockPlugin = MockPlugin(nil)
         mockPlugin.addVoidMethod(name: "increment", closure: mockPlugin.increment)
         
         let pluginWrapper = PluginWrapper(mockPlugin)

@@ -21,6 +21,6 @@ let package = Package(
                 "Yams"
             ],
             resources: [ .copy("Specs"), .copy("wraps") ]
-        ),
+        )
     ]
 )

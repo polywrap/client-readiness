@@ -31,9 +31,9 @@ struct SubinvokeWrapPluginTest: Feature {
 
         let reader = ResourceReader(bundle: Bundle.module)
         let module = try reader.readFile(rootWrapDirectory)
-        let wasmWrapper = WasmWrapper(module: module)
+        let wasmWrapper = try WasmWrapper(module: module)
 
-        let plugin = MockPlugin(nil)
+        var plugin = MockPlugin(nil)
         plugin.addMethod(name: "add", closure: plugin.add)
         let pluginPackage = PluginPackage(plugin)
 
@@ -44,7 +44,7 @@ struct SubinvokeWrapPluginTest: Feature {
         let client = builder.build()
 
         print("Invoking \(method)")
-        let result: Int? = try? client.invoke(uri: rootWrapUri, method: method, args: AddArgs(a: a, b: b), env: nil)
+        let result: Int? = try? client.invoke(uri: rootWrapUri, method: method, args: AddArgs(a: a, b: b))
         if let result = result {
             print("Received: \(result)")
             print("Success!")

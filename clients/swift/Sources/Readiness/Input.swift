@@ -11,14 +11,6 @@ enum InputError: Error {
 }
 
 class Input {
-//    static func expectObject<T>(_ input: Any?, ofType type: T.Type) throws -> T {
-//        if let input = input as? T {
-//            return input
-//        } else {
-//            throw InputError.expectedObject
-//        }
-//    }
-
     static func expectRootDir(_ input: Any?, rootDir: String) throws -> String {
         if let input = input as? String, input.hasPrefix("$ROOT/") {
             return input.replacingOccurrences(of: "$ROOT/", with: rootDir)

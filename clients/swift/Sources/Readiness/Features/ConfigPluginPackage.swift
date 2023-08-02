@@ -17,7 +17,7 @@ struct ConfigPluginPackageTest: Feature {
 
         print("Creating PluginPackage")
 
-        let mockPlugin = MockPlugin(nil)
+        var mockPlugin = MockPlugin(nil)
         mockPlugin.addVoidMethod(name: "increment", closure: mockPlugin.increment)
         mockPlugin.addMethod(name: "add", closure: mockPlugin.add)
 
@@ -30,7 +30,7 @@ struct ConfigPluginPackageTest: Feature {
 
         let args = AddArgs(a: a, b: b)
         print("Invoking PluginPackage")
-        let _: Int = try client.invoke(uri: uri, method: method, args: args, env: nil)
+        let _: Int = try client.invoke(uri: uri, method: method, args: args)
         print("Success!")
     }
 }

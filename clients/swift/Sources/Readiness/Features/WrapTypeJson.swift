@@ -84,7 +84,7 @@ struct WrapTypeJsonTest: Feature {
         }
 
         print("Invoking \(method)")
-        let result: String = try client.invoke(uri: uri, method: method, args: args, env: nil)
+        let result: String = try client.invoke(uri: uri, method: method, args: args)
         print("Result: \(result)")
         print("Success!")
     }

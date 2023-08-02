@@ -73,7 +73,7 @@ struct WrapTypeEnumTest: Feature {
         }
 
         print("Invoking \(method)")
-        let result: Int = try client.invoke(uri: uri, method: method, args: EnumArgs(enumInstance), env: nil)
+        let result: Int = try client.invoke(uri: uri, method: method, args: EnumArgs(enumInstance))
         print("Result: \(result)")
         print("Success!")
     }

@@ -3,6 +3,7 @@ import Foundation
 
 
 public class SubinvokePlugin: PluginModule {
+    public var methodsMap: [String : PluginMethod] = [:]
     public var uri: Uri
     public var method: String
     public var args: [UInt8]
@@ -15,7 +16,7 @@ public class SubinvokePlugin: PluginModule {
 
     public func performSubinvoke(args: EmptyArgs, _: EmptyEnv?, invoker: Invoker) throws -> Bool {
         print("Subinvoking \(method)")
-        let result = try invoker.invoke(uri: self.uri, method: self.method, args: self.args, env: nil, resolution_context: nil)
+        let result = try invoker.invoke(uri: self.uri, method: self.method, args: self.args, env: nil, resolutionContext: nil)
         print("Received: \(result[0])")
         return true
     }
@@ -42,7 +43,7 @@ struct SubinvokePluginWrapTest: Feature {
         let pluginUri = try Uri("plugin/bar")
         let wrapperUri = try Uri("embed/foo")
 
-        let subinvokePlugin = SubinvokePlugin(wrapperUri, method, encoded_args)
+        var subinvokePlugin = SubinvokePlugin(wrapperUri, method, encoded_args)
         subinvokePlugin.addMethod(name: "performSubinvoke", closure: subinvokePlugin.performSubinvoke)
 
         let pluginPackage = PluginPackage(subinvokePlugin)
@@ -58,7 +59,7 @@ struct SubinvokePluginWrapTest: Feature {
         print("Invoking Plugin")
         let result: Bool? = try? client.invoke(uri: pluginUri, method: "performSubinvoke")
 
-        guard let r = result else {
+        guard result != nil else {
             return
         }
         print("Success!")

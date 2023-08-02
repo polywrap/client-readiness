@@ -28,7 +28,7 @@ struct InvokeWrapWasmV0_1Test: Feature {
         let client = builder.build()
 
         print("Invoking \(method)")
-        let result: Int? = try? client.invoke(uri: uri, method: method, args: args, env: nil)
+        let result: Int? = try? client.invoke(uri: uri, method: method, args: args)
         guard let r = result else {
             return
         }
