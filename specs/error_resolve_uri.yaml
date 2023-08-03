@@ -1,0 +1,11 @@
+required: true
+cases:
+  sanity:
+    input:
+      uri: "wrap://expected-error/uri"
+      method: 
+    output:
+      stdout:
+        - "$Test Start [error_resolve_uri.sanity]"
+        - Resolving URI wrap://expected-error/uri
+        - "Received error: Error from resolver"

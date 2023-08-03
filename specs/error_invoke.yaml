@@ -1,0 +1,9 @@
+required: true
+cases:
+  sanity:
+w
+    output:
+      stdout:
+        - "$Test Start [error_invoke.sanity]"
+        - Invoking method subinvokeThrowError
+        - "Received error: __wrap_abort: Error from invoke"

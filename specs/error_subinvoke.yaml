@@ -1,0 +1,18 @@
+required: true
+cases:
+  sanity:
+    input:
+      subinvokeWrap:
+        directory: $ROOT/wraps/subinvoke/00-subinvoke/implementations/as
+        uri: "wrap://ens/imported-subinvoke.eth"
+      invokeWrap:
+        directory: $ROOT/wraps/subinvoke/01-invoke/implementations/as
+        uri: "wrap://wrap/subinvoke"
+        method: invokeThrowError
+        args:
+          a: "Error from subinvoke"
+    output:
+      stdout:
+        - "$Test Start [error_subinvoke.sanity]"
+        - Invoking method invokeThrowError
+        - "Received error: SubInvocation exception encountered"
