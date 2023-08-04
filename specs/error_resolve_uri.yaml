@@ -2,10 +2,10 @@ required: true
 cases:
   sanity:
     input:
-      uri: "wrap://expected-error/uri"
-      method: 
+      directory: $ROOT/wraps/resolver/02-fs/implementations/as
+      uri: "wrap://wrap/mock-resolver"
     output:
       stdout:
         - "$Test Start [error_resolve_uri.sanity]"
         - Resolving URI wrap://expected-error/uri
-        - "Received error: Error from resolver"
+        - "Received error: __wrap_abort: Expected error thrown"

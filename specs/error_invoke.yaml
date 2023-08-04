@@ -1,7 +1,12 @@
 required: true
 cases:
   sanity:
-w
+    input:
+      directory: $ROOT/wraps/subinvoke/00-subinvoke/implementations/as
+      uri: "wrap://wrap/invoke"
+      method: subinvokeThrowError
+      args:
+        a: "Error from invoke"
     output:
       stdout:
         - "$Test Start [error_invoke.sanity]"
