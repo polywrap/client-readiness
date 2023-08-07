@@ -2,13 +2,13 @@ required: true
 cases:
   sanity:
     input:
-      directory: $ROOT/wraps/subinvoke/00-subinvoke/implementations/as
+      directory: $ROOT/wraps/subinvoke/00-invoke/implementations/as
       uri: "wrap://wrap/invoke"
-      method: subinvokeThrowError
+      method: invokeThrowError
       args:
-        a: "Error from invoke"
+        error: "Error from invoke"
     output:
       stdout:
         - "$Test Start [error_invoke.sanity]"
-        - Invoking method subinvokeThrowError
+        - Invoking method invokeThrowError
         - "Received error: __wrap_abort: Error from invoke"

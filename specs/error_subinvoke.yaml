@@ -3,16 +3,16 @@ cases:
   sanity:
     input:
       subinvokeWrap:
-        directory: $ROOT/wraps/subinvoke/00-subinvoke/implementations/as
-        uri: "wrap://ens/imported-subinvoke.eth"
+        directory: $ROOT/wraps/subinvoke/00-invoke/implementations/as
+        uri: "wrap://authority/imported-subinvoke"
       invokeWrap:
-        directory: $ROOT/wraps/subinvoke/01-invoke/implementations/as
+        directory: $ROOT/wraps/subinvoke/01-subinvoke/implementations/as
         uri: "wrap://wrap/subinvoke"
-        method: invokeThrowError
+        method: subinvokeThrowError
         args:
-          a: "Error from subinvoke"
+          error: "Error from subinvoke"
     output:
       stdout:
         - "$Test Start [error_subinvoke.sanity]"
-        - Invoking method invokeThrowError
+        - Invoking method subinvokeThrowError
         - "Received error: SubInvocation exception encountered"
