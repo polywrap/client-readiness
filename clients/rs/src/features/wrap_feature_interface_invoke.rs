@@ -21,7 +21,7 @@ struct InvokeArgs {
 
 pub fn run_test_case(_: &Value) -> Result<(), Box<dyn Error>> {
     let root = std::env::current_dir()?.join("../../wraps");
-    let interface_uri: Uri = "wrap://ens/interface.eth".try_into().unwrap();
+    let interface_uri: Uri = "wrap://authority/interface".try_into().unwrap();
     let binding = root.join("interface-invoke/01-implementation/implementations/as");
     let implementation_path = binding.to_str().unwrap();
     let implementation_uri: Uri = format!("file/{implementation_path}").try_into().unwrap();

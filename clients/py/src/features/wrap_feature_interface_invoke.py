@@ -8,7 +8,7 @@ from pathlib import Path
 
 def run_test_case(_: Any) -> None:
     root = Path(__file__).parent.parent.parent.parent.parent / "wraps"
-    interface_uri = Uri.from_str("wrap://ens/interface.eth")
+    interface_uri = Uri.from_str("wrap://authority/interface")
     implementation_path = root / "interface-invoke/01-implementation/implementations/as"
     implementation_uri = Uri.from_str(f"fs/{implementation_path}")
 

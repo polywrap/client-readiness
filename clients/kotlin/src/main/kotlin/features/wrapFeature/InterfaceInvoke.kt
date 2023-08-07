@@ -9,7 +9,7 @@ typealias InterfaceInvokeInput = Boolean
 
 fun interfaceInvokeFeature(input: InterfaceInvokeInput) {
     val root = root().resolve("wraps")
-    val interfaceUri = "wrap://ens/interface.eth"
+    val interfaceUri = "wrap://authority/interface"
     val implementationPath = root.resolve("interface-invoke/01-implementation/implementations/as")
     val implementationUri = "fs/$implementationPath"
 
