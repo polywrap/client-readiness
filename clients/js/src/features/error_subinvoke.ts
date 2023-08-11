@@ -81,6 +81,6 @@ export async function runTestCase(input: unknown): Promise<void> {
   });
 
   if (!result.ok) {
-    console.log("Received error: " + result.error?.reason);
+    console.log("Received error: " + result.error?.innerError?.reason);
   }
 }
