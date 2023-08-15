@@ -67,7 +67,11 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
         if result.to_string().contains(&input_obj.expected_error) {
             println!("Expected error received")
         } else {
-
+            println!(
+                "Expected error {}, but received {}",
+                &input_obj.expected_error,
+                result.to_string()
+            );
         }
     }
 

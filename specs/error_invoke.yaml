@@ -12,7 +12,7 @@ cases:
       stdout:
         - "$Test Start [error_invoke.wrap_throws_error]"
         - Invoking method invokeThrowError
-        - "Expected error received"
+        - Expected error received
   wrong_arguments:
     input:
       directory: $ROOT/wraps/subinvoke/00-invoke/implementations/as
@@ -25,7 +25,7 @@ cases:
       stdout:
         - "$Test Start [error_invoke.wrong_arguments]"
         - Invoking method add
-        - "Expected error received"
+        - Expected error received
   method_not_found:
     input:
       directory: $ROOT/wraps/subinvoke/00-invoke/implementations/as
@@ -38,4 +38,5 @@ cases:
       stdout:
         - "$Test Start [error_invoke.method_not_found]"
         - Invoking method nonExistentMethod
-        - "Expected error received"
+        - Expected error received
+

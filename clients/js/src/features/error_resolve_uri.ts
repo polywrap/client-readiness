@@ -4,7 +4,6 @@ import {
   PolywrapClientConfigBuilder,
   PolywrapClient,
   ExtendableUriResolver,
-  Uri,
 } from "@polywrap/client-js";
 import { WasmPackage } from "@polywrap/wasm-js";
 
@@ -13,38 +12,57 @@ import fs from "fs";
 
 export async function runTestCase(input: unknown): Promise<void> {
   const inputObj = Input.expectObject<{
-    directory: unknown;
+    resolver?: {
+      directory: unknown;
+      uri: unknown;
+    };
     uri: unknown;
+    expectedError: unknown;
   }>(input);
-  const wrapDir = Input.expectRootDir(
-    inputObj.directory,
-    path.join(__dirname, "../../../../")
-  );
 
-  const manifest = fs.readFileSync(path.join(wrapDir, "wrap.info"));
-  const wasmModule = fs.readFileSync(path.join(wrapDir, "wrap.wasm"));
+  const resolver = inputObj.resolver;
+  const config = new PolywrapClientConfigBuilder();
+
+  if (resolver) {
+    const wrapDir = Input.expectRootDir(
+      resolver.directory,
+      path.join(__dirname, "../../../../")
+    );
+
+    const manifest = fs.readFileSync(path.join(wrapDir, "wrap.info"));
+    const wasmModule = fs.readFileSync(path.join(wrapDir, "wrap.wasm"));
+    const resolverUri = Input.expectUri(resolver.uri);
+    const wrap = {
+      package: WasmPackage.from(manifest, wasmModule),
+      resolverUri,
+    };
+    config
+      .setPackage(wrap.resolverUri.uri, wrap.package)
+      .addInterfaceImplementation(
+        ExtendableUriResolver.defaultExtInterfaceUris[0].uri,
+        resolverUri.uri
+      );
+  }
 
   const uri = Input.expectUri(inputObj.uri);
-  const wrap = {
-    package: WasmPackage.from(manifest, wasmModule),
-    uri,
-  };
+  const client = new PolywrapClient(config.build());
 
-  const config = new PolywrapClientConfigBuilder()
-    .setPackage(wrap.uri.uri, wrap.package)
-    .addInterfaceImplementation(
-      ExtendableUriResolver.defaultExtInterfaceUris[0].uri,
-      uri.uri
-    )
-    .build();
+  console.log(`Resolving URI ${uri.uri}`);
 
-  const client = new PolywrapClient(config);
+  const result = await client.invoke({
+    uri: uri.uri,
+    method: "",
+  });
 
-  console.log("Resolving URI wrap://expected-error/uri")
-
-  const result = await client.tryResolveUri(Uri.from("expected-error/wrap"));
+  const expectedError = Input.expectString(inputObj.expectedError);
   if (!result.ok) {
-    // @ts-ignore
-    console.log("Received error: " + result.error?.reason);
+    console.log(result.error)
+    if (result.error?.toString().includes(expectedError)) {
+      console.log("Expected error received");
+    } else {
+      console.log(
+        `Expected error "${expectedError}", but received "${result.error}"`
+      );
+    }
   }
 }
