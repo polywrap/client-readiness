@@ -12,37 +12,23 @@ import fs from "fs";
 
 export async function runTestCase(input: unknown): Promise<void> {
   const inputObj = Input.expectObject<{
-    invokeWrap: {
+    subinvokeWrap: {
       directory: unknown;
       uri: unknown;
       method: unknown;
       args: unknown;
     };
-    subinvokeWrap: {
+    invokeWrap: {
       uri: unknown;
       directory: unknown;
     };
+    expectedError: String;
   }>(input);
-  const invokeWrapDir = Input.expectRootDir(
-    inputObj.invokeWrap.directory,
-    path.join(__dirname, "../../../../")
-  );
 
+  // Prepare subinvoke wrap
   const subinvokeWrapDir = Input.expectRootDir(
     inputObj.subinvokeWrap.directory,
     path.join(__dirname, "../../../../")
-  );
-
-  const method = Input.expectString(inputObj.invokeWrap.method);
-  const args = Input.expectObject<Record<string, unknown>>(
-    inputObj.invokeWrap.args
-  );
-
-  const invokeWrapManifest = fs.readFileSync(
-    path.join(invokeWrapDir, "wrap.info")
-  );
-  const invokeWrapWasmModule = fs.readFileSync(
-    path.join(invokeWrapDir, "wrap.wasm")
   );
 
   const subinvokeWrapManifest = fs.readFileSync(
@@ -52,35 +38,57 @@ export async function runTestCase(input: unknown): Promise<void> {
     path.join(subinvokeWrapDir, "wrap.wasm")
   );
 
-  let invokeWrapUri = Input.expectUri(inputObj.invokeWrap.uri);
-
-  const invokeWrap = {
-    package: WasmPackage.from(invokeWrapManifest, invokeWrapWasmModule),
-    uri: Uri.from(invokeWrapUri.uri),
-  };
-
   let subinvokeWrapUri = Input.expectUri(inputObj.subinvokeWrap.uri);
-  const subinvokeWrapPackage = {
+
+  const subinvokeWrap = {
     package: WasmPackage.from(subinvokeWrapManifest, subinvokeWrapWasmModule),
     uri: Uri.from(subinvokeWrapUri.uri),
   };
+  const config = new PolywrapClientConfigBuilder();
+  config.setPackage(subinvokeWrap.uri.uri, subinvokeWrap.package);
 
-  const config = new PolywrapClientConfigBuilder()
-    .setPackage(invokeWrap.uri.uri, invokeWrap.package)
-    .setPackage(subinvokeWrapPackage.uri.uri, subinvokeWrapPackage.package)
-    .build();
+  const invokeWrapDir = Input.expectRootDir(
+    inputObj.invokeWrap.directory,
+    path.join(__dirname, "../../../../")
+  );
 
-  const client = new PolywrapClient(config);
+  const invokeWrapManifest = fs.readFileSync(
+    path.join(invokeWrapDir, "wrap.info")
+  );
+  const invokeWrapWasmModule = fs.readFileSync(
+    path.join(invokeWrapDir, "wrap.wasm")
+  );
+
+  let invokeWrapUri = Input.expectUri(inputObj.invokeWrap.uri);
+  const invokeWrapPackage = {
+    package: WasmPackage.from(invokeWrapManifest, invokeWrapWasmModule),
+    uri: Uri.from(invokeWrapUri.uri),
+  };
+  config.setPackage(invokeWrapPackage.uri.uri, invokeWrapPackage.package);
+
+  const method = Input.expectString(inputObj.subinvokeWrap.method);
+  const args = Input.expectObject<Record<string, unknown>>(
+    inputObj.subinvokeWrap.args
+  );
+
+  const client = new PolywrapClient(config.build());
 
   console.log(`Invoking method ${method}`);
 
   const result = await client.invoke({
-    uri: invokeWrapUri.uri,
+    uri: subinvokeWrapUri.uri,
     method,
     args,
   });
+  const expectedError = Input.expectString(inputObj.expectedError);
 
   if (!result.ok) {
-    console.log("Received error: " + result.error?.innerError?.reason);
+    if (result.error?.toString().includes(expectedError)) {
+      console.log("Expected error received");
+    } else {
+      console.log(
+        `Expected error "${expectedError}", but received "${result.error}"`
+      );
+    }
   }
 }

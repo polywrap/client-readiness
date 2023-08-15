@@ -11,7 +11,7 @@ use std::{error::Error, fs, path::Path, sync::Arc};
 use crate::input::expect_root_dir;
 
 #[derive(Deserialize)]
-struct InvokeWrap {
+struct SubinvokeWrap {
     directory: String,
     uri: String,
     method: String,
@@ -19,7 +19,7 @@ struct InvokeWrap {
 }
 
 #[derive(Deserialize)]
-struct SubinvokeWrap {
+struct InvokeWrap {
     directory: String,
     uri: String,
 }
@@ -30,6 +30,8 @@ struct InputObj {
     subinvoke_wrap: SubinvokeWrap,
     #[serde(rename = "invokeWrap")]
     invoke_wrap: InvokeWrap,
+    #[serde(rename = "expectedError")]
+    expected_error: String,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -42,6 +44,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
     let binding = std::env::current_dir()?.join("../../");
     let root_dir = binding.to_str().unwrap();
 
+    // Prepare subinvoke wrap
     let subinvoke_wrap = input_obj.subinvoke_wrap;
     let subinvoke_wrap_directory = expect_root_dir(&subinvoke_wrap.directory, root_dir)?;
     let subinvoke_manifest = fs::read(Path::new(&subinvoke_wrap_directory).join("wrap.info"))?;
@@ -53,10 +56,8 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
     );
     let subinvoke_wrap_uri: Uri = subinvoke_wrap.uri.try_into()?;
 
+    // Prepare invoke wrap
     let invoke_wrap = input_obj.invoke_wrap;
-
-    let method = invoke_wrap.method;
-    let args = invoke_wrap.args;
 
     let invoke_wrap_directory = expect_root_dir(&invoke_wrap.directory, root_dir)?;
     let invoke_manifest = fs::read(Path::new(&invoke_wrap_directory).join("wrap.info"))?;
@@ -81,13 +82,14 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
         ),
     ];
     config.add_packages(packages);
-
+    let method = subinvoke_wrap.method;
+    let args = subinvoke_wrap.args;
     let client: PolywrapClient = PolywrapClient::new(config.into());
 
-    println!("Invoking {method}");
+    println!("Invoking method {method}");
 
     let result = client.invoke::<bool>(
-        &invoke_wrap_uri,
+        &subinvoke_wrap_uri,
         &method,
         Some(&polywrap_client::msgpack::to_vec(&args)?),
         None,
@@ -95,7 +97,15 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
     );
 
     if let Err(result) = result {
-        println!("Received error: {result}");
+        if result.to_string().contains(&input_obj.expected_error) {
+            println!("Expected error received")
+        } else {
+            println!(
+                "Expected error {}, but received {}",
+                &input_obj.expected_error,
+                result.to_string()
+            );
+        }
     }
 
     Ok(())

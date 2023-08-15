@@ -1,18 +1,36 @@
 required: true
 cases:
-  sanity:
+  subinvoked_wrap_throws_error:
     input:
-      subinvokeWrap:
+      invokeWrap:
         directory: $ROOT/wraps/subinvoke/00-invoke/implementations/as
         uri: "wrap://authority/imported-subinvoke"
-      invokeWrap:
+      subinvokeWrap:
         directory: $ROOT/wraps/subinvoke/01-subinvoke/implementations/as
         uri: "wrap://wrap/subinvoke"
         method: subinvokeThrowError
         args:
-          error: "Error from subinvoke"
+          error: "This is an error from subinvocation of wrap!"
+      expectedError: "This is an error from subinvocation of wrap!"
     output:
       stdout:
-        - "$Test Start [error_subinvoke.sanity]"
+        - "$Test Start [error_subinvoke.subinvoked_wrap_throws_error]"
         - Invoking method subinvokeThrowError
-        - "Received error: __wrap_abort: Error from subinvoke"
+        - Expected error received
+  subinvoked_uri_not_found:
+    input:
+      invokeWrap:
+        directory: $ROOT/wraps/subinvoke/00-invoke/implementations/as
+        uri: "wrap://wrap/non-existant-wrap"
+      subinvokeWrap:
+        directory: $ROOT/wraps/subinvoke/01-subinvoke/implementations/as
+        uri: "wrap://wrap/subinvoke"
+        method: subinvokeThrowError
+        args:
+          error: "foo"
+      expectedError: "Unable to find URI wrap://authority/imported-subinvoke"
+    output:
+      stdout:
+        - "$Test Start [error_subinvoke.subinvoked_uri_not_found]"
+        - Invoking method subinvokeThrowError
+        - Expected error received
