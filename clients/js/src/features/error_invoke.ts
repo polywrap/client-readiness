@@ -15,6 +15,7 @@ export async function runTestCase(input: unknown): Promise<void> {
     directory: unknown;
     method: unknown;
     args: unknown;
+    expectedError: unknown;
   }>(input);
   const wrapDir = Input.expectRootDir(
     inputObj.directory,
@@ -42,10 +43,18 @@ export async function runTestCase(input: unknown): Promise<void> {
   const result = await client.invoke({
     uri: wrap.uri,
     method,
-    args
+    args,
   });
-  
+
+  const expectedError = Input.expectString(inputObj.expectedError);
+
   if (!result.ok) {
-    console.log("Received error: " + result.error?.reason)
+    if (result.error?.toString().includes(expectedError)) {
+      console.log("Expected error received");
+    } else {
+      console.log(
+        `Expected error "${expectedError}", but received "${result.error}"`
+      );
+    }
   }
 }

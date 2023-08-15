@@ -16,6 +16,8 @@ struct InputObj {
     uri: String,
     method: String,
     args: ArgsError,
+    #[serde(rename = "expectedError")]
+    expected_error: String,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -51,7 +53,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
 
     let client: PolywrapClient = PolywrapClient::new(config.into());
 
-    println!("Invoking {method}");
+    println!("Invoking method {method}");
 
     let result = client.invoke::<bool>(
         &root_wrap_uri,
@@ -62,8 +64,11 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
     );
 
     if let Err(result) = result {
-        // @TODO: Extract error from result
-        println!("Received error: {result}");
+        if result.to_string().contains(&input_obj.expected_error) {
+            println!("Expected error received")
+        } else {
+
+        }
     }
 
     Ok(())
