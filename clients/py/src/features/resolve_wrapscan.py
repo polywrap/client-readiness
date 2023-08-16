@@ -1,25 +1,19 @@
 from typing import Any
 
-from polywrap import (
-    PolywrapClient,
-    PolywrapClientConfigBuilder,
-    UriPackage,
-    web3_bundle,
-)
+from polywrap import PolywrapClient, PolywrapClientConfigBuilder, UriPackage, sys_bundle
 
 from validators import validate_uri
 
 
 def run_test_case(input: Any) -> None:
     uri = validate_uri(input)
-
     print(f"URI Authority: {uri.authority}")
 
-    config = PolywrapClientConfigBuilder().add_bundle(web3_bundle).build()
+    config = PolywrapClientConfigBuilder().add_bundle(sys_bundle).build()
 
     client = PolywrapClient(config)
 
-    print(f"Resolving: {uri}")
+    print(f"Resolving: {uri.uri}")
 
     result = client.try_resolve_uri(uri)
 
@@ -28,4 +22,4 @@ def run_test_case(input: Any) -> None:
             print("Received: package")
             print("Success!")
         case _:
-            raise ValueError("Expected UriPackage")
+            print("Failed!")

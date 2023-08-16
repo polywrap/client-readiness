@@ -1,9 +1,9 @@
-from polywrap_client import PolywrapClient
-from polywrap_client_config_builder import PolywrapClientConfigBuilder
-from pydantic import BaseModel, validator
 from typing import Any, TypedDict
-from validators import UriStr, validate_uri
 
+from polywrap import PolywrapClient, PolywrapClientConfigBuilder
+from pydantic import BaseModel, validator
+
+from validators import UriStr, validate_uri
 
 Env = TypedDict("Env", {"str": str, "num": int})
 

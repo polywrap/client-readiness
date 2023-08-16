@@ -1,10 +1,14 @@
 from typing import Any, TypedDict
-from polywrap_core import Uri
+
+from polywrap import (
+    ExtendableUriResolver,
+    PluginModule,
+    PluginPackage,
+    PolywrapClient,
+    PolywrapClientConfigBuilder,
+    Uri,
+)
 from pydantic import BaseModel
-from polywrap_client import PolywrapClient
-from polywrap_uri_resolvers import ExtendableUriResolver
-from polywrap_client_config_builder import PolywrapClientConfigBuilder
-from polywrap_plugin import PluginModule, PluginPackage
 
 from validators import UriStr
 
