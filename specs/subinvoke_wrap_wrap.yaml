@@ -3,11 +3,11 @@ cases:
   sanity:
     input:
       rootWrap:
-        directory: $ROOT/wraps/subinvoke/01-invoke/implementations/as
-        uri: ens/invoke.eth
+        directory: $ROOT/wraps/subinvoke/01-subinvoke/implementations/as
+        uri: wrap/invoke
       subWrap:
-        directory: $ROOT/wraps/subinvoke/00-subinvoke/implementations/as
-        uri: ens/imported-subinvoke.eth
+        directory: $ROOT/wraps/subinvoke/00-invoke/implementations/as
+        uri: authority/imported-subinvoke
       method: addAndIncrement
       args:
         a: 1

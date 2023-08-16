@@ -3,7 +3,7 @@ import path from "path";
 
 export async function runTestCase(_: unknown): Promise<void> {
   const root = path.join(__dirname, "../../../../wraps");
-  const interfaceUri = "wrap://ens/interface.eth";
+  const interfaceUri = "wrap://authority/interface";
   const implementationPath = path.join(root, "/interface-invoke/01-implementation/implementations/as");
   const implementationUri = `fs/${implementationPath}`;
 

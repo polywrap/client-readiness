@@ -26,7 +26,7 @@ struct WrapFeatureInterfaceInvokeTest: Feature {
         }
         let root = resourcePath + "/Readiness_Readiness.bundle/Contents/Resources"
         
-        let interfaceUri = try Uri("wrap://ens/interface.eth")
+        let interfaceUri = try Uri("wrap://authority/interface")
         let implementationUri = try Uri("file/\(root)/wraps/interface-invoke/01-implementation/implementations/as")
 
         let builder = BuilderConfig()
