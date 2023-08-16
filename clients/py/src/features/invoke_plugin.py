@@ -1,8 +1,12 @@
 from typing import Any, TypedDict
+
+from polywrap import (
+    PluginModule,
+    PluginPackage,
+    PolywrapClient,
+    PolywrapClientConfigBuilder,
+)
 from pydantic import BaseModel
-from polywrap_client import PolywrapClient
-from polywrap_client_config_builder import PolywrapClientConfigBuilder
-from polywrap_plugin import PluginModule, PluginPackage
 
 from validators import UriStr
 

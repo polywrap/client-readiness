@@ -1,8 +1,7 @@
 from typing import Any
+
+from polywrap import PolywrapClient, PolywrapClientConfigBuilder, Uri
 from pydantic import BaseModel, Field
-from polywrap_client import PolywrapClient
-from polywrap_client_config_builder import PolywrapClientConfigBuilder
-from polywrap_core import Uri, UriPackage, UriWrapper
 
 
 class TestCaseInput(BaseModel):

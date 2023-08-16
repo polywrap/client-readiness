@@ -11,5 +11,5 @@ def run_test_case(input: Any) -> None:
         print(f"uri - {uri}")
         print(f"uri.authority - {uri.authority}")
         print(f"uri.path - {uri.path}")
-    except Exception:
-        raise ValueError(f"Invalid URI Received: {input}")
+    except Exception as e:
+        raise ValueError(f"Invalid URI Received: {input}") from e

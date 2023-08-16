@@ -1,11 +1,15 @@
-from typing import Any
-from polywrap_wasm import WasmPackage
-from pydantic import BaseModel, validator
-from polywrap_client import PolywrapClient
-from polywrap_client_config_builder import PolywrapClientConfigBuilder
-from polywrap_manifest import deserialize_wrap_manifest
-from polywrap_core import Uri, UriPackage, UriWrapper
 from pathlib import Path
+from typing import Any
+
+from polywrap import (
+    PolywrapClient,
+    PolywrapClientConfigBuilder,
+    Uri,
+    UriPackage,
+    WasmPackage,
+    deserialize_wrap_manifest,
+)
+from pydantic import BaseModel, validator
 
 from validators import validate_root_directory
 

@@ -1,8 +1,7 @@
 import os
-import yaml
-
 from typing import Any, Dict
 
+import yaml
 from pydantic import BaseModel
 
 
