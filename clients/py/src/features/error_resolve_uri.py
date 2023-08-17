@@ -56,7 +56,6 @@ def run_test_case(input: Any) -> None:
         )
 
         config_builder.set_package(input_obj.resolver.uri, resolver_package)
-        # TODO: Handle interface implementation association as needed
         config_builder.add_interface_implementations(
             ExtendableUriResolver.DEFAULT_EXT_INTERFACE_URIS[0], [input_obj.resolver.uri]
         )
@@ -68,7 +67,6 @@ def run_test_case(input: Any) -> None:
     print(f"Resolving URI {input_obj.uri}")
 
     try:
-        # TODO: Update method and args accordingly
         client.invoke(uri=input_obj.uri, method="", args=None)
 
     except Exception as error:
