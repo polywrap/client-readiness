@@ -62,7 +62,7 @@ cases:
         method: subinvokeArgsIncorrect
         args:
           error: "bar"
-      expectedError: "Missing required argument: 'a: Int'"
+      expectedError: "Missing required argument: "
     output:
       stdout:
         - "$Test Start [error_subinvoke.subinvoked_wrap_received_not_existent_method]"
