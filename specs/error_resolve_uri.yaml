@@ -1,6 +1,6 @@
 required: true
 cases:
-  resolves_throws_error:
+  resolver_throws_error:
     input:
       resolver:
         directory: $ROOT/wraps/resolver/02-fs/implementations/as
@@ -9,13 +9,13 @@ cases:
       expectedError: "Expected error thrown"
     output:
       stdout:
-        - "$Test Start [error_resolve_uri.resolves_throws_error]"
+        - "$Test Start [error_resolve_uri.resolver_throws_error]"
         - Resolving URI wrap://expected-error/uri
         - Expected error received
   wrap_not_found:
     input:
       uri: "wrap://wrap/non-existent-wrap"
-      expectedError: "Unable to find URI wrap://wrap/non-existent-wrap"
+      expectedError: "URI not found"
     output:
       stdout:
         - "$Test Start [error_resolve_uri.wrap_not_found]"

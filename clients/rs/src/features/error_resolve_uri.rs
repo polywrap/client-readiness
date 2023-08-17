@@ -57,6 +57,7 @@ pub fn run_test_case(input: &Value) -> Result<(), Box<dyn Error>> {
 
     let client: PolywrapClient = PolywrapClient::new(config.into());
     let uri: Uri = input_obj.uri.try_into()?;
+    println!("Resolving URI {}", uri.to_string());
     let result = client.invoke::<bool>(&uri, "", None, None, None);
 
     if let Err(result) = result {
