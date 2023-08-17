@@ -1,17 +1,22 @@
-from load_feature_specs import load_feature_specs
-
+import importlib.util
 import os
 import sys
-import importlib.util
+from typing import Set, Tuple
 
-def parse_test_case(filter_spec):
+from load_feature_specs import load_feature_specs
+
+
+def parse_test_case(filter_spec: str) -> Tuple[str, Set[str]]:
     filter_spec_elem = filter_spec.split(".")
     if len(filter_spec_elem) < 2:
         return filter_spec_elem[0], set()
     return filter_spec_elem[0], set(filter_spec_elem[1:])
 
-def parse_filter_specs(filter_specs):
-    return dict(map(parse_test_case, filter(lambda x: x.strip(), filter_specs.split(","))))
+
+def parse_filter_specs(filter_specs: str):
+    return dict(
+        map(parse_test_case, filter(lambda x: x.strip(), filter_specs.split(",")))
+    )
 
 
 def main():
@@ -56,7 +61,9 @@ def main():
         test_cases_set = set(test_cases.keys())
         filter_test_cases_set = filter_specs_map.get(spec_name, set())
 
-        test_cases_to_run = test_cases_set.intersection(filter_test_cases_set) or test_cases_set
+        test_cases_to_run = (
+            test_cases_set.intersection(filter_test_cases_set) or test_cases_set
+        )
 
         for test_case_name in test_cases_to_run:
             test_case = test_cases[test_case_name]

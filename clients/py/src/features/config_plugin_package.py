@@ -1,10 +1,14 @@
 from typing import Any, TypedDict
-from pydantic import BaseModel, validator
-from polywrap_client import PolywrapClient
-from polywrap_client_config_builder import PolywrapClientConfigBuilder
-from polywrap_plugin import PluginModule, PluginPackage
 
-from validators import validate_uri, UriStr
+from polywrap import (
+    PluginModule,
+    PluginPackage,
+    PolywrapClient,
+    PolywrapClientConfigBuilder,
+)
+from pydantic import BaseModel, validator
+
+from validators import UriStr, validate_uri
 
 
 class Args(TypedDict):

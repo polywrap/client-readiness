@@ -1,11 +1,15 @@
-from typing import Any, TypedDict
-from pydantic import BaseModel
-from polywrap_client import PolywrapClient
-from polywrap_client_config_builder import PolywrapClientConfigBuilder
-from polywrap_uri_resolvers import SimpleFileReader, FsUriResolver
-from polywrap_core import Uri
-from pathlib import Path
 from decimal import Decimal
+from pathlib import Path
+from typing import Any, TypedDict
+
+from polywrap import (
+    FsUriResolver,
+    PolywrapClient,
+    PolywrapClientConfigBuilder,
+    SimpleFileReader,
+    Uri,
+)
+from pydantic import BaseModel
 
 
 class Obj(TypedDict):
@@ -44,9 +48,9 @@ def run_test_case(input: Any) -> None:
     )
 
     if not response:
-        raise Exception(f"Error: {response}")
+        raise ValueError(f"Error: {response}")
 
     bignumber = Decimal(response)
 
-    print("Result:", str(bignumber))
+    print("Result:", bignumber)
     print("Success!")

@@ -1,9 +1,13 @@
-from typing import Any
-from polywrap_client import PolywrapClient
-from polywrap_client_config_builder import PolywrapClientConfigBuilder
-from polywrap_uri_resolvers import SimpleFileReader, FsUriResolver
-from polywrap_core import Uri
 from pathlib import Path
+from typing import Any
+
+from polywrap import (
+    FsUriResolver,
+    PolywrapClient,
+    PolywrapClientConfigBuilder,
+    SimpleFileReader,
+    Uri,
+)
 
 
 def run_test_case(_: Any) -> None:
@@ -26,7 +30,7 @@ def run_test_case(_: Any) -> None:
 
     print("Invoking moduleMethod")
 
-    result = client.invoke(
+    if result := client.invoke(
         uri=wrapper_uri,
         method="moduleMethod",
         args={
@@ -35,9 +39,7 @@ def run_test_case(_: Any) -> None:
                 "str": "Test String 1",
             },
         },
-    )
-
-    if not result:
-        raise Exception(f"Error: {result}")
-
-    print("Success!")
+    ):
+        print("Success!")
+    else:
+        raise ValueError(f"Error: {result}")

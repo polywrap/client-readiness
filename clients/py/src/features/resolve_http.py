@@ -1,8 +1,6 @@
 from typing import Any
-from polywrap_client import PolywrapClient
-from polywrap_client_config_builder import PolywrapClientConfigBuilder
-from polywrap_core import UriPackage
-from polywrap_sys_config_bundle import get_sys_config
+
+from polywrap import PolywrapClient, PolywrapClientConfigBuilder, UriPackage, sys_bundle
 
 from validators import validate_uri
 
@@ -12,11 +10,7 @@ def run_test_case(input: Any) -> None:
 
     print(f"URI Authority: {uri.authority}")
 
-    config = (
-        PolywrapClientConfigBuilder()
-        .add(get_sys_config())
-        .build()
-    )
+    config = PolywrapClientConfigBuilder().add_bundle(sys_bundle).build()
 
     client = PolywrapClient(config)
 

@@ -1,10 +1,14 @@
-from typing import Any, Dict, Optional, TypedDict, List
-from pydantic import BaseModel, Field
-from polywrap_client import PolywrapClient
-from polywrap_client_config_builder import PolywrapClientConfigBuilder
-from polywrap_uri_resolvers import SimpleFileReader, FsUriResolver
-from polywrap_core import Uri
 from pathlib import Path
+from typing import Any, List, Optional, TypedDict
+
+from polywrap import (
+    FsUriResolver,
+    PolywrapClient,
+    PolywrapClientConfigBuilder,
+    SimpleFileReader,
+    Uri,
+)
+from pydantic import BaseModel, Field
 
 Env = TypedDict(
     "Env",
@@ -54,9 +58,7 @@ def run_test_case(input: Any) -> None:
     config = (
         PolywrapClientConfigBuilder()
         .set_envs(envs)
-        .set_redirect(
-            Uri.from_str("mock/main"), main_uri
-        )
+        .set_redirect(Uri.from_str("mock/main"), main_uri)
         .add_resolver(FsUriResolver(SimpleFileReader()))
         .build()
     )

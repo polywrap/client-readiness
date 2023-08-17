@@ -1,9 +1,8 @@
-from typing import Any, TypedDict
-from pydantic import BaseModel, Field, validator
-from polywrap_client import PolywrapClient
-from polywrap_client_config_builder import PolywrapClientConfigBuilder
-from polywrap_wasm import WasmPackage
 from pathlib import Path
+from typing import Any, TypedDict
+
+from polywrap import PolywrapClient, PolywrapClientConfigBuilder, WasmPackage
+from pydantic import BaseModel, Field, validator
 
 from validators import UriStr, validate_root_directory
 
