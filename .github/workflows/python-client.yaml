@@ -39,4 +39,4 @@ jobs:
         working-directory: ./clients/py
 
       - name: Run
-        run: ./run.sh py "config_embed_wrap_package,error_invoke,resolve_http,subinvoke_wrap_wrap,wrap_type_ints,config_env_variables,resolve_instance,uri,wrap_type_json,config_interface_implementations,error_subinvoke,resolve_ipfs,wrap_feature_env_vars,wrap_type_map,config_plugin_instance,invoke_plugin,resolve_package,wrap_feature_interface_invoke,wrap_type_object,config_plugin_package,invoke_wrap_wasm_v0_1,resolve_redirect,wrap_type_bigint,config_resolver_ext,resolve_ens_contenthash,resolve_wrapscan,wrap_type_bignumber,config_resolver,resolve_ens_text_record,subinvoke_plugin_wrap,wrap_type_bytes,config_uri_redirect,resolve_file,subinvoke_wrap_plugin,wrap_type_enum"
+        run: ./run.sh py

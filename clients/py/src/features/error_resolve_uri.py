@@ -9,6 +9,8 @@ from polywrap import (
 )
 from pydantic import BaseModel, Field, validator
 from validators import UriStr, validate_root_directory
+from traceback import print_exc
+
 
 # Define the WrapDir structure as a Pydantic model
 class WrapDir(BaseModel):
@@ -20,6 +22,7 @@ class WrapDir(BaseModel):
         return validate_root_directory(
             v, Path(__file__).parent.parent.parent.parent.parent
         )
+
 
 # Define the input structure as a Pydantic model
 class InputObj(BaseModel):
@@ -57,7 +60,8 @@ def run_test_case(input: Any) -> None:
 
         config_builder.set_package(input_obj.resolver.uri, resolver_package)
         config_builder.add_interface_implementations(
-            ExtendableUriResolver.DEFAULT_EXT_INTERFACE_URIS[0], [input_obj.resolver.uri]
+            ExtendableUriResolver.DEFAULT_EXT_INTERFACE_URIS[0],
+            [input_obj.resolver.uri],
         )
 
     config = config_builder.build()
@@ -68,11 +72,11 @@ def run_test_case(input: Any) -> None:
 
     try:
         client.invoke(uri=input_obj.uri, method="", args=None)
-
     except Exception as error:
-        if input_obj.expected_error in str(error):
+        err_msg = str(error.__cause__) if error.__cause__ else str(error)
+
+        if input_obj.expected_error in err_msg:
             print("Expected error received")
         else:
-            print(
-                f"Expected error {input_obj.expected_error}, but received {str(error)}"
-            )
+            print(f"Expected error {input_obj.expected_error}, but received {err_msg}")
+
