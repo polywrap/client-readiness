@@ -57,7 +57,7 @@ export async function runTestCase(input: unknown): Promise<void> {
   const expectedError = Input.expectString(inputObj.expectedError);
   if (!result.ok) {
     console.log(result.error)
-    if (result.error?.toString().includes(expectedError)) {
+    if (result.error?.toString().toLowerCase().includes(expectedError.toLowerCase())) {
       console.log("Expected error received");
     } else {
       console.log(
