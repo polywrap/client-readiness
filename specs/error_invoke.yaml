@@ -1,0 +1,42 @@
+required: true
+cases:
+  wrap_throws_error:
+    input:
+      directory: $ROOT/wraps/subinvoke/00-invoke/implementations/as
+      uri: "wrap://wrap/invoke"
+      method: invokeThrowError
+      args:
+        error: "This is an error from invocation of wrap!"
+      expectedError: "This is an error from invocation of wrap!"
+    output:
+      stdout:
+        - "$Test Start [error_invoke.wrap_throws_error]"
+        - Invoking method invokeThrowError
+        - Expected error received
+  wrong_arguments:
+    input:
+      directory: $ROOT/wraps/subinvoke/00-invoke/implementations/as
+      uri: "wrap://wrap/invoke"
+      method: add
+      args:
+        error: "foo"
+      expectedError: "Missing required argument: 'a: Int'"
+    output:
+      stdout:
+        - "$Test Start [error_invoke.wrong_arguments]"
+        - Invoking method add
+        - Expected error received
+  method_not_found:
+    input:
+      directory: $ROOT/wraps/subinvoke/00-invoke/implementations/as
+      uri: "wrap://wrap/invoke"
+      method: nonExistentMethod
+      args:
+        error: "bar"
+      expectedError: "Could not find invoke function \"nonExistentMethod\""
+    output:
+      stdout:
+        - "$Test Start [error_invoke.method_not_found]"
+        - Invoking method nonExistentMethod
+        - Expected error received
+

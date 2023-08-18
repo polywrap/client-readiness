@@ -1,0 +1,23 @@
+required: true
+cases:
+  resolver_throws_error:
+    input:
+      resolver:
+        directory: $ROOT/wraps/resolver/02-fs/implementations/as
+        uri: "wrap://wrap/mock-resolver"
+      uri: "wrap://expected-error/uri"
+      expectedError: "Expected error thrown"
+    output:
+      stdout:
+        - "$Test Start [error_resolve_uri.resolver_throws_error]"
+        - Resolving URI wrap://expected-error/uri
+        - Expected error received
+  wrap_not_found:
+    input:
+      uri: "wrap://wrap/non-existent-wrap"
+      expectedError: "URI not found"
+    output:
+      stdout:
+        - "$Test Start [error_resolve_uri.wrap_not_found]"
+        - Resolving URI wrap://wrap/non-existent-wrap
+        - Expected error received
